@@ -1,0 +1,3 @@
+/target/
+# Ignorar pastas e arquivos do SVN
+.svn/

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/template/Template.xhtml">
+	<ui:define name="title">
+		<title>Lista de Usuários</title>
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h3 class="tituloPagina" style="text-align: right">Lista de
+				Usuários</h3>
+
+			<ui:include src="/template/MenuPesquisaUsuario.xhtml" />
+
+			<p:messages id="msg" escape="true" closable="true" />
+
+			<p:spacer height="10" />
+
+
+			<p:dataTable paginator="true" rowsPerPageTemplate="5,10,15"
+				paginatorPosition="top" reflow="true" var="usu"
+				 value="#{cadastroUsuarioMB.usuarios}"
+				emptyMessage="Nenhum registro.">
+
+
+				<p:column style="text-align:center" headerText="Foto">
+					<p:graphicImage rendered="#{usu.nomeImagem eq null}" cache="false"
+						styleClass="imagens" value="/img/new-user.png" />
+					<p:graphicImage rendered="#{usu.nomeImagem ne null}" cache="false"
+						styleClass="imagens" value="/imagens/#{usu.nomeImagem}" />
+				</p:column>
+
+
+				<p:column sortBy="#{usu.login}" filterBy="#{usu.login}"
+					style="text-align:center" headerText="Usuário">
+					<p:outputLabel value="#{usu.login}" />
+				</p:column>
+
+				<p:column sortBy="#{usu.adm}" filterBy="#{usu.adm}"
+					style="text-align:center" headerText="Nível do Usuário">
+					<p:outputLabel rendered="#{usu.adm}" value="Admnistrador" />
+					<p:outputLabel rendered="#{not usu.adm}" value="Normal" />
+				</p:column>
+				<p:column sortBy="#{usu.cpf}" filterBy="#{usu.cpf}"
+					style="text-align:center" headerText="CPF">
+					<p:outputLabel value="#{usu.cpf}" />
+				</p:column>
+				<p:column sortBy="#{usu.email}" filterBy="#{usu.email}"
+					style="text-align:center" headerText="e-Mail">
+					<p:outputLabel value="#{usu.email}" />
+				</p:column>
+				<p:column style="text-align:center" headerText="Ação">
+
+					<p:button outcome="Usuario" icon="fa fa-pencil">
+						<f:param name="id" value="#{usu.id}" />
+					</p:button>
+					<p:commandButton update="@form" icon="fa fa-trash"
+						oncomplete="PF('exclusao').show();">
+						<f:setPropertyActionListener value="#{usu}"
+							target="#{cadastroUsuarioMB.usuario}" />
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+
+
+			<p:confirmDialog widgetVar="exclusao" severity="alert"
+				header="Confirmação exclusão paciente"
+				message="Você deseja remover paciente #{cadastroUsuarioMB.usuario.login}?">
+				<p:commandButton update="@form , msg" value="Sim"
+					oncomplete="PF('exclusao').hide()"
+					action="#{cadastroUsuarioMB.excluir()}" />
+				<p:commandButton value="Não" oncomplete="PF('exclusao').hide()" />
+			</p:confirmDialog>
+
+		</h:form>
+
+
+
+	</ui:define>
+
+
+</ui:composition>
+</html>

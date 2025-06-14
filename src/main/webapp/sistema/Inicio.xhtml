@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/Template.xhtml">
+
+
+
+	<ui:define name="title">
+		<title>Início</title>
+	</ui:define>
+	<ui:define name="content">
+
+
+
+		<div class="ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-8">
+					<br />
+				</div>
+
+				<div class="ui-grid-col-4">
+					<b> <p:outputLabel
+							value="Bem-Vindo ao Odonto Prime,
+						#{usuarioMB.usuario.login}." />
+					</b>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-8">
+					<p>
+						<p:outputLabel style="text-align:justify;"
+							value="OdontoPrime tem como objetivo facilitar o gerenciamento da
+						sua clínica odontológica de forma mais prática e eficiente. Com OdontoPrime
+						é possível você acompanhar em tempo real todas consultas marcadas,
+						alterar o estado das consultas, acompanhar o financeiro, gerar
+						relatórios dos pacientes, das consultas e das vendas. Além disso,
+						é possivel você armazenar as fotos das consultas na galeria do
+						paciente. Assim, facilitando o gerenciamento das informações de
+						sua clínica.
+					" />
+
+					</p>
+
+				</div>
+				<div class="ui-grid-col-4"></div>
+
+			</div>
+			<h:form>
+				<p:schedule resizable="true" id="agenda" timeZone="America/Sao_Paulo" clientTimeZone="true"
+					widgetVar="lembrete" value="#{lembreteMB.scheduleModel}">
+					<p:ajax event="dateSelect" listener="#{lembreteMB.selecionarData}"
+						update="lembretePanel panelLembreteBt @form"
+						oncomplete="PF('eventDialog').show();" />
+					<p:ajax event="eventSelect" listener="#{lembreteMB.exibirLembrete}"
+						update="lembretePanel panelLembreteBt"
+						oncomplete="PF('eventDialog').show();" />
+					<p:ajax event="eventMove" listener="#{lembreteMB.moverLembrete}"
+						update="agenda :formGlobal:msgGlobal" />
+					<p:ajax event="eventResize"
+							update="agenda @form :formGlobal:msgGlobal"
+						listener="#{lembreteMB.redimensionarLembrete}"
+						 />
+				</p:schedule>
+
+				<div class="ui-fluid">
+					<p:dialog closeOnEscape="true" width="600" position="top"
+						widgetVar="eventDialog" header="Detalhes do lembrete">
+						<p:panelGrid layout="grid"
+							columnClasses="ui-grid-col-4,ui-grid-col-8"
+							styleClass="ui-panelgrid-blank" id="lembretePanel" columns="2">
+
+
+							<p:outputLabel for="title" value="Título:" />
+							<p:inputText id="title" value="#{lembreteMB.lembrete.titulo}"
+								required="true" />
+
+							<p:outputLabel value="Descrição:" />
+							<p:inputTextarea value="#{lembreteMB.lembrete.descricao}" />
+
+							<p:outputLabel for="from" value="De:" />
+							<p:calendar id="from" value="#{lembreteMB.lembrete.dataInicio}"
+								pattern="dd/MM/yyyy HH:mm" />
+
+							<p:outputLabel for="to" value="Até:" />
+							<p:calendar id="to" value="#{lembreteMB.lembrete.dataFinal}"
+								pattern="dd/MM/yyyy HH:mm" />
+
+							<p:outputLabel for="finalizado" value="Finalizado" />
+							<p:selectBooleanCheckbox id="finalizado"
+								value="#{lembreteMB.lembrete.finalizado}" />
+
+							<p:outputLabel value="Dia Todo:" />
+							<p:selectBooleanCheckbox value="#{lembreteMB.lembrete.diaTodo}" />
+						</p:panelGrid>
+						<div style="display: flex;">
+							<p:panelGrid id="panelLembreteBt" styleClass="ui-panelgrid-blank"
+								style="flex-grow: 1" columns="3">
+								<p:commandButton type="reset" value="Limpar" />
+								<p:commandButton rendered="#{lembreteMB.lembrete.id > 0}"
+									onclick="PF('confirmDelLembrete').show();" value="Excluir">
+									<f:setPropertyActionListener value="#{lembreteMB.lembrete}"
+										target="#{lembreteMB.lembrete}" />
+								</p:commandButton>
+								<p:commandButton update=":formGlobal:msgGlobal" id="addButton"
+									value="Salvar" actionListener="#{lembreteMB.addLembrete}"
+									oncomplete="PF('lembrete').update();PF('eventDialog').hide();" />
+							</p:panelGrid>
+						</div>
+
+					</p:dialog>
+				</div>
+				<p:confirmDialog closeOnEscape="true" widgetVar="confirmDelLembrete" header="Confirmação"
+					message="Tem certeza que deseja excluir?" severity="alert">
+					<p:commandButton value="Sim" action="#{lembreteMB.excluir()}"
+						update="@form agenda :formGlobal:msgGlobal" oncomplete="PF('confirmDelLembrete').hide();" />
+					<p:commandButton value="Não" onclick="PF('confirmDelLembrete').hide();"
+						type="button" />
+				</p:confirmDialog>
+
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

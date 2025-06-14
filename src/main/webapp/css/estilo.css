@@ -1,0 +1,662 @@
+:root {
+	--corMenu: linear-gradient(to left, #1B4965, #3D6D89);
+	--corMenuHover: #3D6D89;
+	--tamanhoFonte: 14px;
+	--fonte: 'Arial', 'Consolas';
+	--btnMobileZIndex: 1 !important;
+	--dialogImagemZIndex: 2 !important;
+	--ajaxZIndex: 3 !important;
+}
+
+#btFecharMenu {
+	position: relative;
+	z-index: 9999999999;
+	top: 10px;
+	left: 660px;
+	display: block;
+	cursor: pointer;
+	width: 40px;
+	color: black;
+	background: white;
+	border: 0.1px solid;
+	text-align: center;
+	background: white;
+}
+
+.dlgGrafico {
+	left: 50% !important;
+	top: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	width: auto !important;
+}
+
+.fc-v-event .fc-event-main {
+	color: black !important;
+	text-align: center !important;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+	text-align: center;
+	padding: 30px !important;
+}
+
+body .ui-dialog .ui-dialog-content {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+body .ui-dialog .ui-dialog-footer {
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center !important;
+	text-align: center;
+}
+
+.btnConfirmExcluConsulta {
+	display: block;
+	margin: 20px;
+	text-align: center
+}
+
+.colunaAcoes {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1em;
+}
+
+ul.ui-tabs-nav {
+	justify-content: center !important;
+}
+
+.ui-menuitem {
+	margin: 20px;
+}
+
+body .ui-menu.ui-menubar {
+	height: auto !important;
+}
+
+html, body {
+	height: 100vh;
+}
+
+body {
+	font-size: var(--tamanhoFonte) !important;
+	font-family: var(--fonte) !important;
+	background-image: url("../img/macback.png") !important;
+	background-repeat: no-repeat !important;
+}
+
+.ajax-status {
+	width: 200px;
+	height: 100px;
+	margin: auto;
+}
+
+.containerPanelImgTemplate {
+	width: auto !important;
+	height: auto !important;
+	display: flex;
+	justify-content: center; /* Centraliza apenas o conteúdo */
+	align-items: center;
+}
+
+.ui-fileupload-content {
+	padding: 0 !important;
+	margin: 0 !important;
+	height: 0 !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+	padding: .5rem !important;
+	margin: 0 !important;
+}
+
+#frmEditFotoPerfil {
+	margin: 1rem;
+	padding: 0;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	margin: 0 !important;
+	padding: .3rem !important;
+}
+
+.panelImgTemplate {
+	width: 450px !important;
+	height: auto !important;
+	display: flex;
+	justify-content: center !important;
+	align-items: center !important;
+	position: relative;
+}
+
+.statusPaciente {
+	z-index: var(--ajaxZIndex);
+}
+
+.imgCropper {
+	flex-grow: 1;
+}
+
+/* #imgCropper { */
+/* 	max-width: none; */
+/* 	width: 300px !important; */
+/* 	height: 250px !important; */
+/* 	object-fit: cover !important; */
+/* 	overflow: hidden !important; */
+/* 	flex-grow: 1; */
+/* 	position: absolute; */
+/* 	left: 10% !important; */
+/* 	top: 0 !important; */
+/* } */
+.dialog {
+	margin: auto !important;
+	position: absolute !important;
+}
+
+.fonteUsuario {
+	color: white;
+}
+
+.destacarPagamento {
+	background-color: silver !important;
+	color: black !important;
+}
+
+tr[aria-selected=true] {
+	background-color: #186ba0 !important;
+	color: white !important;
+}
+
+.pMessages {
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+	justify-content: center;
+}
+
+.ui-datatable-tablewrapper table tr {
+	text-align: center;
+}
+
+.btnCancelarPagamento {
+	background-color: #eb867f !important;
+	color: white !important;
+}
+
+#corpoDaPagina {
+	padding: 0 auto;
+	margin: 0;
+}
+
+.ui-panelgrid-cell {
+	background-color: #f1f1f1 !important;
+}
+
+.barra-logo {
+	height: auto !important;
+	background: var(--corMenu) !important;
+	width: 100%;
+	padding: 0px;
+	margin: auto;
+	clear: both;
+}
+
+.containerUser {
+	display: flex;
+	align-items: center; /* alinha verticalmente a imagem e o texto */
+	justify-content: flex-end; /* alinha tudo à direita */
+	gap: 1rem;
+	height: 100% !important;
+}
+
+.divImgLogoTop {
+	float: left;
+	display: flex;
+	justify-content: center; /* Centraliza horizontalmente */
+	align-items: center; /* Centraliza verticalmente */
+	height: 100% !important;
+}
+
+.infoUser {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	font-size: 13px !important;
+	margin: auto 5px;
+	gap: 0.3rem;
+	height: 100% !important;
+}
+
+.imagens {
+	width: 95px;
+	height: 95px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.imgRecortada {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+}
+
+.fotoUser {
+	flex-shrink: 0;
+	float: left;
+	display: flex;
+	justify-content: center; /* Centraliza horizontalmente */
+	align-items: center; /* Centraliza verticalmente */
+	height: 100% !important;
+}
+
+ui-button-text.ui-c .ui-menu .ui-menuitem-text {
+	font-weight: bold !important;
+}
+
+.ajax-status {
+	position: fixed;
+	top: 85px;
+	right: 10px;
+	width: 35px;
+	height: 35px
+}
+
+.ui-wizard-step-title {
+	margin-top: 2em ! important;
+	/* 	font-size: 14px !important; */
+}
+
+.estiloBotao {
+	background-color: red !important;
+	color: white !important;
+}
+
+.textAreaLembrete {
+	width: 375px !important;
+	height: 150px ! important;
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+.tituloTemplate {
+	line-height: 30px;
+	color: white;
+}
+
+.botaoExcluirLembrete {
+	margin-left: 250px !important;
+}
+
+.divUsuario {
+	text-align: justify;
+	padding-left: 10px;
+}
+
+.tituloPagina {
+	margin: 10px !important;
+	color: black !important;
+	text-align: left !important;
+	font-size: 20px !important;
+	font-weight: bold !important;
+}
+
+.infoUser a {
+	color: #add8e6;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.imgLogo {
+	width: 130px !important;
+	height: auto !important;
+	float: left;
+}
+
+.imgLogoLogin {
+	width: 120px !important;
+	height: auto !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+#content {
+	clear: both !important;
+	height: 100% !important;
+}
+
+.label {
+	color: #CCCCCC !important;
+}
+
+.ui-message-dialog .ui-dialog-content {
+	padding: 0.5em !important;
+}
+
+.ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+	padding: 0.6em 0.5em !important;
+}
+
+button.ui-button.ui-state-default span, .ui-button.ui-state-default span
+	{
+	font-size: 14px !important;
+}
+
+.footer {
+	height: 250px;
+	background: var(--corMenu) !important;
+	margin: 5px auto;
+	display: flex !important;
+	justify-content: space-between; /* Centraliza horizontalmente */
+	align-items: center; /* Centraliza verticalmente */
+	padding: 20px;
+	background-color: #f0f0f0;
+}
+
+.nomeUsuario {
+	color: white;
+}
+
+#idToolbar {
+	clear: both;
+	margin: 100px;
+}
+
+.tabela {
+	margin-top: 30px;
+}
+
+.panelCadastroPaciente {
+	margin: 2em;
+	width: 85%;
+}
+
+.panelCadastroConsulta {
+	margin: 2em !important;
+}
+
+.dialogInserirFoto {
+	z-index: var(--dialogImagemZIndex);
+	width: 100vh !important;
+	height: auto !important;
+	overflow: scroll !important;
+}
+
+.panelGridConsulta {
+	margin: 2em !important;
+	padding: 2em !important;
+}
+
+.ui-panelgrid-cell {
+	padding: 20px !important;
+}
+
+.labelPaciente {
+	width: 135px;
+}
+
+.labelConsulta {
+	width: 150px !important;
+}
+
+.spacer {
+	width: 10px !important;
+}
+
+.campoConsultaImg {
+	width: 200px;
+}
+
+.ui-menubar {
+	width: auto !important;
+	height: 35px !important;
+	clear: both !important;
+}
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
+
+.ui-panelgrid-cell {
+	background-color: #c4c4c4;
+}
+
+.tituloEstadoConsulta {
+	font-size: 18px !important;
+	font-weight: bold !important;
+}
+
+.panelGrid {
+	margin: 2em;
+	margin-right: 1em;
+}
+
+.campoConsulta {
+	width: 200px !important;
+}
+
+.imgFooter {
+	position: absolute;
+	left: 20px;
+}
+
+.tituloFooter {
+	width: 100%;
+	height: 100%;
+	color: white !important;
+	margin-right: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.tituloFooter h5, .tituloFooter h6 {
+	height: 30px; /* Ajuste conforme necessário */
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+}
+
+.labelOrcamento {
+	width: 100px;
+}
+
+.imagem-centralizada {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+.nomeDesenvolvedor {
+	text-decoration: none;
+	color: white;
+}
+
+.finalizado {
+	background-color: red;
+}
+
+.containerLogin {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center !important;
+	align-content: center !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 100dvh;
+}
+
+.panelLogin {
+	background: var(--corMenu) !important;
+	display: flex;
+	align-items: center;
+	width: 450px;
+	height: 250px;
+	flex-direction: column;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.divImgLogo {
+	width: 300px;
+}
+
+.tituloEstadoPagamentoParcela {
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
+	font-size: 18px !important;
+	font-weight: bold !important;
+	font-size: 18px !important;
+	display: block !important;
+}
+
+.btnMenu {
+	display: none;
+}
+
+.themeSwitch {
+	margin: 20px;
+	position: absolute;
+	width: 160px;
+	padding: 0;
+	right: 20px;
+}
+
+.colunaDivThemeSwitch {
+	position: relative;
+	min-height: 60px;
+}
+
+.ui-menuitem a {
+	font-size: var(--tamanhoFonte) !important;
+}
+
+.ui-menuitem  a:hover span {
+	color: white !important;
+}
+
+ul.ui-menu-list li.ui-menuitem-active a.ui-state-hover span {
+	color: white !important;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
+	{
+	background: var(--corMenu) !important;
+}
+
+@media ( max-width : 800px) {
+	body .ui-menu .ui-menu-list .ui-menuitem {
+		transition: none !important;
+	}
+	ul.ui-menu-list li.ui-menuitem a span.ui-menuitem-text {
+		display: inline-block;
+		text-align: center;
+		white-space: nowrap;
+		width: 100px; /* ou qualquer valor necessário */
+	}
+	.ui-menuitem a, .ui-menuitem-link {
+		transition: none !important;
+	}
+	.ui-menu .ui-menu-child, .ui-menu .ui-menu-child .ui-menuitem-link {
+		transition: none !important;
+	}
+	body {
+		font-size: 1.2rem !important;
+	}
+	.ui-menubar .ui-menuitem-link {
+		color: white !important;
+	}
+	span.ui-icon-triangle-1-s {
+		background-color: white !important;
+	}
+	.ui-menu-list {
+		position: absolute;
+		display: none;
+		flex-wrap: wrap;
+		background: var(--corMenu);
+		gap: 5px;
+		align-items: center;
+		z-index: var(--btnMobileZIndex);
+		width: 100% !important;
+		justify-content: center;
+		align-items: center;
+		background: var(--corMenu);
+		display: none;
+	}
+	.showMenu {
+		position: absolute;
+		left: 10px;
+		display: flex !important;
+		justify-content: center;
+		flex-direction: column;
+		width: 95vw !important;
+		display: flex !important;
+		display: flex !important;
+	}
+	.ui-menubar.ui-sticky {
+		left: -5px;
+	}
+	ul.ui-menu-list>li {
+		position: relative;
+	}
+	body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
+		{
+		background: var(--corMenu) !important;
+	}
+	body .ui-menu .ui-menu-list .ui-menu-child {
+		background: var(--corMenu) !important;
+	}
+
+	/* Esconder submenu com hover */
+	ul.ui-menu-list>li:hover ul.ui-widget-content {
+		display: block;
+		/* 		background: var(--corMenu) !important; */
+	}
+	ul.ui-menu-list li.ui-widget span {
+		color: white !important;
+	}
+	.btnMenu {
+		margin: 25px 25px;
+		display: block;
+	}
+	.ui-menu .ui-menubar .ui-sticky
+	.show-submenu {
+		display: block !important;
+	}
+	ul.ui-menu-list li ul.ui-widget-content {
+		position: absolute !important;
+		background: var(--corMenu);
+		top: 100% !important;
+		left: 50% !important;
+		transform: translateX(-50%) !important;
+		z-index: 9999 !important;
+		top: 100% !important
+	}
+	.ui-menu .ui-menu-list .ui-menuitem {
+		border: 0;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.ui-menu-list .ui-menuitem-link a {
+		color: white !important;
+	}
+	body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
+		{
+		background: silver ! important;
+	}
+	body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s
+		{
+		color: black !important;
+	}
+	body .ui-menu .ui-menu-list .ui-menuitem:not(:hover) .ui-menuitem-link {
+		background: none !important;
+	}
+}

@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/Template.xhtml">
+
+	<ui:define name="title">
+		<title>Pagamento da Parcela</title>
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam value="#{entradaMB.consulta}" name="consulta"
+				converter="ConsultaConverter" />
+			<f:event listener="#{entradaMB.buscarConsultaComParcela}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form id="frmExbParcela">
+
+			<h3 class="tituloPagina">Pagamento da Consulta</h3>
+
+			<ui:include src="/template/MenuPagamento.xhtml" />
+
+
+			<div class="ui-grid-responsive">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-11">
+						<p:spacer />
+					</div>
+
+					<div class="ui-grid-col-1">
+
+						<p:commandButton icon="fa fa-print">
+							<p:printer target="print" />
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+
+			<br />
+			<p:outputPanel id="print">
+
+				<div class="ui-grid-responsive">
+
+					<div class="ui-grid-row">
+
+						<div class="ui-grid-col-5">
+
+							<p:panel header="Dados do Paciente">
+
+								<h:panelGrid cellpadding="2" columns="2">
+
+									<p:outputLabel value="Paciente" />
+									<p:inputText size="30" readonly="true"
+										value="#{entradaMB.consulta.paciente.nome}" />
+
+									<p:outputLabel value="CPF" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.cpf}" />
+
+									<p:outputLabel value="Dt. de Nascimento" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.dataNascimento}">
+										<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+									</p:inputText>
+
+									<p:outputLabel value="Sexo" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.sexo}" />
+
+
+									<p:outputLabel value="Celular" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.celular}" />
+
+									<p:outputLabel value="Telefone-Fixo" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.telefone}" />
+
+									<p:outputLabel value="e-Mail" />
+									<p:inputText size="30" readonly="true"
+										value="#{entradaMB.consulta.paciente.email}" />
+
+									<p:outputLabel value="Rua" />
+									<p:inputText size="30" readonly="true"
+										value="#{entradaMB.consulta.paciente.endereco.rua}">
+									</p:inputText>
+									<p:outputLabel value="Número" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.endereco.numero}" />
+									<p:outputLabel value="Bairro" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.endereco.bairro}" />
+									<p:outputLabel value="Estado" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.endereco.estado.descricao}" />
+									<p:outputLabel value="Cidade" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.paciente.endereco.cidade}" />
+								</h:panelGrid>
+							</p:panel>
+						</div>
+
+						<div class="ui-grid-col-5">
+
+							<p:panel header="Dados da Consulta">
+								<h:panelGrid cellpadding="2" columns="2">
+
+									<p:outputLabel value="Consulta" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.tipoConsulta.descricao}" />
+
+									<p:outputLabel value="Estado da Consulta" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.estadoConsulta.descricao}" />
+									<p:outputLabel value="Data da Consulta" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.dataConsulta}">
+										<f:convertDateTime locale="pt_BR"
+											pattern="dd/MM/yyyy HH:mm:ss" />
+									</p:inputText>
+									<p:outputLabel value="Data do Registro" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.dataLancamento}">
+										<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+									</p:inputText>
+
+									<p:outputLabel value="Status do Pagamento" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.estadoPagamento.descricao}" />
+
+									<p:outputLabel value="Opção de Pagamento" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.formaPagamento.nome}" />
+
+									<p:outputLabel value="Forma de Pagamento" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.parcela}" />
+
+									<p:outputLabel value="Valor Total R$" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.valor}">
+										<f:convertNumber pattern="R$#,##0.00" />
+									</p:inputText>
+
+									<p:outputLabel value="Desconto" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.desconto}%" />
+
+									<p:outputLabel value="Valor com Desconto" />
+
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.entrada.valorComDesconto}">
+										<f:convertNumber pattern="R$#,##0.00" />
+									</p:inputText>
+
+									<p:outputLabel value="Usuário" />
+									<p:inputText value="#{entradaMB.consulta.nomeUsuarioCadastrou}" />
+
+									<p:outputLabel value="Status do Registro" />
+									<p:inputText readonly="true"
+										value="#{entradaMB.consulta.statusCadastro.descricao}" />
+								</h:panelGrid>
+							</p:panel>
+
+
+
+
+						</div>
+
+						<div class="ui-grid-col-2">
+
+							<p:panel style="text-align:center;" header="Foto">
+								<p:graphicImage
+									rendered="#{entradaMB.consulta.paciente.nomeImagem ne null}"
+									cache="false" styleClass="imagens"
+									value="/imagens/#{entradaMB.consulta.paciente.nomeImagem}" />
+								<p:graphicImage
+									rendered="#{entradaMB.consulta.paciente.nomeImagem eq null}"
+									cache="false" styleClass="imagens" value="/img/new-user.png" />
+							</p:panel>
+
+						</div>
+
+					</div>
+				</div>
+
+
+				<p:outputLabel styleClass="tituloEstadoPagamentoParcela"
+					rendered="#{entradaMB.consulta.estadoConsulta.descricao eq 'Cancelado'}"
+					value="Consulta com estado cancelado não pode registrar pagamento ou
+			cancelamento." />
+				<p:messages styleClass="pMessages" id="msgCancParcela"
+					closable="true" />
+
+				<center>
+					<p:dataTable paginator="true" rowsPerPageTemplate="5,10,15"
+						selection="#{entradaMB.parcelasSelecionadas}"
+						selectionMode="multiple" rowKey="#{p.id}" rows="10"
+						resizableColumns="true" id="tabelaParcela"
+						rowStyleClass="#{p.estadoPagamento.descricao eq 'Pago'? 'destacarPagamento': ''}"
+						paginatorPosition="bottom" value="#{entradaMB.entrada.parcelas}"
+						var="p">
+						<div style="text-align: center !important;">
+							<f:facet name="header">
+								<p:commandButton onclick="PF('dlgPagamentoTodas').show()"
+									value="Pagar Parcelas" />
+								<p:commandButton styleClass="btnCancelarPagamento"
+									onclick="PF('dlgCancelPagamentoTodas').show()"
+									value="Cancelar Parcelas" />
+								<p:outputLabel id="duvidaPagamentoParcela" style="float: left;"
+									value="AJUDA ?" />
+								<p:tooltip for="duvidaPagamentoParcela"
+									value="Segure shift ou control + clique esquerdo do mouse para selecionar as linhas para pagar ou cancelar as parcelas."></p:tooltip>
+							</f:facet>
+						</div>
+						<p:column filterBy="#{p.valor}" sortBy="#{p.valor}"
+							headerText="Valor / Parcela">
+
+							<p:outputLabel value="#{p.valor}">
+								<f:convertNumber pattern="R$#,##0.00" />
+							</p:outputLabel>
+
+						</p:column>
+
+						<p:column filterBy="#{p.dataVencimento}"
+							sortBy="#{p.dataVencimento}" headerText="Data do Vencimento">
+							<p:outputLabel value="#{p.dataVencimento}">
+								<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+							</p:outputLabel>
+						</p:column>
+
+						<p:column filterBy="#{p.numParcela}" sortBy="#{p.numParcela}"
+							headerText="Número da Parcela">
+							<p:outputLabel value="#{p.numParcela}ª" />
+						</p:column>
+						<p:column sortBy="#{p.estadoPagamento.descricao}"
+							filterBy="#{p.estadoPagamento.descricao}"
+							headerText="Status do Pagamento">
+							<p:outputLabel value="#{p.estadoPagamento.descricao}" />
+						</p:column>
+
+						<p:column sortBy="#{p.dataPagamento}"
+							filterBy="#{p.dataPagamento}" headerText="Data do Pagamento">
+							<p:outputLabel value="#{p.dataPagamento}">
+								<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
+									pattern="dd/MM/yyyy" />
+							</p:outputLabel>
+							<p:outputLabel rendered="#{p.dataPagamento eq null}"
+								value="Pendente" />
+						</p:column>
+
+						<!-- coluna ocultada antiga ações dos botões -->
+						<p:column rendered="false" style="text-align:center;"
+							headerText="Efetuar Pagamento">
+							<f:facet name="header">
+								<h:outputText value="Efetuar Pagamento" />
+								<br />
+								<p:selectBooleanCheckbox value="#{entradaMB.selecionarTodos}"
+									id="selectAll">
+									<p:ajax event="change" update="tabelaParcela"
+										listener="#{entradaMB.ativarTodos}" />
+
+								</p:selectBooleanCheckbox>
+							</f:facet>
+							<!-- <p:selectBooleanCheckbox value="#{entradaMB.pagamentoAtivado}" /> -->
+
+							<!-- 	rendered antigo	"#{p.estadoPagamento.descricao ne 'Pago' and entradaMB.consulta.estadoConsulta.descricao ne 'Cancelado'}" -->
+							<p:commandButton icon="fa fa-check"
+								update="@form , :frmPagParcela"
+								action="#{entradaMB.limparDataPagamento}" rendered="false"
+								value="Pagar" oncomplete="PF('dlgPagParcela').show()">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{entradaMB.parcela}" />
+							</p:commandButton>
+
+							<!-- rendered antigo #{p.estadoPagamento.descricao eq 'Pago'} -->
+							<p:commandButton styleClass="btnCancelarPagamento"
+								oncomplete="PF('dlgCancPagamento').show()" rendered="false"
+								icon="fa fa-close" value="Cancelar">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{entradaMB.parcela}" />
+							</p:commandButton>
+
+						</p:column>
+
+					</p:dataTable>
+				</center>
+			</p:outputPanel>
+		</h:form>
+
+		<!-- dialog confirmação do pagamento de todas parcelas -->
+		<p:confirmDialog appendTo="@(body)" widgetVar="dlgPagamentoTodas"
+			header="Confirmar os pagamentos das parcelas?" closable="true"
+			closeOnEscape="true" message="Deseja efetuar o registro?">
+			<h:form>
+				<p:commandButton
+					update=":formGlobal:msgGlobal :frmPagParcela :frmExbParcela:tabelaParcela "
+					icon="fa fa-check" action="#{entradaMB.pagarParcelas}"
+					oncomplete="PF('dlgPagamentoTodas').hide()" value="Sim" />
+
+				<p:commandButton icon="fa fa-close" value="Fechar"
+					oncomplete="PF('dlgPagamentoTodas').hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- dialog confirmação do pagamento das parcelas -->
+		<p:confirmDialog appendTo="@(body)" widgetVar="dlgConfPagamento"
+			header="Confirmar o pagamento da parcela?" closable="true"
+			closeOnEscape="true" message="Deseja efetuar o registro?">
+			<h:form>
+				<p:commandButton
+					update=":frmExbParcela:tabelaParcela, :frmPagParcela:msgPagamento"
+					action="#{entradaMB.efetuarPagamentoParcela}" icon="fa fa-check"
+					oncomplete="PF('dlgConfPagamento').hide()" value="Sim" />
+
+				<p:commandButton icon="fa fa-close" value="Fechar"
+					oncomplete="PF('dlgConfPagamento').hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- dialog confirmação do cancelamento do pagamento de todas parcelas -->
+		<p:confirmDialog appendTo="@(body)"
+			widgetVar="dlgCancelPagamentoTodas" closable="true"
+			closeOnEscape="true" header="Cancelar os pagamentos das parcelas?"
+			message="Deseja efetuar o registro?">
+			<h:form>
+				<p:commandButton
+					update=":frmExbParcela:tabelaParcela, :formGlobal:msgGlobal"
+					action="#{entradaMB.cancelarPagamentosParcelas}" icon="fa fa-check"
+					oncomplete="PF('dlgCancelPagamentoTodas').hide()" value="Sim" />
+				<p:commandButton icon="fa fa-close" value="Não"
+					oncomplete="PF('dlgCancelPagamentoTodas').hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+		<!-- dialog confirmação do cancelamento do pagamento das parcelas -->
+		<p:confirmDialog appendTo="@(body)" widgetVar="dlgCancPagamento"
+			header="Cancelar o pagamento da parcela?" closable="true"
+			closeOnEscape="true" message="Deseja efetuar o registro?">
+			<h:form>
+				<p:commandButton
+					update=":frmExbParcela:tabelaParcela, :frmExbParcela:msgCancParcela"
+					action="#{entradaMB.cancelarPagamentoParcela}" icon="fa fa-check"
+					oncomplete="PF('dlgCancPagamento').hide()" value="Sim" />
+				<p:commandButton icon="fa fa-close" value="Não"
+					oncomplete="PF('dlgCancPagamento').hide()" />
+			</h:form>
+		</p:confirmDialog>
+
+
+		<p:dialog header="Concluir o pagamento da parcela." modal="true"
+			closable="true" closeOnEscape="true" dynamic="true"
+			appendTo="@(body)" resizable="false" widgetVar="dlgPagParcela">
+
+			<ui:include src="/sistema/adm/CorpoParcela.xhtml" />
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+
+</html>
