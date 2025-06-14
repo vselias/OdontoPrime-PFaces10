@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf17474565906820" configfile="/TCCAtualizado/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf17494119681380" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf17494119681381" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="sistema/Paciente.xhtml" id="pf17494119681382" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf17494119681381" path="/sistema/Paciente.xhtml"/>
-  <links id="pf17494119681381" target="pf17494119681382" source="pf17494119681380" outcome="usuarioAutenticado" redirect="true"/>
-</pageflow:Pageflow>
