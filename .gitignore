@@ -1,3 +1,9 @@
 /target/
 # Ignorar pastas e arquivos do SVN
 .svn/
+.idea/
+.metadata/
+.settings/
+target
+.classpath
+.project

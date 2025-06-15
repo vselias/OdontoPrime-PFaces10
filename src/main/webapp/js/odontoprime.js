@@ -1,9 +1,4 @@
-
-window.addEventListener("load", () => {
-
-	var btnMenu = document.querySelector(".btnMenu");
-	console.log(btnMenu);
-
+window.addEventListener('load', function() {
 
 	function fecharSubmenus() {
 		document.querySelectorAll(".ui-menu-list ul").forEach(sub => {
@@ -18,8 +13,7 @@ window.addEventListener("load", () => {
 			let clicouDentro = false;
 			var btFechar = document.querySelector("#btFecharMenu");
 
-			if (btFechar)
-				btFechar.remove();
+
 
 			// Verifica se o clique ocorreu dentro de algum item do menu
 			menuItems.forEach(item => {
@@ -34,6 +28,8 @@ window.addEventListener("load", () => {
 			// Se NÃO clicou dentro de um item do menu, fecha o menu
 			if (!clicouDentro) {
 				menu.classList.remove("showMenu");
+				if (btFechar)
+					btFechar.remove();
 				console.log("Menu fechado");
 			}
 
@@ -64,15 +60,25 @@ window.addEventListener("load", () => {
 		});
 	}
 
-	function poscionarBotaoMenu() {
+	function posicionarMenuScroll() {
+		const divMenu = document.querySelector(".ui-menu.ui-menubar");
 
-		document.addEventListener("wheel", () => {
-			var btFechar = document.querySelector("#btFecharMenu");
-			var divMenu = document.querySelector(".ui-menu.ui-menubar");
+		// Verifica se o menu foi encontrado
+		if (!divMenu) {
+			console.error("Elemento do menu não encontrado!");
+			return;
+		}
+		document.addEventListener("scroll", () => {
 
-			console.log(btFechar);
-
-
+			if (window.scrollY > 0) {
+				divMenu.style.position = "fixed !important";
+				divMenu.style.top = "125px !important";
+				divMenu.style.width = "100% !important";
+				divMenu.style.maxWidth = "100vw !important"; // Ajuste conforme necessário
+			} else {
+				divMenu.style.position = "absolute !important"; // Ou "absolute" dependendo do layout
+				divMenu.style.top = "auto !important";
+			}
 		});
 
 	}
@@ -91,6 +97,7 @@ window.addEventListener("load", () => {
 		divMenu.appendChild(botaoFechar);
 	}
 	function showMenu() {
+		var btnMenu = document.querySelector(".btnMenu");
 		btnMenu.addEventListener("click", (event) => {
 			event.preventDefault();
 			event.stopPropagation();
@@ -102,6 +109,7 @@ window.addEventListener("load", () => {
 			}, 1000);
 		});
 	}
+	posicionarMenuScroll();
 	showMenu();
 	showSubMenu();
 	fecharSubMenusByClick();

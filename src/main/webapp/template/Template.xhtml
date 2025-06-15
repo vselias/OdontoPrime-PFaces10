@@ -21,17 +21,11 @@
 
 		<script type="text/javascript"
 			src="#{request.contextPath}/js/calendario_pt_BR.js" />
-		
+
+		<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+		<link rel="stylesheet" href="#{request.contextPath}/css/estilo.css" />
 		<script type="text/javascript"
 			src="#{request.contextPath}/js/odontoprime.js" />
-		
-		<link rel="stylesheet" href="#{request.contextPath}/css/estilo.css"/>
-		
-		<h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
-<!-- 		<h:outputScript name="odontoprime.js" library="js" /> -->
-<!-- 		<h:outputStylesheet name="estilo.css" library="css" /> -->
-
-
 	</h:head>
 </f:view>
 
@@ -39,7 +33,7 @@
 <f:view contentType="text/html">
 	<h:body id="body">
 
-		<div class="ui-grid-responsive">
+		<div class="container ui-grid-responsive">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-12">
 					<div id="header" class="barra-logo ">
@@ -126,24 +120,12 @@
 
 						<p:spacer height="5px;" />
 
-						<div class="ui-grid-responsive">
-
-							<div class="ui-grid-row">
-								<div class="ui-grid-col-6">
-									<h:form>
-										<div class="divBtnMenu">
-											<p:commandButton icon="fa fa-bars" styleClass="btnMenu"
-												value="Menu" />
-										</div>
-									</h:form>
-									<p:spacer></p:spacer>
-
-								</div>
-
-							</div>
-
+						<div class="divBtnMenu">
+							<h:form>
+								<p:commandButton icon="fa fa-bars" styleClass="btnMenu"
+									value="Menu" />
+							</h:form>
 						</div>
-
 
 						<h:form id="formGlobal">
 

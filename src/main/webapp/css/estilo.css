@@ -1,18 +1,80 @@
 :root {
 	--corMenu: linear-gradient(to left, #1B4965, #3D6D89);
 	--corMenuHover: #3D6D89;
-	--tamanhoFonte: 14px;
+	--tamanhoFonte: 12x;
+	--fonteMobileSize: 10px;
 	--fonte: 'Arial', 'Consolas';
-	--btnMobileZIndex: 1 !important;
-	--dialogImagemZIndex: 2 !important;
-	--ajaxZIndex: 3 !important;
+	--btnMobileZIndex: 2 !important;
+	--dialogImagemZIndex: 3 !important;
+	--ajaxZIndex: 4 !important;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.divBtnMenu {
+	position: sticky;
+	top: 125px;
+	z-index: 2;
+	width: 100%;
+	height: 50px;
+}
+
+body .ui-menu.ui-menubar .ui-menu-list .ui-menuitem .ui-menuitem-link span
+	{
+	font-size: 14px !important;
+}
+
+.ui-menu-list * {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.ui-menu-list a {
+	white-space: nowrap;
+	padding: 5px 20px !important;
+}
+/* Menu principal */
+ul.ui-menu-list {
+	margin: 0;
+	padding: 0;
+	width: auto; /* Ajusta dinamicamente */
+}
+
+/* Submenu */
+ul.ui-widget-content {
+	margin: 0;
+	padding: 5px 25px !important;
+	min-width: 100% !important;
+	width: auto !important;
+	max-width: none !important;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	text-align: center !important;
+}
+
+.ui-menu.ui-menubar {
+	top: 125px !important;
+	padding: 0 !important;
+	margin-top: .5px;
+	position: absolute !important;
+	transition: top 1s ease-in-out;
+	width: 100% !important;
+	max-width: 100vw !important;
+	/* Ajuste conforme o tamanho do container */
+}
+
+.ui-sticky-ghost {
+	display: none !important;
 }
 
 #btFecharMenu {
 	position: relative;
 	z-index: 9999999999;
 	top: 10px;
-	left: 660px;
+	left: calc(100% - 60px);
 	display: block;
 	cursor: pointer;
 	width: 40px;
@@ -139,17 +201,6 @@ body {
 	flex-grow: 1;
 }
 
-/* #imgCropper { */
-/* 	max-width: none; */
-/* 	width: 300px !important; */
-/* 	height: 250px !important; */
-/* 	object-fit: cover !important; */
-/* 	overflow: hidden !important; */
-/* 	flex-grow: 1; */
-/* 	position: absolute; */
-/* 	left: 10% !important; */
-/* 	top: 0 !important; */
-/* } */
 .dialog {
 	margin: auto !important;
 	position: absolute !important;
@@ -195,12 +246,15 @@ tr[aria-selected=true] {
 }
 
 .barra-logo {
-	height: auto !important;
+	height: 130px !important;
 	background: var(--corMenu) !important;
 	width: 100%;
 	padding: 0px;
 	margin: auto;
 	clear: both;
+	position: sticky;
+	top: 0;
+	z-index: 100;
 }
 
 .containerUser {
@@ -225,7 +279,6 @@ tr[aria-selected=true] {
 	flex-direction: column;
 	font-size: 13px !important;
 	margin: auto 5px;
-	gap: 0.3rem;
 	height: 100% !important;
 }
 
@@ -408,12 +461,6 @@ button.ui-button.ui-state-default span, .ui-button.ui-state-default span
 	width: 200px;
 }
 
-.ui-menubar {
-	width: auto !important;
-	height: 35px !important;
-	clear: both !important;
-}
-
 .semBorda tr, .semBorda td {
 	border: none !important;
 }
@@ -549,8 +596,86 @@ body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
 	{
 	background: var(--corMenu) !important;
 }
+/* 	definir o tamanho do link dentro do menu */
+ul.ui-widget-content {
+	width: 200px !important;
+	min-width: 200px !important;
+	max-width: 200px !important;
+	box-sizing: border-box;
+}
 
+ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all {
+	width: 100% !important;
+	display: flex !important;
+	min-width: 200px !important;
+	flex-wrap: nowrap;
+	align-items: stretch; /* Faz o <a> se ajustar ao tamanho do <li> */
+}
+
+/* Configurar A para expandir corretamente */
+ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.ui-corner-all
+	{
+	flex-grow: 1;
+	width: calc(100% - 50px);
+	/* Subtrai os 25px de padding esquerdo e direito */
+	display: block;
+}
+
+/* Ajuste do LI para evitar margem externa */
+ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all, ul.ui-widget-content
+	{
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 100% !important; /* Força o LI a ocupar o espaço total */
+}
+
+ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.ui-corner-all>span
+	{
+	flex-shrink: 0; /* Evita que os spans encolham */
+}
+/* 	definir o tamanho do link dentro do menu */
 @media ( max-width : 800px) {
+	/* 	definir o tamanho do link dentro do menu */
+	ul.ui-widget-content {
+		width: 200px !important;
+		min-width: 200px !important;
+		max-width: 200px !important;
+		box-sizing: border-box;
+	}
+	ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all {
+		width: 100% !important;
+		display: flex !important;
+		min-width: 200px !important;
+		flex-wrap: nowrap;
+		align-items: stretch; /* Faz o <a> se ajustar ao tamanho do <li> */
+	}
+
+	/* Configurar A para expandir corretamente */
+	ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.ui-corner-all
+		{
+		flex-grow: 1;
+		width: calc(100% - 50px);
+		/* Subtrai os 25px de padding esquerdo e direito */
+		display: block;
+	}
+
+	/* Ajuste do LI para evitar margem externa */
+	ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all, ul.ui-widget-content
+		{
+		margin: 0 !important;
+		padding: 0 !important;
+		width: 100% !important; /* Força o LI a ocupar o espaço total */
+	}
+	ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.ui-corner-all>span
+		{
+		flex-shrink: 0; /* Evita que os spans encolham */
+	}
+	/* 	definir o tamanho do link dentro do menu */
+
+	/* consertar o problema do menu mobile com top 0 */
+	.ui-menu.ui-menubar {
+		padding: 0 !important;
+	}
 	body .ui-menu .ui-menu-list .ui-menuitem {
 		transition: none !important;
 	}
@@ -567,7 +692,7 @@ body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
 		transition: none !important;
 	}
 	body {
-		font-size: 1.2rem !important;
+		font-size: var(--fonteMobileSize) !important;
 	}
 	.ui-menubar .ui-menuitem-link {
 		color: white !important;
@@ -580,27 +705,25 @@ body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
 		display: none;
 		flex-wrap: wrap;
 		background: var(--corMenu);
-		gap: 5px;
 		align-items: center;
 		z-index: var(--btnMobileZIndex);
 		width: 100% !important;
+		max-width: 1200px;
 		justify-content: center;
 		align-items: center;
 		background: var(--corMenu);
-		display: none;
+		justify-content: center;
 	}
 	.showMenu {
 		position: absolute;
-		left: 10px;
 		display: flex !important;
 		justify-content: center;
 		flex-direction: column;
-		width: 95vw !important;
-		display: flex !important;
-		display: flex !important;
+		width: 100% !important;
+		max-width: 1200px;
 	}
 	.ui-menubar.ui-sticky {
-		left: -5px;
+		margin-top: .4em;
 	}
 	ul.ui-menu-list>li {
 		position: relative;
@@ -616,7 +739,6 @@ body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
 	/* Esconder submenu com hover */
 	ul.ui-menu-list>li:hover ul.ui-widget-content {
 		display: block;
-		/* 		background: var(--corMenu) !important; */
 	}
 	ul.ui-menu-list li.ui-widget span {
 		color: white !important;
@@ -625,7 +747,6 @@ body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
 		margin: 25px 25px;
 		display: block;
 	}
-	.ui-menu .ui-menubar .ui-sticky
 	.show-submenu {
 		display: block !important;
 	}
