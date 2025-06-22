@@ -30,8 +30,11 @@
 
 					<p:column headerText="Foto">
 						<p:graphicImage styleClass="imagens" cache="false"
-							rendered="#{movimentacaoCaixa.usuario.nomeImagem eq null}"
+							rendered="#{movimentacao.usuario.nomeImagem eq ''}"
 							value="/img/new-user.png" />
+							<p:graphicImage styleClass="imagens" cache="false"
+							rendered="#{movimentacao.usuario.nomeImagem ne ''}"
+							value="/imagens/#{movimentacao.usuario.nomeImagem}" />
 					</p:column>
 
 					<p:column filterBy="#{movimentacao.usuario.login}"

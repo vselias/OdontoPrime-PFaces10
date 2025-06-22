@@ -295,7 +295,7 @@ public class ConsultaService implements Serializable {
 		} else {
 			DecimalFormat decimalFormat = new DecimalFormat("R$ #0.00");
 			numParcela = 1;
-			valorParcela = dadosEntrada.getValorComDesconto();
+			valorParcela = dadosEntrada.getValorDesconto();
 			consulta.getEntrada().setParcela(numParcela + " X " + decimalFormat.format(valorParcela));
 		}
 
@@ -451,7 +451,7 @@ public class ConsultaService implements Serializable {
 		try {
 			DecimalFormat format = new DecimalFormat("R$ #,##0.00");
 			// recuperando o valor antigo {TOTAL}
-			double valorAntigo = entrada.getValorComDesconto();
+			double valorAntigo = entrada.getValorDesconto();
 
 			// SETANDO O VALOR TOTAL
 			entrada.setValor(valorAntigo);
@@ -460,12 +460,12 @@ public class ConsultaService implements Serializable {
 			double valorComDesconto = entrada.getValor() - ((entrada.getDesconto() * entrada.getValor()) / 100);
 
 			// SETANDO O VALOR COM DESCONTO
-			entrada.setValorComDesconto(valorComDesconto);
+			entrada.setValorDesconto(valorComDesconto);
 
 			MensagemUtil.enviarMensagem("Valor SEM desconto: " + format.format(valorAntigo),
 					FacesMessage.SEVERITY_INFO);
 			MensagemUtil.enviarMensagem("Desconto de " + entrada.getDesconto() + "%", FacesMessage.SEVERITY_INFO);
-			MensagemUtil.enviarMensagem("Valor COM desconto: " + format.format(entrada.getValorComDesconto()),
+			MensagemUtil.enviarMensagem("Valor COM desconto: " + format.format(entrada.getValorDesconto()),
 					FacesMessage.SEVERITY_INFO);
 			flag = true;
 		} catch (Exception e) {
@@ -535,7 +535,7 @@ public class ConsultaService implements Serializable {
 
 			if (consulta.getEntrada().getValor() == null) {
 
-				consulta.getEntrada().setValor(consulta.getEntrada().getValorComDesconto());
+				consulta.getEntrada().setValor(consulta.getEntrada().getValorDesconto());
 			}
 
 			/*
@@ -546,7 +546,7 @@ public class ConsultaService implements Serializable {
 
 				Double valorComDesconto = consulta.getEntrada().getValor()
 						- ((consulta.getEntrada().getDesconto() * consulta.getEntrada().getValor()) / 100);
-				if (!valorComDesconto.equals(consulta.getEntrada().getValorComDesconto())) {
+				if (!valorComDesconto.equals(consulta.getEntrada().getValorDesconto())) {
 					MensagemUtil.enviarMensagem("Valor da consulta não compatível com desconto.",
 							FacesMessage.SEVERITY_WARN);
 					return false;
@@ -558,7 +558,7 @@ public class ConsultaService implements Serializable {
 			 * desconto
 			 */
 			if (consulta.getEntrada().getDesconto() == 0) {
-				consulta.getEntrada().setValor(consulta.getEntrada().getValorComDesconto());
+				consulta.getEntrada().setValor(consulta.getEntrada().getValorDesconto());
 			}
 		}
 		return true;

@@ -44,36 +44,27 @@
 
 
 
-			<p:panel style="text-align:center;" header="Informações da Consulta">
-				<div >
+			<p:panel header="Informações da Consulta">
+				<div>
 					<p:tabView id="tabView">
-
 						<p:tab title="Dados da Consulta">
 							<div class="ui-grid-responsive">
-								<center>
-									<div class="ui-grid-row">
-										<div class="ui-grid-col-4">
-											<h:panelGrid columns="2" cellpadding="5">
-
-												<p:outputLabel for="paciente" value="Selecione o paciente" />
-												<br />
-												<p:autoComplete forceSelection="true" required="true"
-													id="paciente" value="#{consultaMB.consulta.paciente}"
-													requiredMessage="Paciente deve ser informado."
-													completeMethod="#{consultaMB.listarPacientesConsulta}"
-													converter="pacienteConverter" var="paciente"
-													itemValue="#{paciente}" itemLabel="#{paciente.nome}">
-													<p:ajax event="itemSelect"
-														listener="#{consultaMB.pacienteSelecionado}"
-														update="frmConsulta:tabView:fotoPaciente :formGlobal:msgGlobal" />
-												</p:autoComplete>
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-6">
+										<p:panelGrid styleClass="ui-panelgrid-blank " columns="1"
+											style="width: 100%;" cellpadding="30">
+											<h:panelGroup layout="block" class="panelGConsulta">
+												<p:outputLabel for="paciente" value="Selecione o paciente:" />
+												<p:inputText required="true" id="paciente" value="#{consultaMB.consulta.paciente}" readonly="true" />
+												<p:commandButton immediate="true" icon="pi pi-search"
+													oncomplete="PF('tblPaciente').show()" />
 												<p:tooltip for="paciente"
-													value="Digite um nome para selecionar o paciente."
+													value="Clique na lupa para selecionar o paciente."
 													position="top" />
+											</h:panelGroup>
 
-
-												<p:outputLabel for="estado" value="Estado da consulta" />
-												<br />
+											<h:panelGroup layout="block" class="panelGConsulta">
+												<p:outputLabel for="estado" value="Estado da consulta:" />
 												<p:selectOneMenu id="estado" required="true"
 													requiredMessage="Estado consulta deve ser informado."
 													value="#{consultaMB.consulta.estadoConsulta}">
@@ -85,51 +76,50 @@
 														update="valorConsulta, data_vencimento, formaPagamento, parcela, parcelado , desconto, btCalcularDesconto"
 														process="@this" listener="#{consultaMB.estadoCancelado}" />
 												</p:selectOneMenu>
-												<br />
-											</h:panelGrid>
-										</div>
+											</h:panelGroup>
 
-										<div class="ui-grid-col-4">
-											<h:panelGrid columns="2" cellpadding="5" >
+										</p:panelGrid>
+									</div>
 
-												<p:outputLabel value="Consulta" />
-												<br />
+									<div class="ui-grid-col-4">
+										<p:panelGrid columns="1" styleClass="ui-panelgrid-blank"
+											cellpadding="30">
+											<h:panelGroup layout="block" class="panelGConsulta">
+												<p:outputLabel value="Consulta:" />
 												<p:selectOneMenu value="#{consultaMB.consulta.tipoConsulta}">
-
 													<f:selectItem itemLabel="Selecione o tipo" itemValue="" />
 													<f:selectItems var="tipo" itemLabel="#{tipo.descricao}"
 														itemValue="#{tipo}" value="#{consultaMB.tiposConsulta}" />
 												</p:selectOneMenu>
-												<br />
+											</h:panelGroup>
 
-												<p:outputLabel for="dataConsulta" value="Data da consulta" />
-												<br />
+											<h:panelGroup layout="block" class="panelGConsulta">
+												<p:outputLabel for="dataConsulta" value="Data da consulta:" />
 												<p:calendar id="dataConsulta"
 													placeholder="Exemplo: 24/12/1990 20:30" navigator="true"
 													required="true" size="25" mask="99/99/9999 99:99:99"
 													requiredMessage="Data da consulta deve ser informada."
 													value="#{consultaMB.consulta.dataConsulta}" locale="pt_BR"
-													timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm:ss">
+													timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm:ss" />
+											</h:panelGroup>
 
-												</p:calendar>
-											</h:panelGrid>
-										</div>
-										<div class="ui-grid-col-4">
-											<p:outputPanel id="fotoPaciente">
-												<p:outputLabel value="Foto" />
-												<br />
-												<p:graphicImage styleClass="imagens"
-													rendered="#{consultaMB.consulta.paciente.nomeImagem eq null}"
-													cache="false" value="/img/new-user.png" />
-												<p:graphicImage styleClass="imagens"
-													rendered="#{consultaMB.consulta.paciente.nomeImagem ne null
-									and consultaMB.consulta.paciente.nomeImagem ne '' }"
-													cache="false"
-													value="/imagens/#{consultaMB.consulta.paciente.nomeImagem}" />
-											</p:outputPanel>
-										</div>
+										</p:panelGrid>
 									</div>
-								</center>
+									<div class="ui-grid-col-2">
+										<p:outputPanel id="fotoPaciente">
+											<p:outputLabel value="Foto" />
+											<br />
+											<p:graphicImage styleClass="imagens"
+												rendered="#{consultaMB.consulta.paciente.nomeImagem eq null}"
+												cache="false" value="/img/new-user.png" />
+											<p:graphicImage styleClass="imagens"
+												rendered="#{consultaMB.consulta.paciente.nomeImagem ne null
+									and consultaMB.consulta.paciente.nomeImagem ne '' }"
+												cache="false"
+												value="/imagens/#{consultaMB.consulta.paciente.nomeImagem}" />
+										</p:outputPanel>
+									</div>
+								</div>
 							</div>
 						</p:tab>
 
@@ -140,110 +130,102 @@
 									<div class="ui-grid-row">
 										<div class="ui-grid-col-6">
 
-											<h:panelGrid columns="2" cellpadding="5px;">
+											<p:panelGrid contentStyleClass="panelGridConsulta"
+												columns="1" styleClass="ui-panelgrid-blank">
+												<div>
+													<p:outputLabel for="valorConsulta" value="Valor" />
+													<p:inputText maxlength="10"
+														disabled="#{consultaMB.desativarCampos}"
+														id="valorConsulta" required="true"
+														requiredMessage="Valor da consulta deve ser informado."
+														value="#{consultaMB.consulta.entrada.valorDesconto}">
+														<p:ajax event="change"
+															listener="#{consultaMB.gerarQuantidadePagamentos}"
+															update="frmConsulta:msg , parcela" />
+														<f:convertNumber maxFractionDigits="2"
+															minFractionDigits="2" />
+														<f:validateDoubleRange minimum="0" />
+													</p:inputText>
+												</div>
 
-												<p:outputLabel for="valorConsulta" value="Valor" />
-												<br />
 
-												<p:inputText maxlength="10"
-													disabled="#{consultaMB.desativarCampos}" id="valorConsulta"
-													required="true"
-													requiredMessage="Valor da consulta deve ser informado."
-													value="#{consultaMB.consulta.entrada.valorComDesconto}">
-													<p:ajax event="change"
-														listener="#{consultaMB.gerarQuantidadePagamentos}"
-														update="frmConsulta:msg , parcela" />
-													<f:convertNumber maxFractionDigits="2"
-														minFractionDigits="2" />
-													<f:validateDoubleRange minimum="0" />
-												</p:inputText>
-												<br />
+												<div>
+													<p:outputLabel value="Desconto %" />
+													<p:inputMask id="desconto"
+														readonly="#{consultaMB.editarConsultaPaga}"
+														disabled="#{consultaMB.desativarCampos}"
+														value="#{consultaMB.consulta.entrada.desconto}" mask="99" />
 
+													<p:commandButton id="btCalcularDesconto"
+														disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
+														update="frmConsulta:msg , parcela, valorConsulta"
+														process="@this , desconto , valorConsulta"
+														actionListener="#{consultaMB.calcularDesconto}"
+														value="Calcular" />
+												</div>
 
-												<p:outputLabel value="Desconto %" />
-												<br />
-
-												<p:inputMask id="desconto"
-													readonly="#{consultaMB.editarConsultaPaga}"
-													disabled="#{consultaMB.desativarCampos}"
-													value="#{consultaMB.consulta.entrada.desconto}" mask="99">
-												</p:inputMask>
-												<p:commandButton id="btCalcularDesconto"
-													disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
-													update="frmConsulta:msg , parcela, valorConsulta"
-													process="@this , desconto , valorConsulta"
-													actionListener="#{consultaMB.calcularDesconto}"
-													value="Calcular" />
-
-											</h:panelGrid>
+											</p:panelGrid>
 										</div>
 
 
 										<div class="ui-grid-col-6">
-											<h:panelGrid columns="2" cellpadding="5px;">
+											<p:panelGrid contentStyleClass="panelGridConsulta"
+												columns="1" styleClass="ui-panelgrid-blank">
 
-												<p:outputLabel for="data_vencimento"
-													value="Data do vencimento" />
-												<br />
+												<div>
+													<p:outputLabel for="data_vencimento"
+														value="Data do vencimento" />
+													<p:calendar id="data_vencimento" required="true"
+														requiredMessage="Data vencimento deve ser informada."
+														disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
+														placeholder="Exemplo: 24/12/1990" mask="99/99/9999"
+														navigator="true" timeZone="America/Sao_Paulo"
+														pattern="dd/MM/yyyy" locale="pt_BR"
+														value="#{consultaMB.consulta.entrada.dataVencimento}" />
+												</div>
 
-												<p:calendar id="data_vencimento" required="true"
-													requiredMessage="Data vencimento deve ser informada."
-													disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
-													placeholder="Exemplo: 24/12/1990" mask="99/99/9999"
-													navigator="true" timeZone="America/Sao_Paulo"
-													pattern="dd/MM/yyyy" locale="pt_BR"
-													value="#{consultaMB.consulta.entrada.dataVencimento}" />
-												<br />
-
-
-
-												<p:outputLabel for="formaPagamento"
-													value="Opção de pagamento" />
-												<br />
-
-												<p:selectOneMenu
-													disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
-													requiredMessage="Forma de pagamento deve ser informada."
-													required="true" id="formaPagamento" filter="true"
-													filterMatchMode="contains" var="opcao"
-													value="#{consultaMB.consulta.entrada.formaPagamento}">
-													<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
-													<f:selectItems value="#{consultaMB.opcoesPagamento}"
-														var="pag" itemLabel="#{pag.nome}" itemValue="#{pag}" />
-													<p:column>
-														<p:graphicImage cache="false" value="/img/#{opcao.img}" />
-													</p:column>
-													<p:column>
-														<p:outputLabel value="#{opcao.nome}" />
-													</p:column>
-
-												</p:selectOneMenu>
-												<br />
+												<div>
+													<p:outputLabel for="formaPagamento"
+														value="Opção de pagamento" />
+													<p:selectOneMenu
+														disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
+														requiredMessage="Forma de pagamento deve ser informada."
+														required="true" id="formaPagamento" filter="true"
+														filterMatchMode="contains" var="opcao"
+														value="#{consultaMB.consulta.entrada.formaPagamento}">
+														<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+														<f:selectItems value="#{consultaMB.opcoesPagamento}"
+															var="pag" itemLabel="#{pag.nome}" itemValue="#{pag}" />
+														<p:column>
+															<p:graphicImage cache="false" value="/img/#{opcao.img}" />
+														</p:column>
+														<p:column>
+															<p:outputLabel value="#{opcao.nome}" />
+														</p:column>
+													</p:selectOneMenu>
+												</div>
 
 
-												<p:outputLabel value="Parcelado" />
-												<br />
+												<div>
+													<p:outputLabel value="Parcelado" />
+													<p:selectBooleanCheckbox id="parcelado"
+														disabled="#{consultaMB.desativarComboBoxParcela or consultaMB.editarConsultaPaga}"
+														value="#{consultaMB.consulta.entrada.parcelado}">
+														<p:ajax event="change" update="parcela parcelado" />
+													</p:selectBooleanCheckbox>
 
-												<p:selectBooleanCheckbox id="parcelado"
-													disabled="#{consultaMB.desativarComboBoxParcela or consultaMB.editarConsultaPaga}"
-													value="#{consultaMB.consulta.entrada.parcelado}">
-													<p:ajax event="change" update="parcela parcelado" />
-												</p:selectBooleanCheckbox>
-												<br />
+													<p:selectOneMenu id="parcela"
+														disabled="#{not consultaMB.consulta.entrada.parcelado or consultaMB.editarConsultaPaga}"
+														requiredMessage="Parcela deve ser informada."
+														required="true"
+														value="#{consultaMB.consulta.entrada.parcela}">
 
-
-												<p:selectOneMenu id="parcela"
-													disabled="#{not consultaMB.consulta.entrada.parcelado or consultaMB.editarConsultaPaga}"
-													requiredMessage="Parcela deve ser informada."
-													required="true"
-													value="#{consultaMB.consulta.entrada.parcela}">
-
-													<f:selectItem itemValue=""
-														itemLabel="Selecione quantas vezes" />
-													<f:selectItems value="#{consultaMB.quantidadePagamentos}" />
-												</p:selectOneMenu>
-												<br />
-											</h:panelGrid>
+														<f:selectItem itemValue=""
+															itemLabel="Selecione quantas vezes" />
+														<f:selectItems value="#{consultaMB.quantidadePagamentos}" />
+													</p:selectOneMenu>
+												</div>
+											</p:panelGrid>
 										</div>
 
 									</div>
@@ -256,8 +238,9 @@
 			</p:panel>
 
 		</h:form>
-
-
+			<!-- tabela de selecionar paciente -->
+		<ui:include src="/template/SelecionarPaciente.xhtml"/>
+		
 	</ui:define>
 
 </ui:composition>

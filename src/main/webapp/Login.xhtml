@@ -11,14 +11,14 @@
 		href="#{request.contextPath}/img/odontoprime.ico" />
 	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet"
 		type="text/css" />
-<style>
 
-*{
+
+	<style>
+* {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 }
-
 </style>
 </h:head>
 <h:body>
@@ -28,7 +28,7 @@
 	<div class="containerLogin">
 
 		<h:form id="frmLogin">
-			<p:growl id="msg" autoUpdate="true" escape="true" />
+			<p:growl id="msg" escape="true" />
 			<div class="panelLogin">
 				<h:graphicImage styleClass="imgLogoLogin"
 					value="/img/gpt-logo-branca.png" />
@@ -39,15 +39,14 @@
 						requiredMessage="Login deve ser informado." autocomplete="false"
 						value="#{usuarioMB.usuario.login}" />
 
-
 					<p:outputLabel for="senha" styleClass="label" value="Senha" />
 					<p:password id="senha" required="true"
 						requiredMessage="Senha deve ser informada." autocomplete="false"
 						value="#{usuarioMB.usuario.senha}" />
 
-					<p:commandButton styleClass="btn btn-primary" id="btn"
-						icon="fa fa-sign-in" update="frmLogin:msg"
-						action="#{usuarioMB.autenticar}" value="Entrar" />
+					<p:commandButton id="btn" icon="fa fa-sign-in"
+						update="frmLogin:msg" action="#{usuarioMB.autenticar}"
+						value="Entrar" />
 
 					<p:button outcome="CadastroUsuario" value="Cadastrar"
 						icon="fa fa-user" />
@@ -62,13 +61,14 @@
 			<p:ajaxStatus onstart="PF('statusDialog').show()"
 				onsuccess="PF('statusDialog').hide()" />
 
-
-			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-				closable="false" resizable="false" showHeader="false">
-				<center>
-					<h2>Carregando aguarde...</h2>
+			<p:dialog styleClass="dialogLogin" fitViewport="true" appendTo="@(body)"
+				 style="height:50px" widgetVar="statusDialog"
+				modal="true" draggable="false" closable="false" resizable="false"
+				showHeader="false">
+				<div class="conteudo-loading">
+					<h2>Carregando, aguarde...</h2>
 					<p:graphicImage value="/img/loading.gif" />
-				</center>
+				</div>
 			</p:dialog>
 		</h:form>
 

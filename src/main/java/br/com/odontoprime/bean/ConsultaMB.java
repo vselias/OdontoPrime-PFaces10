@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -252,8 +253,8 @@ public class ConsultaMB implements Serializable {
 	public double recuperarValorComDesconto() {
 		if (consulta.getEntrada() == null) {
 			return 0;
-		} else if (consulta.getEntrada().getValorComDesconto() != null) {
-			return consulta.getEntrada().getValorComDesconto();
+		} else if (consulta.getEntrada().getValorDesconto() != null) {
+			return consulta.getEntrada().getValorDesconto();
 		}
 		return 0;
 	}
@@ -305,30 +306,18 @@ public class ConsultaMB implements Serializable {
 	}
 
 	public List<Paciente> listarPacientesConsulta(String nome) {
-
-		if (pacientes == null)
-			pacientes = pacienteService.buscarTodos();
-
-		List<Paciente> pacientesFiltrados = new ArrayList<>();
-
-		pacientes.forEach(p -> {
-
-			if (p.getNome().toLowerCase().startsWith(nome.toLowerCase())) {
-				pacientesFiltrados.add(p);
-			}
-
-		});
-
-		return pacientesFiltrados;
+		return pacienteService.buscarTodos().stream()
+				.filter(p -> p.getNome() != null && p.getNome().toLowerCase().startsWith(nome.toLowerCase()))
+				.collect(Collectors.toList());
 	}
 
 	@SuppressWarnings("unused")
 	public void pacienteSelecionado(SelectEvent event) {
 		Paciente paciente = (Paciente) event.getObject();
-		System.out.println("Metodo de seleção chamado: "+paciente.getNome());
-        if(paciente != null) {
-        	MensagemUtil.enviarMensagem("Paciente selecionado: "+paciente.getNome(), FacesMessage.SEVERITY_INFO);
-        }
+		System.out.println("Metodo de seleção chamado: " + paciente.getNome());
+		if (paciente != null) {
+			MensagemUtil.enviarMensagem("Paciente selecionado: " + paciente.getNome(), FacesMessage.SEVERITY_INFO);
+		}
 	}
 
 	public boolean estadoCancelado() {
@@ -353,6 +342,10 @@ public class ConsultaMB implements Serializable {
 
 	public void atualizarListaConsulta() {
 		this.consultas = consultaService.buscarTodos();
+	}
+
+	public List<Paciente> getTodosPacientes() {
+		return pacienteService.buscarTodos();
 	}
 
 	public boolean consultaContemEntrada() {

@@ -41,25 +41,17 @@
 							<div class="ui-grid-col-6">
 								<h:panelGrid cellpadding="5" columns="2">
 
-
 									<p:outputLabel for="paciente" value="Selecione o paciente" />
 									<br />
 
-									<p:autoComplete  id="paciente"
-										requiredMessage="Usuário deve ser informado." required="true"
-										value="#{orcamentoMB.orcamento.paciente}" var="paciente"
-										itemLabel="#{paciente.nome}" itemValue="#{paciente}"
-										forceSelection="true" converter="pacienteConverter"
-										completeMethod="#{orcamentoMB.pesquisarPacientesAutoComplete}">
-										<p:ajax event="itemSelect"
-											listener="#{orcamentoMB.pacienteSelecionado}"
-											update=":formGlobal:msgGlobal frmOrcamento:foto" />
-
-									</p:autoComplete>
-									<p:tooltip for="paciente"
-										value="Digite um nome para selecionar o paciente."
-										position="top" />
-
+									<p:inputText id="paciente" readonly="true" required="true"
+										value="#{orcamentoMB.orcamento.paciente}">
+										<p:tooltip for="paciente"
+											value="Digite um nome para selecionar o paciente."
+											position="top" />
+									</p:inputText>
+									<p:commandButton immediate="true" onclick="PF('tblPaciente').show()"
+										icon="pi pi-check" />
 
 
 									<p:outputLabel value="Consulta" />
@@ -84,11 +76,8 @@
 										value="#{orcamentoMB.orcamento.valor}">
 										<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 									</p:inputText>
-
-
 								</h:panelGrid>
 							</div>
-
 
 
 							<div class="ui-grid-col-6">
@@ -185,7 +174,42 @@
 			</center>
 		</p:dialog>
 
+		<!-- tabela de selecionar paciente -->
+		<h:form>
+			<p:dialog widgetVar="tblPaciente">
+				<p:dataTable tableStyle="width:auto" resizableColumns="true"
+					var="paciente" value="#{consultaMB.todosPacientes}">
+					<p:column headerText="Foto">
+						<p:graphicImage cache="false" styleClass="imagens"
+							rendered="#{paciente.nomeImagem eq null or paciente.nomeImagem eq ''}"
+							value="/img/new-user.png" />
+						<p:graphicImage cache="false" styleClass="imagens"
+							rendered="#{paciente.nomeImagem ne null and paciente.nomeImagem ne ''}"
+							value="/imagens/#{paciente.nomeImagem}" />
+					</p:column>
+					<p:column headerText="Id">
+						<p:outputLabel value="#{paciente.id}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<p:outputLabel value="#{paciente.nome}" />
+					</p:column>
+					<p:column headerText="CPF">
+						<p:outputLabel value="#{paciente.cpf}" />
+					</p:column>
+					<p:column headerText="E-mail">
+						<p:outputLabel value="#{paciente.email}" />
+					</p:column>
+					<p:column headerText="Selecionar">
+						<p:commandButton immediate="true" update=":frmOrcamento" oncomplete="PF('tblPaciente').hide()"
+							icon="pi pi-check">
+							<f:setPropertyActionListener value="#{paciente}"
+								target="#{orcamentoMB.orcamento.paciente}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
 
+		</h:form>
 
 
 	</ui:define>

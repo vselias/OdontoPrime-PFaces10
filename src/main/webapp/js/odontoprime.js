@@ -1,5 +1,8 @@
 window.addEventListener('load', function() {
 
+	const DIV_MENU_TOP = 105;
+	
+	
 	function fecharSubmenus() {
 		document.querySelectorAll(".ui-menu-list ul").forEach(sub => {
 			sub.classList.remove("show-submenu");
@@ -72,7 +75,7 @@ window.addEventListener('load', function() {
 
 			if (window.scrollY > 0) {
 				divMenu.style.position = "fixed !important";
-				divMenu.style.top = "125px !important";
+				divMenu.style.top = DIV_MENU_TOP+"px !important";
 				divMenu.style.width = "100% !important";
 				divMenu.style.maxWidth = "100vw !important"; // Ajuste conforme necessário
 			} else {

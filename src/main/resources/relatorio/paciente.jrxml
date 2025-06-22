@@ -1,0 +1,126 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="paciente" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d9afc1e-8964-46e6-a505-693b4d65b221">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="paciente"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="373"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="622"/>
+	<parameter name="pacienteId" class="java.lang.Long"/>
+	<query language="SQL"><![CDATA[SELECT odontoprime.paciente.nome,
+       odontoprime.paciente.cpf,
+       odontoprime.paciente.id,
+       odontoprime.consulta.tipoConsulta,
+       DATE_FORMAT(odontoprime.consulta.dataConsulta, '%d/%m/%Y %H:%i') AS dataConsulta
+FROM odontoprime.consulta
+INNER JOIN odontoprime.paciente ON odontoprime.consulta.paciente_id = odontoprime.paciente.id
+WHERE odontoprime.paciente.id = $P{pacienteId}]]></query>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="tipoConsulta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipoConsulta"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipoConsulta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consulta"/>
+	</field>
+	<field name="dataConsulta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dataConsulta"/>
+		<property name="com.jaspersoft.studio.field.label" value="dataConsulta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consulta"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="148" splitType="Stretch">
+		<element kind="staticText" uuid="9a7339f0-5845-44e8-a92a-4e82dad3186e" x="80" y="10" width="467" height="49" fontSize="25.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Relatório de Consultas]]></text>
+		</element>
+		<element kind="line" uuid="6a91e1ff-0da5-4dba-845c-a833876a7d69" x="7" y="120" width="540" height="1"/>
+		<element kind="textField" uuid="30d9e8b1-d6db-49bc-9309-a4cbf82b93cf" x="447" y="70" width="100" height="30" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="image" uuid="b34a425c-d0ee-408f-a618-7d8e1e7730f1" x="0" y="0" width="80" height="70">
+			<expression><![CDATA["imagens/gpt-logo.png"]]></expression>
+		</element>
+	</title>
+	<columnHeader height="30" splitType="Stretch">
+		<element kind="staticText" uuid="d35cc3cd-13d9-4ac0-8490-d0ff30fb6aca" x="100" y="0" width="100" height="30" fontName="SansSerif" fontSize="16.0">
+			<text><![CDATA[Paciente]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a0e17ff-ad7a-4a57-8465-eb35f51adc5d"/>
+			<box>
+				<bottomPen lineWidth="0.5"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="50bbe5e7-5aba-4aae-87e0-99bc2bd88f09" x="0" y="0" width="100" height="30" fontName="SansSerif" fontSize="16.0">
+			<text><![CDATA[Id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f8266d3-7008-492d-b8a1-49d5ba98e6a0"/>
+			<box>
+				<bottomPen lineWidth="0.5"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="a2979cc7-acf0-48dd-a3f4-ff03ffbddc32" x="300" y="0" width="100" height="30" fontName="SansSerif" fontSize="16.0">
+			<text><![CDATA[CPF]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="12a57061-137f-4c22-9be7-8f6e8ced29ad"/>
+			<box>
+				<bottomPen lineWidth="0.5"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="97d70286-b3ac-4d9b-add2-003ea7a0660c" x="200" y="0" width="100" height="30" fontName="SansSerif" fontSize="16.0">
+			<text><![CDATA[Consulta]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="540364bd-1a11-4fdf-9f5e-f95f83a05a7b"/>
+			<box>
+				<bottomPen lineWidth="0.5"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="d02bfddc-4d8b-4d0a-9429-325ec1c1de34" x="400" y="0" width="100" height="30" fontName="SansSerif" fontSize="16.0">
+			<text><![CDATA[Data]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69610c45-e916-4372-8e84-d3daccaa78f7"/>
+			<box>
+				<bottomPen lineWidth="0.5"/>
+			</box>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<element kind="textField" uuid="3dc27626-981d-47f6-affd-424148618e78" x="100" y="0" width="100" height="30">
+				<expression><![CDATA[$F{nome}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a0e17ff-ad7a-4a57-8465-eb35f51adc5d"/>
+			</element>
+			<element kind="textField" uuid="f1c2f154-718a-45c6-a760-9ce6afe15fe6" x="0" y="0" width="100" height="30">
+				<expression><![CDATA[$F{id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f8266d3-7008-492d-b8a1-49d5ba98e6a0"/>
+			</element>
+			<element kind="textField" uuid="4ff30387-d424-41a1-a1c7-88f5d8727aa1" x="300" y="0" width="100" height="30">
+				<expression><![CDATA[$F{cpf}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="12a57061-137f-4c22-9be7-8f6e8ced29ad"/>
+			</element>
+			<element kind="textField" uuid="31567f63-919b-47b8-aea9-6e58536f12c1" x="200" y="0" width="100" height="30">
+				<expression><![CDATA[$F{tipoConsulta}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="540364bd-1a11-4fdf-9f5e-f95f83a05a7b"/>
+			</element>
+			<element kind="textField" uuid="e2aabb1a-4656-453e-b5a1-4079884e8b2d" x="400" y="0" width="100" height="30">
+				<expression><![CDATA[$F{dataConsulta}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69610c45-e916-4372-8e84-d3daccaa78f7"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="57" splitType="Stretch">
+		<element kind="textField" uuid="e5577cf2-8455-49f1-b7a7-247948b293c7" x="347" y="0" width="100" height="30" hTextAlign="Right">
+			<expression><![CDATA["Página" + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="fc571f70-806d-4358-9571-240bc2181e39" x="447" y="0" width="109" height="30" evaluationTime="Report" hTextAlign="Left">
+			<expression><![CDATA[" de " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

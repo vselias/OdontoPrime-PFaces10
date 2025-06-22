@@ -14,12 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@SequenceGenerator(name = "entrada_seq", sequenceName = "seq_entrada", allocationSize = 2)
 public class Entrada implements Serializable {
 
 	/**
@@ -27,7 +25,7 @@ public class Entrada implements Serializable {
 	 */
 	private static final long serialVersionUID = 8248762477115345323L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
@@ -50,7 +48,7 @@ public class Entrada implements Serializable {
 
 	private int desconto;
 
-	private Double valorComDesconto;
+	private Double valorDesconto;
 
 	private Boolean parcelado;
 
@@ -114,12 +112,12 @@ public class Entrada implements Serializable {
 		this.parcela = parcela;
 	}
 
-	public Double getValorComDesconto() {
-		return valorComDesconto;
+	public Double getValorDesconto() {
+		return valorDesconto;
 	}
 
-	public void setValorComDesconto(Double valorComDesconto) {
-		this.valorComDesconto = valorComDesconto;
+	public void setValorDesconto(Double valorDesconto) {
+		this.valorDesconto = valorDesconto;
 	}
 
 	public Date getDataLancamento() {

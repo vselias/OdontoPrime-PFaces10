@@ -1,9 +1,12 @@
 package br.odontoprime.converter;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.odontoprime.dao.PacienteDAO;
 import br.com.odontoprime.entidade.Paciente;
@@ -11,8 +14,8 @@ import br.com.odontoprime.entidade.Paciente;
 @FacesConverter(value = "pacienteConverter", forClass = Paciente.class)
 public class PacienteConverter implements Converter {
 
+	@Inject
 	private PacienteDAO pacienteDAO;
-	private Paciente paciente = null;
 
 	public PacienteConverter() {
 		this.pacienteDAO = CDILocator.getBean(PacienteDAO.class);
@@ -21,9 +24,9 @@ public class PacienteConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null && !"".equals(value)) {
-			paciente = pacienteDAO.buscarPorId(Long.parseLong(value), Paciente.class);
+			return pacienteDAO.buscarPorId(Long.parseLong(value), Paciente.class);
 		}
-		return paciente;
+		return null;
 	}
 
 	@Override

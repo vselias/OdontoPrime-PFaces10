@@ -58,6 +58,24 @@
 	</build>
 
 		<dependencies>
+		
+				<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-pdf -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-pdf</artifactId>
+		    <version>7.0.3</version>
+		</dependency>
+				
+   <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports-jdt</artifactId>
+        <version>7.0.0</version>
+    </dependency>
+		<dependency>
+		  <groupId>net.sf.jasperreports</groupId>
+		  <artifactId>jasperreports</artifactId>
+		  <version>7.0.3</version>
+		</dependency>
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>jstl</artifactId>
@@ -71,7 +89,7 @@
 		    <scope>compile</scope> <!-- adiciona isso -->
 		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
+		<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
 		<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
 			<dependency>
 			    <groupId>org.omnifaces</groupId>
@@ -90,7 +108,7 @@
 		    <artifactId>javax.inject</artifactId>
 		    <version>1</version>
 		</dependency>
-	<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet-core -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet-core -->
 			<dependency>
 			    <groupId>org.jboss.weld.servlet</groupId>
 			    <artifactId>weld-servlet-core</artifactId>
@@ -124,14 +142,14 @@
 			<version>2.1</version>
 		</dependency>
 
-				<!-- API do JSF 2.3 -->
+		<!-- API do JSF 2.3 -->
 		<dependency>
 		    <groupId>javax.faces</groupId>
 		    <artifactId>javax.faces-api</artifactId>
 		    <version>2.3</version>
 		    <scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Implementação Mojarra do JSF 2.3 -->
 		<dependency>
 		    <groupId>org.glassfish</groupId>
@@ -149,7 +167,7 @@
 		    <artifactId>hibernate-commons-annotations</artifactId>
 		    <version>5.1.2.Final</version>
 		  </dependency>
-		  <!-- JPA API -->
+		<!-- JPA API -->
 		  <dependency>
 		    <groupId>javax.persistence</groupId>
 		    <artifactId>javax.persistence-api</artifactId>
@@ -161,8 +179,8 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
-	<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
-<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		<dependency>
 		    <groupId>org.primefaces</groupId>
 		    <artifactId>primefaces</artifactId>

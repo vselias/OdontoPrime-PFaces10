@@ -23,4 +23,10 @@ public class ProdutorEntityManager {
 	public void finaliza(@Disposes EntityManager manager) {
 		manager.close();
 	}
+
+	public static EntityManagerFactory getFactory() {
+		return FACTORY;
+	}
+	
+	
 }

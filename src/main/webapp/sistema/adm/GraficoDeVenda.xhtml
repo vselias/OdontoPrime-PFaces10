@@ -20,7 +20,7 @@
 
 			<p:spacer height="10" />
 
-			<p:messages autoUpdate="true" id="msg" showDetail="false"
+			<p:messages  id="msg" showDetail="false"
 				escape="true" closable="true" />
 
 			<p:panel style="text-align:center;"
@@ -42,7 +42,7 @@
 
 									<p:outputLabel value="Do ano de" />
 									<p:selectOneMenu widgetVar="sOnePrimeiroAno" filter="true"
-										filterMatchMode="startsWith"
+										filterMatchMode="contains"
 										value="#{graficoVendaMB.filtroNovoGrafico.ano}">
 										<f:selectItems value="#{graficoVendaMB.anos}" />
 									</p:selectOneMenu>
@@ -59,8 +59,7 @@
 											value="#{graficoVendaMB.tiposConsulta}" />
 									</p:selectOneMenu>
 									<p:outputLabel value="Do ano ate" />
-									<p:selectOneMenu filter="true" filterMatchMode="startsWith"
-										filterNormalize="true"
+									<p:selectOneMenu filter="true" filterMatchMode="contains"
 										value="#{graficoVendaMB.filtroNovoGrafico.anoAte}">
 										<f:selectItems value="#{graficoVendaMB.anos}" />
 									</p:selectOneMenu>

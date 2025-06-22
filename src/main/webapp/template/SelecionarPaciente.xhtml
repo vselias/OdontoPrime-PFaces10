@@ -1,0 +1,51 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui">
+
+
+<h:form>
+	<p:dialog widgetVar="tblPaciente">
+		<p:dataTable tableStyle="width:auto" resizableColumns="true"
+			var="paciente" value="#{consultaMB.todosPacientes}">
+			<p:column headerText="Foto">
+				<p:graphicImage cache="false" styleClass="imagens"
+					rendered="#{paciente.nomeImagem eq null or paciente.nomeImagem eq ''}"
+					value="/img/new-user.png" />
+				<p:graphicImage cache="false" styleClass="imagens"
+					rendered="#{paciente.nomeImagem ne null and paciente.nomeImagem ne ''}"
+					value="/imagens/#{paciente.nomeImagem}" />
+			</p:column>
+			<p:column headerText="Id">
+				<p:outputLabel value="#{paciente.id}" />
+			</p:column>
+			<p:column headerText="Nome">
+				<p:outputLabel value="#{paciente.nome}" />
+			</p:column>
+			<p:column headerText="CPF">
+				<p:outputLabel value="#{paciente.cpf}" />
+			</p:column>
+			<p:column headerText="E-mail">
+				<p:outputLabel value="#{paciente.email}" />
+			</p:column>
+			<p:column headerText="Selecionar">
+				<p:commandButton oncomplete="PF('tblPaciente').hide()"
+					update=":frmConsulta :frmConsulta:tabView:paciente"
+					icon="pi pi-check">
+					<f:setPropertyActionListener value="#{paciente}"
+						target="#{consultaMB.consulta.paciente}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</p:dialog>
+
+</h:form>
+
+</html>

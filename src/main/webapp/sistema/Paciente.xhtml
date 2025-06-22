@@ -34,106 +34,103 @@
 
 					<p:spacer height="10" />
 
-					<p:panel style="text-align:center;" id="pnlDadosPaciente"
+					<p:panel  id="pnlDadosPaciente"
 						header="Informações do Paciente">
 
 
 						<p:tabView prependId="false">
 							<p:tab title="Dados do Paciente">
-								<center>
-									<div class="ui-grid-row">
-										<div class="ui-grid-col-4">
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-6">
 
-											<h:panelGrid cellpadding="5" columns="2">
-												<p:outputLabel for="nome" value="Nome" />
-												<br />
-												<p:inputText id="nome" required="true"
-													requiredMessage="Nome do paciente deve ser informado."
-													value="#{pacienteMB.paciente.nome}" />
-												<br />
-												<p:outputLabel for="cpf" value="CPF" />
-												<br />
-												<p:inputMask id="cpf" mask="999.999.999-99" required="true"
-													requiredMessage="Cpf deve ser informado."
-													validatorMessage="Cpf inválido!"
-													value="#{pacienteMB.paciente.cpf}">
-													<f:validator validatorId="CPF" />
-												</p:inputMask>
-
-												<p:spacer />
-												<p:outputLabel value="Data Nascimento" />
-												<br />
-												<p:calendar placeholder="Exemplo: 24/12/1990"
-													mask="99/99/9999"
-													value="#{pacienteMB.paciente.dataNascimento}"
-													navigator="true" id="german" locale="pt_BR"
-													timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" />
-											</h:panelGrid>
-										</div>
-
-										<div class="ui-grid-col-4">
-											<h:panelGrid cellpadding="5" columns="2">
-												<p:outputLabel value="Sexo" />
-												<br />
-
-												<p:selectOneMenu id="sexo" style="width:150px"
-													value="#{pacienteMB.paciente.sexo}">
-													<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
-													<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
-												</p:selectOneMenu>
-												<br />
-
-												<p:outputLabel value="e-Mail" />
-												<br />
-
-												<p:inputText required="false" id="email"
-													validatorMessage="E-mail inválido"
-													value="#{pacienteMB.paciente.email}">
-													<f:validateRegex
-														pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-												</p:inputText>
-												<br />
-
-
-												<p:outputLabel value="Telefone Celular" />
-												<br />
-
-												<p:inputMask value="#{pacienteMB.paciente.celular}"
-													mask="(99)9-9999-9999" />
-												<br />
-
-												<p:outputLabel value="Telefone Fixo" />
-												<br />
-
-												<p:inputMask value="#{pacienteMB.paciente.telefone}"
-													mask="(99)-9999-9999" />
-												<br />
-											</h:panelGrid>
-										</div>
-
-										<div class="ui-grid-col-4">
-											<p:outputLabel value="Foto" />
+										<h:panelGrid  style="width: 100%;" cellpadding="5" columns="2">
+											<p:outputLabel for="nome" value="Nome" />
 											<br />
-											<p:outputPanel id="fotoPaciente">
-												<p:graphicImage styleClass="imagens"
-													rendered="#{pacienteMB.paciente.nomeImagem eq null}"
-													value="/img/new-user.png" />
-												<p:graphicImage styleClass="imagens"
-													rendered="#{pacienteMB.paciente.nomeImagem ne null}"
-													value="/imagens/#{pacienteMB.paciente.nomeImagem}" />
-											</p:outputPanel>
+											<p:inputText styleClass="estiloNome" id="nome" required="true" 
+												requiredMessage="Nome do paciente deve ser informado."
+												value="#{pacienteMB.paciente.nome}" />
 											<br />
-											<p:commandButton immediate="true"
-												actionListener="#{pacienteMB.ativarWebCam}"
-												oncomplete="PF('dlgExibirFoto').show();"
-												value="Inserir Foto" icon="fa fa-camera" />
+											<p:outputLabel for="cpf" value="CPF" />
+											<br />
+											<p:inputMask id="cpf" mask="999.999.999-99" required="true"
+												requiredMessage="Cpf deve ser informado."
+												validatorMessage="Cpf inválido!"
+												value="#{pacienteMB.paciente.cpf}">
+												<f:validator validatorId="CPF" />
+											</p:inputMask>
 
-										</div>
+											<p:spacer />
+											<p:outputLabel value="Data Nascimento" />
+											<br />
+											<p:calendar placeholder="Exemplo: 24/12/1990"
+												mask="99/99/9999"
+												value="#{pacienteMB.paciente.dataNascimento}"
+												navigator="true" id="german" locale="pt_BR"
+												timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" />
+										</h:panelGrid>
 									</div>
-								</center>
+
+									<div class="ui-grid-col-4">
+										<h:panelGrid cellpadding="5" columns="2">
+											<p:outputLabel value="Sexo" />
+											<br />
+
+											<p:selectOneMenu id="sexo" style="width:150px"
+												value="#{pacienteMB.paciente.sexo}">
+												<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+												<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+											</p:selectOneMenu>
+											<br />
+
+											<p:outputLabel value="e-Mail" />
+											<br />
+
+											<p:inputText required="false" id="email"
+												validatorMessage="E-mail inválido"
+												value="#{pacienteMB.paciente.email}">
+												<f:validateRegex
+													pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+											</p:inputText>
+											<br />
+
+
+											<p:outputLabel value="Telefone Celular" />
+											<br />
+
+											<p:inputMask value="#{pacienteMB.paciente.celular}"
+												mask="(99)9-9999-9999" />
+											<br />
+
+											<p:outputLabel value="Telefone Fixo" />
+											<br />
+
+											<p:inputMask value="#{pacienteMB.paciente.telefone}"
+												mask="(99)-9999-9999" />
+											<br />
+										</h:panelGrid>
+									</div>
+
+									<div class="ui-grid-col-2">
+										<p:outputLabel value="Foto" />
+										<br />
+										<p:outputPanel id="fotoPaciente">
+											<p:graphicImage styleClass="imagens"
+												rendered="#{pacienteMB.paciente.nomeImagem eq null}"
+												value="/img/new-user.png" />
+											<p:graphicImage styleClass="imagens"
+												rendered="#{pacienteMB.paciente.nomeImagem ne null}"
+												value="/imagens/#{pacienteMB.paciente.nomeImagem}" />
+										</p:outputPanel>
+										<br />
+										<p:commandButton immediate="true"
+											actionListener="#{pacienteMB.ativarWebCam}"
+											oncomplete="PF('dlgExibirFoto').show();" value="Inserir Foto"
+											icon="fa fa-camera" />
+
+									</div>
+								</div>
 							</p:tab>
 							<p:tab title="Endereço">
-								<center>
 									<h:panelGrid cellpadding="5" columns="2">
 										<p:outputLabel value="Rua" />
 										<p:inputText value="#{pacienteMB.paciente.endereco.rua}" />
@@ -151,7 +148,6 @@
 												itemLabel="#{e.descricao}" itemValue="#{e}" />
 										</p:selectOneMenu>
 									</h:panelGrid>
-								</center>
 							</p:tab>
 						</p:tabView>
 					</p:panel>
@@ -168,10 +164,11 @@
 				<p:graphicImage value="/img/loading.gif" />
 			</center>
 		</p:dialog>
-		<p:dialog appendTo="body" styleClass="dialogInserirFoto" draggable="true"
-			closeOnEscape="true" dynamic="true" header="Insira foto do paciente"
-			responsive="true" resizable="false" position="center" modal="true"
-			closable="true" widgetVar="dlgExibirFoto">
+		<p:dialog appendTo="body" styleClass="dialogInserirFoto"
+			draggable="true" closeOnEscape="true" dynamic="true"
+			header="Insira foto do paciente" responsive="true" resizable="false"
+			position="center" modal="true" closable="true"
+			widgetVar="dlgExibirFoto">
 			<h:form id="frmSelecionarFoto">
 
 				<p:fileUpload label="Selecione a imagem" mode="advanced"
@@ -179,7 +176,7 @@
 					fileLimit="1" invalidSizeMessage="Apenas 1 foto por vez."
 					auto="true" allowTypes="/(\.|\/)(jpe?g|png)$/"
 					update="pnlFotoUpload imagemCropper :formGlobal:msgGlobal"
-					fileUploadListener="#{pacienteMB.subirImagem}" />
+					listener="#{pacienteMB.subirImagem}" />
 
 				<div class="containerPanelImgTemplate">
 					<p:panel styleClass="panelImgTemplate" id="pnlFotoUpload">
@@ -187,7 +184,7 @@
 							rendered="#{pacienteMB.paciente.imagemCropper eq null}"
 							value="/img/new-user.png" cache="false" />
 
-						<p:imageCropper  id="imagemCropper"
+						<p:imageCropper id="imagemCropper"
 							rendered="#{pacienteMB.exibirImagemCropper}"
 							value="#{pacienteMB.croppedImage}" minSize="100,100"
 							maxSize="200,200" boxHeight="230"

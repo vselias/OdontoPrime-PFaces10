@@ -5,7 +5,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<p:toolbar style="marin" id="idToolbar">
-
+		<p:toolbarGroup align="left">
+		<h:commandLink value="Gerar Relatório" action="#{relatorioMB.gerarRelatorio}"  target="_blank"/>
+		</p:toolbarGroup>
 		<p:toolbarGroup align="right">
 			<p:separator />
 			<p:button value="Pesquisar" icon="ui-icon-search"

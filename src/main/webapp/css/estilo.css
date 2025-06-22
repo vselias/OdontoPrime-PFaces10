@@ -1,24 +1,72 @@
 :root {
 	--corMenu: linear-gradient(to left, #1B4965, #3D6D89);
 	--corMenuHover: #3D6D89;
-	--tamanhoFonte: 12x;
+	--tamanhoFonte: 14px;
 	--fonteMobileSize: 10px;
 	--fonte: 'Arial', 'Consolas';
 	--btnMobileZIndex: 2 !important;
 	--dialogImagemZIndex: 3 !important;
 	--ajaxZIndex: 4 !important;
+	--DIV_MENU_TOP: 110px;
 }
 
 * {
-	box-sizing: border-box;
+	font-size: var(--tamanhoFonte) !important;
+}
+
+.dialogLogin .ui-dialog-content.ui-widget-content {
+  height: auto !important;
+  padding: 15px 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.conteudo-loading {
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+ul.ui-selectonemenu-items {
+	background: white;
+	border: gray;
+	z-index: 9999999999;
+	border-radius: 4px;
+	margin: 10px !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0
+		rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+	overflow-y: scroll;
+	height: 200px;
+}
+
+.labelConsultaDados {
+	margin: 10px !important;
+	display: block;
+}
+
+.ui-datepicker {
+	font-size: 70% !important;
+	transform: scale(0.6); /* Reduz o tamanho geral */
+	position: fixed !important;
+	z-index: 9999 !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%);
 }
 
 .divBtnMenu {
 	position: sticky;
-	top: 125px;
+	top: var(--DIV_MENU_TOP);
 	z-index: 2;
 	width: 100%;
-	height: 50px;
+	height: auto;
 }
 
 body .ui-menu.ui-menubar .ui-menu-list .ui-menuitem .ui-menuitem-link span
@@ -56,7 +104,7 @@ ul.ui-widget-content {
 }
 
 .ui-menu.ui-menubar {
-	top: 125px !important;
+	top: var(--DIV_MENU_TOP) !important;
 	padding: 0 !important;
 	margin-top: .5px;
 	position: absolute !important;
@@ -102,11 +150,10 @@ body .ui-dialog .ui-dialog-titlebar {
 	padding: 30px !important;
 }
 
-body .ui-dialog .ui-dialog-content {
-	display: flex !important;
-	justify-content: center !important;
-}
-
+/* body .ui-dialog .ui-dialog-content { */
+/* 	display: flex !important; */
+/* 	justify-content: center !important; */
+/* } */
 body .ui-dialog .ui-dialog-footer {
 	display: flex !important;
 	flex-direction: column;
@@ -208,6 +255,7 @@ body {
 
 .fonteUsuario {
 	color: white;
+	font-size: var(--tamanhoFonte) !important;
 }
 
 .destacarPagamento {
@@ -246,11 +294,11 @@ tr[aria-selected=true] {
 }
 
 .barra-logo {
-	height: 130px !important;
+	height: 110px !important;
 	background: var(--corMenu) !important;
 	width: 100%;
 	padding: 0px;
-	margin: auto;
+	margin-bottom: 50px;
 	clear: both;
 	position: sticky;
 	top: 0;
@@ -277,7 +325,7 @@ tr[aria-selected=true] {
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: column;
-	font-size: 13px !important;
+	font-size: var(--tamanhoFonte) !important;
 	margin: auto 5px;
 	height: 100% !important;
 }
@@ -374,9 +422,10 @@ ui-button-text.ui-c .ui-menu .ui-menuitem-text {
 	padding: 0 !important;
 }
 
-#content {
+#container {
 	clear: both !important;
-	height: 100% !important;
+	min-height: 800px;
+	height: auto;
 }
 
 .label {
@@ -567,12 +616,39 @@ button.ui-button.ui-state-default span, .ui-button.ui-state-default span
 	display: none;
 }
 
+.ui-menuitem-icon.ui-icon {
+	margin-right: 4px !important;
+}
+
 .themeSwitch {
 	margin: 20px;
 	position: absolute;
 	width: 160px;
 	padding: 0;
 	right: 20px;
+}
+
+.panelGConsulta {
+	margin-bottom: 50px;
+}
+
+.panelGConsulta>:first-child {
+	margin-bottom: 5px !important;
+	display: block !important;
+}
+
+input.estiloNome {
+	width: 100% !important;
+	max-width: 350px !important;
+	display: block !important;
+}
+
+.autoCompleteContainer {
+	width: 100% !important;
+}
+
+.ui-panel-titlebar {
+	text-align: center !important;
 }
 
 .colunaDivThemeSwitch {
