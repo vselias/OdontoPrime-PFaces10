@@ -30,6 +30,7 @@
 		<h3 class="tituloPagina">#{consultaMB.consulta.id ne null and
 			consultaMB.consulta.id gt 0? 'Editar Consulta': 'Nova Consulta' }</h3>
 
+		<p:messages id="msg" escape="true" closable="true" />
 
 
 		<h:form id="frmConsulta">
@@ -37,7 +38,6 @@
 
 			<ui:include src="/template/MenuConsulta.xhtml" />
 
-			<p:messages id="msg" escape="true" closable="true" />
 
 			<p:spacer height="10" />
 
@@ -55,7 +55,8 @@
 											style="width: 100%;" cellpadding="30">
 											<h:panelGroup layout="block" class="panelGConsulta">
 												<p:outputLabel for="paciente" value="Selecione o paciente:" />
-												<p:inputText required="true" id="paciente" value="#{consultaMB.consulta.paciente}" readonly="true" />
+												<p:inputText required="true" id="paciente"
+													value="#{consultaMB.consulta.paciente}" readonly="true" />
 												<p:commandButton immediate="true" icon="pi pi-search"
 													oncomplete="PF('tblPaciente').show()" />
 												<p:tooltip for="paciente"
@@ -141,7 +142,7 @@
 														value="#{consultaMB.consulta.entrada.valorDesconto}">
 														<p:ajax event="change"
 															listener="#{consultaMB.gerarQuantidadePagamentos}"
-															update="frmConsulta:msg , parcela" />
+															update=":msg , parcela" />
 														<f:convertNumber maxFractionDigits="2"
 															minFractionDigits="2" />
 														<f:validateDoubleRange minimum="0" />
@@ -158,7 +159,7 @@
 
 													<p:commandButton id="btCalcularDesconto"
 														disabled="#{consultaMB.desativarCampos or consultaMB.editarConsultaPaga}"
-														update="frmConsulta:msg , parcela, valorConsulta"
+														update=":msg , parcela, valorConsulta"
 														process="@this , desconto , valorConsulta"
 														actionListener="#{consultaMB.calcularDesconto}"
 														value="Calcular" />
@@ -238,9 +239,9 @@
 			</p:panel>
 
 		</h:form>
-			<!-- tabela de selecionar paciente -->
-		<ui:include src="/template/SelecionarPaciente.xhtml"/>
-		
+		<!-- tabela de selecionar paciente -->
+		<ui:include src="/template/SelecionarPaciente.xhtml" />
+
 	</ui:define>
 
 </ui:composition>

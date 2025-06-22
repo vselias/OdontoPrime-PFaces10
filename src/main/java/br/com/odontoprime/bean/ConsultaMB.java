@@ -243,6 +243,13 @@ public class ConsultaMB implements Serializable {
 	public void selecionarPacienteConsulta(Paciente paciente) {
 		this.paciente = paciente;
 	}
+	public void selecionarPaciente() {
+		
+		if(this.consulta.getPaciente() != null && this.consulta.getPaciente().getId() != null &&
+				this.consulta.getPaciente().getId() > 0) {
+			MensagemUtil.enviarMensagem("Paciente selecionado.", FacesMessage.SEVERITY_INFO);
+		}
+	}
 
 	public void efetuarConsulta() {
 

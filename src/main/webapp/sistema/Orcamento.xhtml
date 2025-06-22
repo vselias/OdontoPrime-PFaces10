@@ -18,8 +18,7 @@
 		<title>Cadastro de Orçamento</title>
 	</ui:define>
 	<ui:define name="content">
-
-
+		<p:messages globalOnly="false" id="msg" escape="true" closable="true" />
 
 		<h:form id="frmOrcamento" styleClass="frmDadosPaciente">
 
@@ -29,7 +28,6 @@
 
 			<ui:include src="/template/MenuOrcamento.xhtml" />
 
-			<p:messages id="msg" closable="true" />
 
 			<p:spacer height="10px" />
 
@@ -50,8 +48,8 @@
 											value="Digite um nome para selecionar o paciente."
 											position="top" />
 									</p:inputText>
-									<p:commandButton immediate="true" onclick="PF('tblPaciente').show()"
-										icon="pi pi-check" />
+									<p:commandButton immediate="true"
+										onclick="PF('tblPaciente').show()" icon="pi pi-check" />
 
 
 									<p:outputLabel value="Consulta" />
@@ -200,8 +198,9 @@
 						<p:outputLabel value="#{paciente.email}" />
 					</p:column>
 					<p:column headerText="Selecionar">
-						<p:commandButton immediate="true" update=":frmOrcamento" oncomplete="PF('tblPaciente').hide()"
-							icon="pi pi-check">
+						<p:commandButton action="#{orcamentoMB.selecionarPaciente}"
+							update=":formGlobal:msgGlobal :frmOrcamento"
+							oncomplete="PF('tblPaciente').hide()" icon="pi pi-check">
 							<f:setPropertyActionListener value="#{paciente}"
 								target="#{orcamentoMB.orcamento.paciente}" />
 						</p:commandButton>

@@ -127,4 +127,10 @@ public class OrcamentoMB implements Serializable {
 		init();
 		MensagemUtil.enviarMensagem("Campos limpos!", FacesMessage.SEVERITY_INFO);
 	}
+	public void selecionarPaciente() {
+		if(this.orcamento.getPaciente() != null && this.orcamento.getPaciente().getId() != null &&
+				this.orcamento.getPaciente().getId() > 0) {
+			MensagemUtil.enviarMensagem("Paciente selecionado.", FacesMessage.SEVERITY_INFO);
+		}
+	}
 }

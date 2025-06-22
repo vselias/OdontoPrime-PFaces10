@@ -15,12 +15,12 @@
 }
 
 .dialogLogin .ui-dialog-content.ui-widget-content {
-  height: auto !important;
-  padding: 15px 30px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+	height: auto !important;
+	padding: 15px 30px !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
 }
 
 .conteudo-loading {
@@ -42,8 +42,8 @@ ul.ui-selectonemenu-items {
 	align-items: center;
 	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0
 		rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
-	overflow-y: scroll;
-	height: 200px;
+	overflow-y: scroll !important;
+	max-height: 200px !important;
 }
 
 .labelConsultaDados {

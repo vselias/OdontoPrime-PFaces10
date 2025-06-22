@@ -36,8 +36,8 @@
 				<p:outputLabel value="#{paciente.email}" />
 			</p:column>
 			<p:column headerText="Selecionar">
-				<p:commandButton oncomplete="PF('tblPaciente').hide()"
-					update=":frmConsulta :frmConsulta:tabView:paciente"
+				<p:commandButton action="#{consultaMB.selecionarPaciente}" oncomplete="PF('tblPaciente').hide()"
+					update=":formGlobal:msgGlobal :frmConsulta :frmConsulta:tabView:paciente"
 					icon="pi pi-check">
 					<f:setPropertyActionListener value="#{paciente}"
 						target="#{consultaMB.consulta.paciente}" />
