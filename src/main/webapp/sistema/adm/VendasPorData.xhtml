@@ -33,14 +33,13 @@
 						columns="4" id="panelGrid">
 
 						<p:outputLabel value="Data inicial" />
-						<p:calendar  timeZone="America/Sao_Paulo" locale="pt_BR"
-							navigator="true" id="dataInicio"
-							yearRange="c-10:c+10"
+						<p:calendar timeZone="America/Sao_Paulo" locale="pt_BR"
+							navigator="true" id="dataInicio" yearRange="c-10:c+10"
 							value="#{registroVendaMB.dataInicio}" />
 						<p:outputLabel value="Data final" />
-						<p:calendar yearRange="c-10:c+10" timeZone="America/Sao_Paulo" locale="pt_BR"
-							navigator="true" showTodayButton="true" id="dataFinal"
-							value="#{registroVendaMB.dataFinal}" />
+						<p:calendar yearRange="c-10:c+10" timeZone="America/Sao_Paulo"
+							locale="pt_BR" navigator="true" showTodayButton="true"
+							id="dataFinal" value="#{registroVendaMB.dataFinal}" />
 					</p:panelGrid>
 					<p:spacer height="30" />
 					<p:commandButton update="@form"
@@ -131,9 +130,9 @@
 								timeZone="America/Sao_Paulo" />
 						</p:outputLabel>
 					</p:column>
-					<p:column sortBy="#{c.entrada.valorComDesconto}"
-						filterBy="#{c.entrada.valorComDesconto}" headerText="Valor">
-						<p:outputLabel value="#{c.entrada.valorComDesconto}">
+					<p:column sortBy="#{c.entrada.valor}" filterBy="#{c.entrada.valor}"
+						headerText="Valor">
+						<p:outputLabel value="#{c.entrada.valor}">
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
 					</p:column>

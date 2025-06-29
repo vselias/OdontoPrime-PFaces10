@@ -154,11 +154,12 @@
 									<p:outputLabel value="Valor com Desconto" />
 
 									<p:inputText readonly="true"
-										value="#{entradaMB.consulta.entrada.valorComDesconto}">
+										value="#{entradaMB.consulta.entrada.valorDesconto}">
 										<f:convertNumber pattern="R$#,##0.00" />
+									
 									</p:inputText>
 
-									<p:outputLabel value="Usuário" />
+									<p:outputLabel value="Usuário de Registro:" />
 									<p:inputText value="#{entradaMB.consulta.nomeUsuarioCadastrou}" />
 
 									<p:outputLabel value="Status do Registro" />

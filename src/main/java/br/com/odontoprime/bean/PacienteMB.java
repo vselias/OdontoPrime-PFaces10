@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,7 +14,6 @@ import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.event.CaptureEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.CroppedImage;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 

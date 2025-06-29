@@ -37,6 +37,9 @@ public class Usuario implements Serializable {
 	@Transient
 	private String nomeImagemCropper;
 
+	@Column(name = "corMenu")
+	private String corMenu;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataUltimoLogin;
 	@Transient
@@ -44,6 +47,14 @@ public class Usuario implements Serializable {
 
 	public Date getExibirDataUltimoLogin() {
 		return exibirDataUltimoLogin;
+	}
+
+	public String getCorMenu() {
+		return corMenu;
+	}
+
+	public void setCorMenu(String corMenu) {
+		this.corMenu = corMenu;
 	}
 
 	public void setExibirDataUltimoLogin(Date exibirDataUltimoLogin) {

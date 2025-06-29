@@ -9,10 +9,9 @@
 	<title>Login - OdontoPrime</title>
 	<link rel="shortcut icon" type="image/x-icon"
 		href="#{request.contextPath}/img/odontoprime.ico" />
-	<link href="#{request.contextPath}/css/estilo.css" rel="stylesheet"
-		type="text/css" />
 
-
+	<link rel="stylesheet" href="#{request.contextPath}/css/estilo.css?" />
+	<!-- estilo css apenas para essa pagina -->
 	<style>
 * {
 	margin: 0;
@@ -20,9 +19,23 @@
 	overflow: hidden;
 }
 </style>
+
+	<!-- Config de css e script para alterar cor do sistema -->
+	<ui:include src="/template/ScriptCorMenu.xhtml" />
+
+
 </h:head>
 <h:body>
-
+		<h:panelGroup id="corConfigWrapper" layout="block">
+			<div id="corConfig"
+				data-cor-body="#{sistemaConfigMB.sistemaConfig.corBody}"
+				data-cor-menu="#{sistemaConfigMB.sistemaConfig.corMenu}"
+				style="display: none;" />
+		</h:panelGroup>
+	
+	
+	
+	
 	<div style="text-align: left; color: black; font-size: 10px;">Versão:
 		7.D2.15</div>
 	<div class="containerLogin">
@@ -61,8 +74,8 @@
 			<p:ajaxStatus onstart="PF('statusDialog').show()"
 				onsuccess="PF('statusDialog').hide()" />
 
-			<p:dialog styleClass="dialogLogin" fitViewport="true" appendTo="@(body)"
-				 style="height:50px" widgetVar="statusDialog"
+			<p:dialog styleClass="dialogLogin" fitViewport="true"
+				appendTo="@(body)" style="height:50px" widgetVar="statusDialog"
 				modal="true" draggable="false" closable="false" resizable="false"
 				showHeader="false">
 				<div class="conteudo-loading">

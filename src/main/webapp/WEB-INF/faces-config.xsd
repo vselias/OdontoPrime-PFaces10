@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="https://java.sun.com/xml/ns/javaee">
+	<xs:element name="faces-config">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="validator">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="validator-id" type="xs:string" />
+							<xs:element name="validator-class" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="application">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="action-listener" type="xs:string" />
+							<xs:element name="navigation-handler" type="xs:string" />
+							<xs:element name="view-handler" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="navigation-rule">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="from-view-id" type="xs:string" />
+							<xs:element name="navigation-case">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="from-outcome" type="xs:string" />
+										<xs:element name="to-view-id" type="xs:string" />
+										<xs:element name="redirect" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:decimal" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -12,9 +12,31 @@
 
 
 <h:form>
+
 	<p:dialog widgetVar="tblPaciente">
-		<p:dataTable tableStyle="width:auto" resizableColumns="true"
-			var="paciente" value="#{consultaMB.todosPacientes}">
+
+		<div class="pesquisaPaciente">
+
+			<h:panelGroup styleClass="ui-inputgroup">
+				<p:inputText id="inputBusca" value="#{consultaMB.textoPaciente}"
+					placeholder="Pesquise o paciente">
+					<p:ajax update="tblPacientePesquisa" event="keyup"
+						listener="#{consultaMB.pacientePesquisa}" />
+				</p:inputText>
+
+				<p:commandButton icon="pi pi-times" title="Limpar" process="@this"
+					 action="#{consultaMB.limparBusca}"
+					  update="inputBusca tblPacientePesquisa"
+					styleClass="ui-button-secondary" resetValues="true" />
+			</h:panelGroup>
+
+		</div>
+
+
+		<p:dataTable emptyMessage="Nenhum registro encontrado."
+			id="tblPacientePesquisa" tableStyle="width:auto"
+			resizableColumns="true" var="paciente"
+			value="#{consultaMB.pacientes}">
 			<p:column headerText="Foto">
 				<p:graphicImage cache="false" styleClass="imagens"
 					rendered="#{paciente.nomeImagem eq null or paciente.nomeImagem eq ''}"
@@ -36,7 +58,8 @@
 				<p:outputLabel value="#{paciente.email}" />
 			</p:column>
 			<p:column headerText="Selecionar">
-				<p:commandButton action="#{consultaMB.selecionarPaciente}" oncomplete="PF('tblPaciente').hide()"
+				<p:commandButton action="#{consultaMB.selecionarPaciente}"
+					oncomplete="PF('tblPaciente').hide()"
 					update=":formGlobal:msgGlobal :frmConsulta :frmConsulta:tabView:paciente"
 					icon="pi pi-check">
 					<f:setPropertyActionListener value="#{paciente}"

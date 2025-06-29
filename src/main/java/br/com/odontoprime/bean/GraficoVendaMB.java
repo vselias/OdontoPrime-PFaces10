@@ -1,14 +1,10 @@
 package br.com.odontoprime.bean;
 
-import java.io.InputStream;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.annotation.PostConstruct;

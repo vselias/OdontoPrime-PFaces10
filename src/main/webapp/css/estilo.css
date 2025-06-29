@@ -7,7 +7,29 @@
 	--btnMobileZIndex: 2 !important;
 	--dialogImagemZIndex: 3 !important;
 	--ajaxZIndex: 4 !important;
-	--DIV_MENU_TOP: 110px;
+	--DIV_MENU_TOP: 109px;
+	--menuZIndex: 9999999999999 !important;
+	--corBackBody: white;
+	--corTitulo: black;
+}
+
+button.ui-button {
+	margin: 5px !important;
+}
+
+.pesquisaPaciente {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+.pesquisaPaciente input{
+	max-width: 250px !important;
+	width: 100% !important;
+	text-align: center;
+}
+
+ul.ui-menu-list, ul.ui-menu-list>li.ui-menuitem {
+	width: auto !important;
 }
 
 * {
@@ -44,6 +66,10 @@ ul.ui-selectonemenu-items {
 		rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
 	overflow-y: scroll !important;
 	max-height: 200px !important;
+}
+
+body .ui-button.ui-state-focus {
+	box-shadow: none !important;
 }
 
 .labelConsultaDados {
@@ -192,8 +218,9 @@ html, body {
 body {
 	font-size: var(--tamanhoFonte) !important;
 	font-family: var(--fonte) !important;
-	background-image: url("../img/macback.png") !important;
-	background-repeat: no-repeat !important;
+	/* 	background-image: url("../img/azulClaro.png?V=2") !important; */
+	background-repeat: repeat !important;
+	background-color: var(--corBackBody);
 }
 
 .ajax-status {
@@ -397,7 +424,7 @@ ui-button-text.ui-c .ui-menu .ui-menuitem-text {
 
 .tituloPagina {
 	margin: 10px !important;
-	color: black !important;
+	color: var(--corTitulo);
 	text-align: left !important;
 	font-size: 20px !important;
 	font-weight: bold !important;
@@ -446,7 +473,7 @@ button.ui-button.ui-state-default span, .ui-button.ui-state-default span
 }
 
 .footer {
-	height: 250px;
+	height: 120px;
 	background: var(--corMenu) !important;
 	margin: 5px auto;
 	display: flex !important;
@@ -469,9 +496,15 @@ button.ui-button.ui-state-default span, .ui-button.ui-state-default span
 	margin-top: 30px;
 }
 
-.panelCadastroPaciente {
-	margin: 2em;
-	width: 85%;
+.ui-datatable-table {
+	width: auto !important;
+	overflow: visible !important;
+}
+
+.ui-datatable-tablewrapper table {
+	width: auto !important;
+	table-layout: auto !important;
+	margin: 0 auto;
 }
 
 .panelCadastroConsulta {
@@ -709,6 +742,10 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 	{
 	flex-shrink: 0; /* Evita que os spans encolham */
 }
+
+.ui-spinner-button {
+	z-index: auto !important;
+}
 /* 	definir o tamanho do link dentro do menu */
 @media ( max-width : 800px) {
 	/* 	definir o tamanho do link dentro do menu */
@@ -776,19 +813,19 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 	span.ui-icon-triangle-1-s {
 		background-color: white !important;
 	}
-	.ui-menu-list {
+	ul.ui-menu-list {
 		position: absolute;
 		display: none;
 		flex-wrap: wrap;
 		background: var(--corMenu);
 		align-items: center;
-		z-index: var(--btnMobileZIndex);
 		width: 100% !important;
 		max-width: 1200px;
 		justify-content: center;
 		align-items: center;
 		background: var(--corMenu);
 		justify-content: center;
+		z-index: var(--menuZIndex);
 	}
 	.showMenu {
 		position: absolute;
@@ -797,6 +834,7 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 		flex-direction: column;
 		width: 100% !important;
 		max-width: 1200px;
+		z-index: var(--menuZIndex);
 	}
 	.ui-menubar.ui-sticky {
 		margin-top: .4em;

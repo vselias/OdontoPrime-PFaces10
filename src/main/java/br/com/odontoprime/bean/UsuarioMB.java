@@ -35,6 +35,7 @@ public class UsuarioMB implements Serializable {
 	private boolean exibirImagemPerfil = Boolean.FALSE;
 	private String senhaVerificacao;
 	private boolean exibirWebCam;
+	private String corMenu = "#3D6D89";
 
 	@PostConstruct
 	public void initi() {
@@ -53,6 +54,19 @@ public class UsuarioMB implements Serializable {
 
 	public String getSenhaVerificacao() {
 		return senhaVerificacao;
+	}
+
+	public String getCorMenu() {
+		return corMenu;
+	}
+
+	public void setCorMenu(String corMenu) {
+		this.corMenu = "#" + corMenu;
+	}
+
+	public void salvarCorMenu() {
+		this.usuarioService.salvarCorMenu(this.usuario);
+		System.out.println("salvando cor menu...");
 	}
 
 	public void setSenhaVerificacao(String senhaVerificacao) {
@@ -108,24 +122,6 @@ public class UsuarioMB implements Serializable {
 
 	public String registrarSaida() {
 		return usuarioService.registrarSaida(usuario);
-	}
-
-//	public StreamedContent getStreamedContent() {
-//		FacesContext context = FacesContext.getCurrentInstance();
-//
-//		if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-//			// So, we're rendering the view. Return a stub StreamedContent so
-//			// that it will generate right URL.
-//			return new DefaultStreamedContent();
-//		} else {
-//			// So, browser is requesting the image. Get ID value from actual
-//			// request param.
-//			return new DefaultStreamedContent(new ByteArrayInputStream(usuario.getByteFoto()));
-//		}
-//	}
-
-	public void limpar() {
-
 	}
 
 	public void salvarImagem(FileUploadEvent event) {

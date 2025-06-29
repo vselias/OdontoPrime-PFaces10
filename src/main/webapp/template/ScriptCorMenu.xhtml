@@ -1,0 +1,83 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<!-- Injeta a cor no CSS como variável -->
+	<h:outputStylesheet>
+        :root {
+            --corMenu: #{sistemaConfigMB.sistemaConfig.corMenu};
+        }
+    </h:outputStylesheet>
+
+
+	<!-- Script para aplicar cor no carregamento e função de atualização -->
+	<h:outputScript target="body">
+    
+		    function corEhClara(hex) {
+			  // Remove o "#" se estiver presente
+			  hex = hex.replace("#", "");
+			
+			  // Converte para RGB
+			  let r = parseInt(hex.substring(0, 2), 16);
+			  let g = parseInt(hex.substring(2, 4), 16);
+			  let b = parseInt(hex.substring(4, 6), 16);
+			
+			  // Calcula o brilho perceptivo (fórmula popular)
+			  let brilho = (r * 299 + g * 587 + b * 114) / 1000;
+			
+			  // Define um ponto de corte: acima de 128 é claro
+			  return brilho > 128;
+		}
+       
+        function atualizaCor(cor) {
+            if (!cor.startsWith("#")) {
+                cor = "#" + cor;
+            }
+            document.documentElement.style.setProperty('--corMenu', cor);
+        }
+          
+          function atualizaCorBody(cor) {
+            if (!cor.startsWith("#")) {
+                cor = "#" + cor;
+            }
+            if(corEhClara(cor)){
+           	 	document.documentElement.style.setProperty('--corTitulo', "black");
+            }else{
+        			document.documentElement.style.setProperty('--corTitulo', "white");
+            }
+            document.querySelector('[atributo-titulo="tituloCor"]').value = corEhClara(cor) ? "black" : "white";
+            document.documentElement.style.setProperty('--corBackBody', cor);
+        }
+        
+		function reaplicaCorMenu() {
+		  const cor = document.getElementById("corConfig")?.getAttribute("data-cor-menu");
+		  const corBody = document.getElementById("corConfig")?.getAttribute("data-cor-body");
+		   const corTitulo = document.getElementById("corConfig")?.getAttribute("data-cor-titulo");
+		  if (cor) {
+		    document.documentElement.style.setProperty('--corMenu', cor);
+		  }
+		  if (corBody) {
+		    document.documentElement.style.setProperty('--corBackBody', corBody);
+		  }
+		   if (corTitulo) {
+		    document.documentElement.style.setProperty('--corTitulo', corTitulo);
+		  }
+		}
+
+        window.addEventListener("DOMContentLoaded", function () {
+            const cor = document.getElementById("corConfig")?.getAttribute("data-cor-menu");
+            const corBody = document.getElementById("corConfig")?.getAttribute("data-cor-body");
+            const corTitulo = document.getElementById("corConfig")?.getAttribute("data-cor-titulo");
+            if (cor) {
+                document.documentElement.style.setProperty('--corMenu', cor);
+            }
+             if (corBody) {
+                document.documentElement.style.setProperty('--corBackBody', corBody);
+            }
+             if (corTitulo) {
+                document.documentElement.style.setProperty('--corTitulo', corTitulo);
+            }
+        });
+    </h:outputScript>
+
+</ui:component>

@@ -28,8 +28,8 @@
 					rows="5" paginatorPosition="bottom" emptyMessage="Nenhum registro.">
 
 					<f:facet name="header">
-						<p:inputText placeholder="Pesquise por algo..." id="globalFilter"
-							onkeyup="PF('tabela').filter()" />
+						<p:inputText id="globalFilter" onkeyup="PrimeFaces.debounce(() => PF('tabela').filter())" style="width:10rem"
+                                 placeholder="Enter keyword" />
 					</f:facet>
 
 					<p:column style="text-align:center;" headerText="Foto"
@@ -71,27 +71,27 @@
 					<p:column style="text-align:center;" exportable="false"
 						headerText="Ações">
 
-						<p:commandButton update=":frmInfoCadastro"
+						<p:commandButton title="Informações" update=":frmInfoCadastro"
 							oncomplete="PF('dlgInfoCadastro').show();" icon="fa fa-info">
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>
 
-						<p:spacer width="10px;" />
+						<p:spacer width="5" />
 
-						<p:button outcome="Orcamento" icon="fa fa-edit">
+						<p:button title="Editar" outcome="Orcamento" icon="fa fa-edit">
 							<f:param name="codigo" value="#{orcamento.id}" />
 						</p:button>
-						<p:spacer width="10px;" />
-						<p:commandButton rendered="#{usuarioMB.usuario.adm}"
+						<p:spacer width="5" />
+						<p:commandButton title="Excluir" rendered="#{usuarioMB.usuario.adm}"
 							update=":frmExclusao" oncomplete="PF('exclusao').show();"
 							icon="fa fa-trash">
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>
 					</p:column>
-					<f:facet name="header">
-						<p:commandLink rendered="#{not empty orcamentoMB.orcamentos}"
+					<f:facet   name="header">
+						<p:commandLink  rendered="#{not empty orcamentoMB.orcamentos}"
 							style="margin-left:250px;" id="pdf" ajax="false">
 							<p:graphicImage value="/img/pdf.png" />
 							<pe:exporter type="pdf" target="tabela" encoding="iso-8859-1"

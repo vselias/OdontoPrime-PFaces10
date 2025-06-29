@@ -196,4 +196,12 @@ public class Consulta implements Serializable {
 		this.entrada = entrada;
 	}
 
+	@Override
+	public String toString() {
+	    return paciente.getNome() + " "
+	         + tipoConsulta.getDescricao() + " "
+	         + dataConsulta + " "
+	         + estadoConsulta.getDescricao();
+	}
+	
 }

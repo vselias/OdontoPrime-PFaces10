@@ -19,7 +19,8 @@
 		<class>br.com.odontoprime.entidade.Orcamento</class>
 		<class>br.com.odontoprime.entidade.Lembrete</class>
 		<class>br.com.odontoprime.entidade.MovimentacaoCaixa</class>
-
+		<class>br.com.odontoprime.entidade.SistemaConfig</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<!-- Conexão MySQL com Driver 8 -->
 			<property name="javax.persistence.jdbc.url"

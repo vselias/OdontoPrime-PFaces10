@@ -67,12 +67,12 @@
 							<p:outputLabel value="#{c.estadoConsulta.descricao}" />
 						</p:column>
 
-						<p:column filterBy="#{c.entrada.valorComDesconto}"
-							sortBy="#{c.entrada.valorComDesconto}" headerText="Valor">
-							<p:outputLabel value="#{c.entrada.valorComDesconto}">
+						<p:column filterBy="#{c.entrada.valorDesconto}"
+							sortBy="#{c.entrada.valorDesconto}" headerText="Valor">
+							<p:outputLabel value="#{c.entrada.valorDesconto}">
 								<f:convertNumber pattern="R$ #,##0.00" />
 							</p:outputLabel>
-							<p:outputLabel rendered="#{c.entrada.valorComDesconto eq null}"
+							<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
 								value="R$ 0,00" />
 						</p:column>
 
@@ -114,7 +114,7 @@
 						</p:outputLabel>
 						<p:outputLabel value="Valor" />
 						<p:outputLabel
-							value="#{consultaMB.consulta.entrada.valorComDesconto}">
+							value="#{consultaMB.consulta.entrada.valorDesconto}">
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
 						<p:outputLabel value="Estado" />

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -59,6 +60,8 @@ public class ConsultaMB implements Serializable {
 	private boolean editarConsultaPaga;
 	private List<FormaPagamento> opcoesPagamento;
 	private FormaPagamento formaPagamento;
+	private String textoPaciente;
+	private List<Paciente> pacientesFiltrados;
 
 	@PostConstruct
 	public void init() {
@@ -76,6 +79,23 @@ public class ConsultaMB implements Serializable {
 		estadosConsulta = Arrays.asList(EstadoConsulta.values());
 		quantidadePagamentos = consultaService.gerarQuantidadePagamento(recuperarValorComDesconto());
 		estadosPagamentos = Arrays.asList(EstadoPagamento.values());
+		pacientesFiltrados = new ArrayList<Paciente>();
+	}
+
+	public String getTextoPaciente() {
+		return textoPaciente;
+	}
+
+	public List<Paciente> getPacientesFiltrados() {
+		return pacientesFiltrados;
+	}
+
+	public void setPacientesFiltrados(List<Paciente> pacientesFiltrados) {
+		this.pacientesFiltrados = pacientesFiltrados;
+	}
+
+	public void setTextoPaciente(String textoPaciente) {
+		this.textoPaciente = textoPaciente;
 	}
 
 	public FormaPagamento getFormaPagamento() {
@@ -243,10 +263,11 @@ public class ConsultaMB implements Serializable {
 	public void selecionarPacienteConsulta(Paciente paciente) {
 		this.paciente = paciente;
 	}
+
 	public void selecionarPaciente() {
-		
-		if(this.consulta.getPaciente() != null && this.consulta.getPaciente().getId() != null &&
-				this.consulta.getPaciente().getId() > 0) {
+
+		if (this.consulta.getPaciente() != null && this.consulta.getPaciente().getId() != null
+				&& this.consulta.getPaciente().getId() > 0) {
 			MensagemUtil.enviarMensagem("Paciente selecionado.", FacesMessage.SEVERITY_INFO);
 		}
 	}
@@ -359,4 +380,19 @@ public class ConsultaMB implements Serializable {
 		return consulta != null && consulta.getEntrada() != null;
 	}
 
+	public void pacientePesquisa(AjaxBehaviorEvent event) {
+		if (textoPaciente == null || textoPaciente.trim().isEmpty()) {
+			pacientesFiltrados = new ArrayList<>();
+			return;
+		}
+		pacientes = pacienteService.buscarTodos().stream()
+				.filter(p -> p.getNome().toLowerCase().startsWith(textoPaciente.toLowerCase()))
+				.collect(Collectors.toList());
+
+	}
+
+	public void limparBusca() {
+		textoPaciente = "";
+		pacientes = pacienteService.buscarTodos();
+	}
 }

@@ -11,12 +11,18 @@
 	<center>
 		<p:dataTable widgetVar="tblConsulta" styleClass="tabela"
 			tableStyle="width:auto" resizableColumns="true" paginator="true"
-			reflow="true" rowsPerPageTemplate="5,10,15" rowKey="#{c.id}"
-			selectionMode="single" selection="#{consultaMB.consulta}"
+			rowsPerPageTemplate="5,10,15"
+			filteredValue="#{movimentacaoCaixaMB.consultasFiltroGlobal}"
+			globalFilterFunction="#{movimentacaoCaixaMB.filtrarGlobal}"
 			value="#{movimentacaoCaixaMB.consultasFechamento}" id="tblConsulta"
 			var="c" rows="5" paginatorPosition="top"
 			emptyMessage="Nenhum registro.">
 
+			<f:facet name="header">
+				<p:inputText id="globalFilter"
+					onkeyup="PrimeFaces.debounce(() => PF('tblConsulta').filter())"
+					placeholder="Filtrar tudo..." style="width:200px" />
+			</f:facet>
 
 			<p:column style="text-align:center;" headerText="Foto">
 				<p:graphicImage cache="false" styleClass="imagens"
@@ -40,8 +46,8 @@
 
 			</p:column>
 
-			<p:column filterMatchMode="startsWith" filterBy="#{c.dataConsulta}"
-				sortBy="#{c.dataConsulta}" headerText="Data">
+			<p:column filterBy="#{c.dataConsulta}" sortBy="#{c.dataConsulta}"
+				headerText="Data">
 				<p:outputLabel value="#{c.dataConsulta}">
 					<f:convertDateTime timeZone="America/Sao_Paulo"
 						pattern="dd/MM/yyyy HH:mm" locale="pt_BR" />
@@ -53,30 +59,30 @@
 
 				<p:outputLabel value="#{c.estadoConsulta.descricao}" />
 			</p:column>
-			<p:column filterBy="#{c.entrada.valor}" sortBy="#{c.entrada.valor}"
-				headerText="Valor">
-				<p:outputLabel value="#{c.entrada.valor}">
-					<f:convertNumber pattern="R$ #,##0.00" />
-				</p:outputLabel>
-				<p:outputLabel rendered="#{c.entrada.valor eq null}" value="R$ 0,00" />
-			</p:column>
-			<p:column filterBy="#{c.entrada.desconto}"
-				sortBy="#{c.entrada.desconto}" headerText="Desconto">
-				<p:outputLabel rendered="#{c.entrada.desconto ne null}"
-					value="#{c.entrada.desconto}%" />
-				<p:outputLabel rendered="#{c.entrada.desconto eq null}" value="0" />
+			<p:column headerText="Dados do Pagamento">
+				<p:panelGrid columns="1">
+					<p:outputLabel value="#{c.entrada.valor}">
+						<f:convertNumber pattern="Total: R$ #,##0.00" />
+					</p:outputLabel>
+					<p:outputLabel rendered="#{c.entrada.valor eq null}"
+						value="R$ 0,00" />
+
+					<p:outputLabel rendered="#{c.entrada.desconto ne null}"
+						value="Desconto: #{c.entrada.desconto}%" />
+					<p:outputLabel rendered="#{c.entrada.desconto eq null}" value="0" />
+
+
+					<p:outputLabel rendered="#{c.entrada.valorDesconto ne null}"
+						value="Valor com Desconto: #{c.entrada.valorDesconto}">
+						<f:convertNumber pattern="R$ #,##0.00" />
+					</p:outputLabel>
+
+					<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
+						value="Valor com Desconto: R$ 0,00" />
+				</p:panelGrid>
 			</p:column>
 
-			<p:column filterBy="#{c.entrada.valorComDesconto}"
-				sortBy="#{c.entrada.valorComDesconto}" headerText="Total">
 
-				<p:outputLabel value="#{c.entrada.valorComDesconto}">
-					<f:convertNumber pattern="R$ #,##0.00" />
-				</p:outputLabel>
-
-				<p:outputLabel rendered="#{c.entrada.valorComDesconto eq null}"
-					value="R$ 0,00" />
-			</p:column>
 
 			<p:column>
 				<p:commandButton icon="fa fa-check"

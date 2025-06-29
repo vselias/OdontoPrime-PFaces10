@@ -40,7 +40,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	public Double valorTotalVendaPorData(Date inicio, Date dataFinal) {
 
 		try {
-			Query query = entityManager.createQuery("select sum(e.valorComDesconto) from Consulta c join c.entrada e"
+			Query query = entityManager.createQuery("select sum(e.valorDesconto) from Consulta c join c.entrada e"
 					+ " where date(e.dataLancamento) between :inicio and :dataFinal");
 
 			query.setParameter("inicio", inicio, TemporalType.DATE);
@@ -56,7 +56,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	public Object[] buscarValorTotalEData(Date data) {
 		try {
 			Query query = entityManager.createQuery(
-					"select sum(c.entrada.valorComDesconto), dataConsulta from Consulta c join c.entrada e "
+					"select sum(c.entrada.valorDesconto), dataConsulta from Consulta c join c.entrada e "
 							+ "where date(e.dataLancamento) = :data");
 
 			query.setParameter("data", data);
@@ -99,7 +99,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@SuppressWarnings("unchecked")
 	public List<Consulta> buscarConsultasPorPaciente() {
 		Query query = entityManager.createQuery("select distinct  new " + "br.com.odontoprime.entidade.Consulta"
-				+ "(p.nomeImagem, p.id,sum(c.entrada.valorComDesconto), c.tipoConsulta, p.nome , c.dataConsulta ) "
+				+ "(p.nomeImagem, p.id,sum(c.entrada.valorDesconto), c.tipoConsulta, p.nome , c.dataConsulta ) "
 				+ "from Consulta c inner join c.paciente p group by p.id, p.nome ,c.tipoConsulta, p.nomeImagem, c.dataConsulta");
 		return query.getResultList();
 	}
@@ -108,7 +108,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@SuppressWarnings("unchecked")
 	public List<Object[]> vendasPorAno(int data) {
 		Query query = entityManager
-				.createQuery("select distinct year(e.dataLancamento) , sum(c.entrada.valorComDesconto) "
+				.createQuery("select distinct year(e.dataLancamento) , sum(c.entrada.valorDesconto) "
 						+ " from Consulta c join c.entrada e where year(e.dataLancamento) in (:data)"
 						+ " group by year(dataConsulta) ");
 		query.setParameter("data", data);
@@ -119,7 +119,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Object[]> vendasPorAnoGrafico(int data) {
-		Query query = entityManager.createQuery("select distinct year(dataLancamento), sum(c.entrada.valorComDesconto) "
+		Query query = entityManager.createQuery("select distinct year(dataLancamento), sum(c.entrada.valorDesconto) "
 				+ " from Consulta  c join c.entrada e where year(dataLancamento) in (:data)"
 				+ " group by year(dataConsulta) ");
 		query.setParameter("data", data);
@@ -132,7 +132,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@Transactional
 	public Double totalVendasPorAno(int data) {
 		Query query = entityManager.createQuery(
-				"select sum(c.entrada.valorComDesconto) from Consulta c join c.entrada e where year(e.dataLancamento) in :data");
+				"select sum(c.entrada.valorDesconto) from Consulta c join c.entrada e where year(e.dataLancamento) in :data");
 		query.setParameter("data", data);
 
 		return (Double) query.getSingleResult();
@@ -171,7 +171,7 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@Transactional
 	public List<Object[]> vendasPorMeses(int mesAtual, int ano) {
 		Query query = entityManager.createQuery(
-				"select month(c.dataConsulta) , sum(e.valorComDesconto) from Consulta c inner join c.entrada e where year(e.dataLancamento) = :ano and month(e.dataLancamento) = :mes"
+				"select month(c.dataConsulta) , sum(e.valorDesconto) from Consulta c inner join c.entrada e where year(e.dataLancamento) = :ano and month(e.dataLancamento) = :mes"
 						+ " group by month(c.dataConsulta)");
 		query.setParameter("mes", mesAtual);
 		query.setParameter("ano", ano);

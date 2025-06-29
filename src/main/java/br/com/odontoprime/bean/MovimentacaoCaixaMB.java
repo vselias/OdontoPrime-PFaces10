@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -17,7 +18,6 @@ import org.omnifaces.cdi.ViewScoped;
 
 import br.com.odontoprime.entidade.Consulta;
 import br.com.odontoprime.entidade.Entrada;
-import br.com.odontoprime.entidade.FormaPagamento;
 import br.com.odontoprime.entidade.MovimentacaoCaixa;
 import br.com.odontoprime.entidade.Parcela;
 import br.com.odontoprime.entidade.Saida;
@@ -52,6 +52,25 @@ public class MovimentacaoCaixaMB implements Serializable {
 	private Saida selecaoSaidaFechamento;
 	private Entrada entradaVO;
 	private String dataAtual;
+	private List<Consulta> consultasFiltroGlobal = new ArrayList<Consulta>();
+	private String filtroGlobal;
+
+	public String getFiltroGlobal() {
+		return filtroGlobal;
+	}
+
+	public void setFiltroGlobal(String filtroGlobal) {
+		this.filtroGlobal = filtroGlobal;
+	}
+
+	public List<Consulta> getConsultasFiltroGlobal() {
+		return consultasFiltroGlobal;
+	}
+
+	public void setConsultasFiltroGlobal(List<Consulta> consultasFiltroGlobal) {
+		this.consultasFiltroGlobal = consultasFiltroGlobal;
+	}
+
 	private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 	public Entrada getEntradaVO() {
@@ -229,4 +248,18 @@ public class MovimentacaoCaixaMB implements Serializable {
 		return Boolean.FALSE;
 
 	}
+
+	public boolean filtrarGlobal(Object value, Object filter, Locale locale) {
+	    if (filter == null || filter.toString().isBlank())
+	        return true;
+
+	    String termo = filter.toString().toLowerCase();
+	    Consulta c = (Consulta) value;
+	    System.out.println("Filtro: " + termo + " | Paciente: " + c.getPaciente().getNome());
+	    return (c.getPaciente() != null && c.getPaciente().getNome().toLowerCase().contains(termo))
+	        || (c.getTipoConsulta() != null && c.getTipoConsulta().getDescricao().toLowerCase().contains(termo))
+	        || (c.getEstadoConsulta() != null && c.getEstadoConsulta().getDescricao().toLowerCase().contains(termo))
+	        || (c.getDataConsulta() != null && c.getDataConsulta().toString().toLowerCase().contains(termo));
+	}
+
 }

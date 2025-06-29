@@ -96,15 +96,15 @@
 						<p:outputLabel rendered="#{c.entrada.desconto eq null}" value="0" />
 					</p:column>
 
-					<p:column sortBy="#{c.entrada.valorComDesconto}"
-						filterBy="#{c.entrada.valorComDesconto}" headerText="Total">
+					<p:column sortBy="#{c.entrada.valorDesconto}"
+						filterBy="#{c.entrada.valorDesconto}" headerText="Total">
 						<f:facet name="header">
 							<h:outputText value="Total" />
 						</f:facet>
-						<p:outputLabel value="#{c.entrada.valorComDesconto}">
+						<p:outputLabel value="#{c.entrada.valorDesconto}">
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
-						<p:outputLabel rendered="#{c.entrada.valorComDesconto eq null}"
+						<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
 							value="R$ 0,00" />
 					</p:column>
 					<f:facet name="header">

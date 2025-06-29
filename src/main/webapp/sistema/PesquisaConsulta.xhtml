@@ -27,7 +27,7 @@
 
 				<p:dataTable widgetVar="tblConsulta" tableStyle="width:auto"
 					resizableColumns="true" styleClass="tabela" paginator="true"
-					rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{c.id}"
+					rowsPerPageTemplate="5,10,15" rowKey="#{c.id}"
 					selectionMode="single" selection="#{consultaMB.consulta}"
 					value="#{consultaMB.consultas}" id="tblConsulta" var="c" rows="5"
 					paginatorPosition="top" emptyMessage="Nenhum registro.">
@@ -83,14 +83,14 @@
 
 
 
-					<p:column filterBy="#{c.entrada.valorComDesconto}"
-						sortBy="#{c.entrada.valorComDesconto}" headerText="Total">
+					<p:column filterBy="#{c.entrada.valorDesconto}"
+						sortBy="#{c.entrada.valorDesconto}" headerText="Total">
 
-						<p:outputLabel value="#{c.entrada.valorComDesconto}">
+						<p:outputLabel value="#{c.entrada.valorDesconto}">
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
 
-						<p:outputLabel rendered="#{c.entrada.valorComDesconto eq null}"
+						<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
 							value="R$ 0,00" />
 					</p:column>
 

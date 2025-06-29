@@ -86,7 +86,7 @@
 						<p:button icon="fa fa-edit" outcome="Saida">
 							<f:param name="codigo" value="#{s.id}" />
 						</p:button>
-						<p:spacer width="10px;" />
+						<p:spacer width="5" />
 
 						<p:commandButton rendered="#{usuarioMB.usuario.adm}"
 							update="frmExclusao" oncomplete="PF('exclusao').show()"
@@ -94,7 +94,7 @@
 							<f:setPropertyActionListener value="#{s}"
 								target="#{saidaMB.saida}" />
 						</p:commandButton>
-						<p:spacer width="10px;" />
+						<p:spacer width="5" />
 
 						<p:commandButton icon="fa fa-info" update=":frmInfoCadastro"
 							oncomplete="PF('dlgInfoCadastro').show();">

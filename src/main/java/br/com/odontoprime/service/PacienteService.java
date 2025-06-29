@@ -289,6 +289,7 @@ public class PacienteService implements Serializable, ImagemServiceInt<Paciente>
 	// Pega os bytes da imagem recortada e salva em outra pasta
 	public boolean salvarImagemRecortada(CroppedImage croppedImage, Paciente paciente) {
 		boolean imagemSalva = false;
+		nomeImagem = "";
 		try {
 			if (croppedImage == null || croppedImage.getBytes() == null) {
 				return false;

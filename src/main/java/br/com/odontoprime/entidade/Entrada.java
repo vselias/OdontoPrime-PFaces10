@@ -113,6 +113,9 @@ public class Entrada implements Serializable {
 	}
 
 	public Double getValorDesconto() {
+		if(valorDesconto == null) {
+			valorDesconto = Double.valueOf(0);
+		}
 		return valorDesconto;
 	}
 

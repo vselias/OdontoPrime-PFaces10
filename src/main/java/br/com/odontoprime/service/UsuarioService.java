@@ -67,11 +67,19 @@ public class UsuarioService implements Serializable {
 		return "/Login.xhtml?faces-redirect=true";
 	}
 
+	public void salvarCorMenu(Usuario usuario) {
+		if (usuario != null && usuario.getId() != null && usuario.getId() > 0 && !usuario.getCorMenu().isEmpty()) {
+			usuario.setCorMenu("#"+usuario.getCorMenu());
+			usuarioDAO.salvar(usuario);
+		}
+
+	}
+
 	public void salvar(Usuario usuario) {
 		try {
 			// verifica se o usuário possui id para atualiza
 			boolean editavel = isUsuarioEditavel(usuario);
-			
+
 			validarSenha(usuario);
 			usuarioDAO.salvar(usuario);
 
@@ -90,8 +98,7 @@ public class UsuarioService implements Serializable {
 					MensagemUtil.enviarMensagem("Login já cadastrado. Informe outro.", FacesMessage.SEVERITY_ERROR);
 				}
 			}
-			MensagemUtil.enviarMensagem(ex.getMessage(),
-					FacesMessage.SEVERITY_ERROR);
+			MensagemUtil.enviarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
 			ex.printStackTrace();
 		}
 	}
@@ -132,7 +139,7 @@ public class UsuarioService implements Serializable {
 
 	public void validarSenha(Usuario usuario) throws Exception {
 		if (!usuario.getSenha().equalsIgnoreCase(usuario.getConfirmaSenha())) {
-			 throw new Exception("Senha incorreta! Informe a senha corretamente.");
+			throw new Exception("Senha incorreta! Informe a senha corretamente.");
 		}
 	}
 

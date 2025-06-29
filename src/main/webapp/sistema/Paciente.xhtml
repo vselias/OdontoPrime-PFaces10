@@ -210,7 +210,7 @@
 					<p:commandButton value="Recortar"
 						onclick="PF('statusDialog').show()"
 						oncomplete="PF('statusDialog').hide()"
-						update="@form :formGlobal:msgGlobal  pnlFotoRecortada fotoRecortada"
+						update=":formGlobal:msgGlobal  pnlFotoRecortada fotoRecortada"
 						icon="fa fa-scissors" action="#{pacienteMB.recortarImagem}" />
 
 					<p:commandButton action="#{pacienteMB.ativarWebCam}"

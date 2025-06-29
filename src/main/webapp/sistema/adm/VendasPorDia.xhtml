@@ -51,9 +51,9 @@
 								timeZone="America/Sao_Paulo" />
 						</h:outputText>
 					</p:column>
-					<p:column filterBy="#{c.entrada.valorComDesconto}"
-						sortBy="#{c.entrada.valorComDesconto}" headerText="Valor">
-						<h:outputText value="#{c.entrada.valorComDesconto}">
+					<p:column filterBy="#{c.entrada.valorDesconto}"
+						sortBy="#{c.entrada.valorDesconto}" headerText="Valor">
+						<h:outputText value="#{c.entrada.valorDesconto}">
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</h:outputText>
 					</p:column>

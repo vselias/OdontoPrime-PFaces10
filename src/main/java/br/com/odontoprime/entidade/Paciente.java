@@ -65,6 +65,9 @@ public class Paciente implements Serializable {
 	}
 
 	public String getCelular() {
+		if (this.email != null && this.celular.isEmpty()) {
+			this.celular = "Não Informado.";
+		}
 		return celular;
 	}
 
@@ -73,6 +76,9 @@ public class Paciente implements Serializable {
 	}
 
 	public String getTelefone() {
+		if (this.telefone != null && this.telefone.isEmpty()) {
+			this.telefone = "Não Informado.";
+		}
 		return telefone;
 	}
 
@@ -147,8 +153,6 @@ public class Paciente implements Serializable {
 	public Paciente() {
 		consultas = new ArrayList<Consulta>();
 		endereco = new Endereco();
-		this.telefone = "N/A";
-		this.celular = "N/A";
 	}
 
 	public Long getId() {
@@ -184,6 +188,9 @@ public class Paciente implements Serializable {
 	}
 
 	public String getEmail() {
+		if (this.email != null && this.email.isBlank()) {
+			this.email = "Não informado.";
+		}
 		return email;
 	}
 
