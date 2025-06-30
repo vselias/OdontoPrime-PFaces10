@@ -199,7 +199,7 @@
 					closable="true" />
 
 				<center>
-					<p:dataTable paginator="true" rowsPerPageTemplate="5,10,15"
+					<p:dataTable size="small" tableStyle="width:auto" paginator="true" rowsPerPageTemplate="5,10,15"
 						selection="#{entradaMB.parcelasSelecionadas}"
 						selectionMode="multiple" rowKey="#{p.id}" rows="10"
 						resizableColumns="true" id="tabelaParcela"
@@ -271,7 +271,7 @@
 							<!-- <p:selectBooleanCheckbox value="#{entradaMB.pagamentoAtivado}" /> -->
 
 							<!-- 	rendered antigo	"#{p.estadoPagamento.descricao ne 'Pago' and entradaMB.consulta.estadoConsulta.descricao ne 'Cancelado'}" -->
-							<p:commandButton icon="fa fa-check"
+							<p:commandButton icon="pi pi-caret-right"
 								update="@form , :frmPagParcela"
 								action="#{entradaMB.limparDataPagamento}" rendered="false"
 								value="Pagar" oncomplete="PF('dlgPagParcela').show()">
@@ -282,7 +282,7 @@
 							<!-- rendered antigo #{p.estadoPagamento.descricao eq 'Pago'} -->
 							<p:commandButton styleClass="btnCancelarPagamento"
 								oncomplete="PF('dlgCancPagamento').show()" rendered="false"
-								icon="fa fa-close" value="Cancelar">
+								icon="pi pi-times" value="Cancelar">
 								<f:setPropertyActionListener value="#{p}"
 									target="#{entradaMB.parcela}" />
 							</p:commandButton>
@@ -301,10 +301,10 @@
 			<h:form>
 				<p:commandButton
 					update=":formGlobal:msgGlobal :frmPagParcela :frmExbParcela:tabelaParcela "
-					icon="fa fa-check" action="#{entradaMB.pagarParcelas}"
+					icon="pi pi-caret-right" action="#{entradaMB.pagarParcelas}"
 					oncomplete="PF('dlgPagamentoTodas').hide()" value="Sim" />
 
-				<p:commandButton icon="fa fa-close" value="Fechar"
+				<p:commandButton icon="pi pi-times" value="Fechar"
 					oncomplete="PF('dlgPagamentoTodas').hide()" />
 			</h:form>
 		</p:confirmDialog>
@@ -316,10 +316,10 @@
 			<h:form>
 				<p:commandButton
 					update=":frmExbParcela:tabelaParcela, :frmPagParcela:msgPagamento"
-					action="#{entradaMB.efetuarPagamentoParcela}" icon="fa fa-check"
+					action="#{entradaMB.efetuarPagamentoParcela}" icon="pi pi-caret-right"
 					oncomplete="PF('dlgConfPagamento').hide()" value="Sim" />
 
-				<p:commandButton icon="fa fa-close" value="Fechar"
+				<p:commandButton icon="pi pi-times" value="Fechar"
 					oncomplete="PF('dlgConfPagamento').hide()" />
 			</h:form>
 		</p:confirmDialog>
@@ -332,9 +332,9 @@
 			<h:form>
 				<p:commandButton
 					update=":frmExbParcela:tabelaParcela, :formGlobal:msgGlobal"
-					action="#{entradaMB.cancelarPagamentosParcelas}" icon="fa fa-check"
+					action="#{entradaMB.cancelarPagamentosParcelas}" icon="pi pi-caret-right"
 					oncomplete="PF('dlgCancelPagamentoTodas').hide()" value="Sim" />
-				<p:commandButton icon="fa fa-close" value="Não"
+				<p:commandButton icon="pi pi-times" value="Não"
 					oncomplete="PF('dlgCancelPagamentoTodas').hide()" />
 			</h:form>
 		</p:confirmDialog>
@@ -346,9 +346,9 @@
 			<h:form>
 				<p:commandButton
 					update=":frmExbParcela:tabelaParcela, :frmExbParcela:msgCancParcela"
-					action="#{entradaMB.cancelarPagamentoParcela}" icon="fa fa-check"
+					action="#{entradaMB.cancelarPagamentoParcela}" icon="pi pi-caret-right"
 					oncomplete="PF('dlgCancPagamento').hide()" value="Sim" />
-				<p:commandButton icon="fa fa-close" value="Não"
+				<p:commandButton icon="pi pi-times" value="Não"
 					oncomplete="PF('dlgCancPagamento').hide()" />
 			</h:form>
 		</p:confirmDialog>

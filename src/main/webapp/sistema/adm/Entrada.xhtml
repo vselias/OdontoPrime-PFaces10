@@ -23,20 +23,20 @@
 
 			<center>
 
-				<p:dataTable widgetVar="tblConsulta" tableStyle="width:auto"
-					rowIndexVar="i" resizableColumns="true" styleClass="tabela"
-					paginator="true" rowsPerPageTemplate="5,10,15" reflow="true"
-					selectionMode="single" selection="#{entradaMB.consulta}"
+				<p:dataTable size="small" stripedRows="true" widgetVar="tblConsulta"
+					tableStyle="width:auto" resizableColumns="true" styleClass="tabela"
+					paginator="true" rowsPerPageTemplate="5,10,15"
 					value="#{entradaMB.consultas}" id="tabela" var="c" rows="5"
-					paginatorPosition="top" rowKey="#{c.id}"
-					emptyMessage="Nenhum registro.">
+					paginatorPosition="top" emptyMessage="Nenhum registro.">
 
 					<p:column headerText="Foto">
 
-						<p:graphicImage cache="false" 
-							rendered="#{c.paciente.nomeImagem eq null}" styleClass="imagens"  value="/img/new-user.png" />
 						<p:graphicImage cache="false"
-							rendered="#{c.paciente.nomeImagem ne null}" styleClass="imagens" value="/imagens/#{c.paciente.nomeImagem}" />
+							rendered="#{c.paciente.nomeImagem eq null}" styleClass="imagens"
+							value="/img/new-user.png" />
+						<p:graphicImage cache="false"
+							rendered="#{c.paciente.nomeImagem ne null}" styleClass="imagens"
+							value="/imagens/#{c.paciente.nomeImagem}" />
 
 
 					</p:column>
@@ -59,7 +59,7 @@
 						headerText="Data do Lançamento">
 						<p:outputLabel value="#{c.entrada.dataLancamento}">
 							<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
-								pattern="dd/MM/yyyy HH:mm:ss" />
+								pattern="dd/MM/yyyy" />
 						</p:outputLabel>
 					</p:column>
 					<p:outputLabel rendered="#{c.entrada.dataVencimento eq null}"
@@ -74,19 +74,19 @@
 
 					<p:column filterBy="#{c.entrada.valor}" sortBy="#{c.entrada.valor}"
 						headerText="Total">
-						<p:outputLabel value="#{c.entrada.valor}">
-							<f:convertNumber pattern="R$#,##0.00" />
-						</p:outputLabel>
+						<h:panelGrid columns="1">
+							<p:outputLabel value="#{c.entrada.valor}">
+								<f:convertNumber pattern="R$#,##0.00" />
+							</p:outputLabel>
+							<p:outputLabel value="Desconto: #{c.entrada.desconto} %" />
+
+						</h:panelGrid>
 					</p:column>
 
-					<p:column filterBy="#{c.entrada.desconto}"
-						sortBy="#{c.entrada.desconto}" headerText="Desconto">
-						<p:outputLabel value="#{c.entrada.desconto} %" />
-					</p:column>
 
 					<p:column headerText="Ações">
-						<p:button icon="fa fa-check" outcome="PagamentoParcela"
-							value="Ver Detalhes">
+						<p:button icon="pi pi-caret-right" outcome="PagamentoParcela"
+							value="Detalhes">
 							<f:param name="consulta" value="#{c.id}" />
 						</p:button>
 					</p:column>

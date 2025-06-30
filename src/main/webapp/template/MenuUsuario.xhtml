@@ -7,16 +7,16 @@
 		<p:toolbarGroup>
 			<p:commandButton actionListener="#{cadastroUsuarioMB.limparCampos}"
 				update="frmUsuario msg" immediate="true" value="Limpar"
-				icon="fa fa-file-o">
+				icon="pi pi-file-o">
 				<p:resetInput target="panel" />
 			</p:commandButton>
 			<p:separator />
 			<p:commandButton update="@form msg" action="#{cadastroUsuarioMB.salvar}"
-				icon="fa fa-floppy-o" value="Salvar" />
+				icon="pi pi-save" value="Salvar" />
 		</p:toolbarGroup>
 		<p:toolbarGroup align="right">
 			<p:button outcome="PesquisaUsuario" value="Pesquisar"
-				icon="fa fa-search" />
+				icon="pi pi-search" />
 
 		</p:toolbarGroup>
 	</p:toolbar>

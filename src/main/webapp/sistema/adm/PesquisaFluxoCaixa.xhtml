@@ -30,10 +30,10 @@
 
 					<p:column headerText="Foto">
 						<p:graphicImage styleClass="imagens" cache="false"
-							rendered="#{movimentacao.usuario.nomeImagem eq ''}"
+						rendered="#{movimentacao.usuario.nomeImagem eq null}"
 							value="/img/new-user.png" />
 							<p:graphicImage styleClass="imagens" cache="false"
-							rendered="#{movimentacao.usuario.nomeImagem ne ''}"
+							rendered="#{movimentacao.usuario.nomeImagem ne null}"
 							value="/imagens/#{movimentacao.usuario.nomeImagem}" />
 					</p:column>
 
@@ -85,12 +85,12 @@
 					</p:column>
 					<p:column headerText="Ações">
 						<p:commandButton update=":frmInfoFluxo"
-							oncomplete="PF('dlgInfoFluxo').show()" icon="fa fa-info">
+							oncomplete="PF('dlgInfoFluxo').show()" icon="pi pi-info-circle">
 							<f:setPropertyActionListener value="#{movimentacao}"
 								target="#{movimentacaoCaixaMB.movimentacaoCaixa}" />
 						</p:commandButton>
 						<p:spacer width="5" />
-						<p:commandButton icon="fa fa-pencil"
+						<p:commandButton icon="pi pi-pencil"
 							action="#{movimentacaoCaixaMB.editarMovimentacao(movimentacao)}" />
 					</p:column>
 				</p:dataTable>

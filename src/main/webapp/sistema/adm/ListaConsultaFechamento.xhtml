@@ -13,14 +13,13 @@
 			tableStyle="width:auto" resizableColumns="true" paginator="true"
 			rowsPerPageTemplate="5,10,15"
 			filteredValue="#{movimentacaoCaixaMB.consultasFiltroGlobal}"
-			globalFilterFunction="#{movimentacaoCaixaMB.filtrarGlobal}"
 			value="#{movimentacaoCaixaMB.consultasFechamento}" id="tblConsulta"
 			var="c" rows="5" paginatorPosition="top"
 			emptyMessage="Nenhum registro.">
 
 			<f:facet name="header">
 				<p:inputText id="globalFilter"
-					onkeyup="PrimeFaces.debounce(() => PF('tblConsulta').filter())"
+					onkeyup="PF('tblConsulta').filter()"
 					placeholder="Filtrar tudo..." style="width:200px" />
 			</f:facet>
 
@@ -34,19 +33,19 @@
 			</p:column>
 
 
-			<p:column filterBy="#{c.paciente.nome}" sortBy="#{c.paciente.nome}"
+			<p:column styleClass="coluna-filtro-oculto" filterBy="#{c.paciente.nome}" sortBy="#{c.paciente.nome}"
 				headerText="Paciente">
 				<p:outputLabel value="#{c.paciente.nome}" />
 			</p:column>
 
 
-			<p:column headerText="Consulta" filterBy="#{c.tipoConsulta}"
+			<p:column headerText="Consulta" styleClass="coluna-filtro-oculto" filterBy="#{c.tipoConsulta}"
 				sortBy="#{c.tipoConsulta}">
 				<p:outputLabel value="#{c.tipoConsulta.descricao}" />
 
 			</p:column>
 
-			<p:column filterBy="#{c.dataConsulta}" sortBy="#{c.dataConsulta}"
+			<p:column filterBy="#{c.dataConsulta}" styleClass="coluna-filtro-oculto" sortBy="#{c.dataConsulta}"
 				headerText="Data">
 				<p:outputLabel value="#{c.dataConsulta}">
 					<f:convertDateTime timeZone="America/Sao_Paulo"
@@ -54,7 +53,7 @@
 				</p:outputLabel>
 			</p:column>
 
-			<p:column sortBy="#{c.estadoConsulta.descricao}"
+			<p:column sortBy="#{c.estadoConsulta.descricao}" styleClass="coluna-filtro-oculto"
 				filterBy="#{c.estadoConsulta.descricao}" headerText="Estado">
 
 				<p:outputLabel value="#{c.estadoConsulta.descricao}" />
@@ -73,8 +72,8 @@
 
 
 					<p:outputLabel rendered="#{c.entrada.valorDesconto ne null}"
-						value="Valor com Desconto: #{c.entrada.valorDesconto}">
-						<f:convertNumber pattern="R$ #,##0.00" />
+						value="#{c.entrada.valorDesconto}">
+						<f:convertNumber pattern="Valor com Desconto: R$ #,##0.00" />
 					</p:outputLabel>
 
 					<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
@@ -85,7 +84,7 @@
 
 
 			<p:column>
-				<p:commandButton icon="fa fa-check"
+				<p:commandButton icon="pi pi-caret-right"
 					oncomplete="PF('dlgExbParcela').show();" update=":frmExbParcela"
 					action="#{movimentacaoCaixaMB.buscarEntradaComParcela(c.entrada)}"
 					value="Parcelas" />

@@ -218,7 +218,7 @@
 
 				<p:column style="text-align:center;" headerText="Efetuar Pagamento">
 
-					<p:commandButton icon="fa fa-check" update="@form , :frmPagParcela"
+					<p:commandButton icon="pi pi-caret-right" update="@form , :frmPagParcela"
 						action="#{entradaMB.limparDataPagamento}"
 						rendered="#{p.estadoPagamento.descricao ne 'Pago' and entradaMB.consulta.estadoConsulta.descricao ne 'Cancelado'}"
 						value="Pagar" oncomplete="PF('dlgPagParcela').show()">
@@ -228,7 +228,7 @@
 
 					<p:commandButton oncomplete="PF('dlgCancPagamento').show()"
 						rendered="#{p.estadoPagamento.descricao eq 'Pago'}"
-						icon="fa fa-close" value="Cancelar">
+						icon="pi pi-times" value="Cancelar">
 						<f:setPropertyActionListener value="#{p}"
 							target="#{entradaMB.parcela}" />
 					</p:commandButton>

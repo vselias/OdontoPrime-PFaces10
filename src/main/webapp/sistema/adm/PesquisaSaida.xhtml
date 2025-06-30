@@ -83,20 +83,20 @@
 					</p:column>
 					<p:column style="text-align:center;" headerText="Ações">
 
-						<p:button icon="fa fa-edit" outcome="Saida">
+						<p:button icon="pi pi-pencil" outcome="Saida">
 							<f:param name="codigo" value="#{s.id}" />
 						</p:button>
 						<p:spacer width="5" />
 
 						<p:commandButton rendered="#{usuarioMB.usuario.adm}"
 							update="frmExclusao" oncomplete="PF('exclusao').show()"
-							icon="fa fa-trash">
+							icon="pi pi-trash">
 							<f:setPropertyActionListener value="#{s}"
 								target="#{saidaMB.saida}" />
 						</p:commandButton>
 						<p:spacer width="5" />
 
-						<p:commandButton icon="fa fa-info" update=":frmInfoCadastro"
+						<p:commandButton icon="pi pi-info-circle" update=":frmInfoCadastro"
 							oncomplete="PF('dlgInfoCadastro').show();">
 							<f:setPropertyActionListener value="#{s}"
 								target="#{saidaMB.saida}" />

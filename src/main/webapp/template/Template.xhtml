@@ -29,8 +29,7 @@
 
 		<script type="text/javascript"
 			src="#{request.contextPath}/js/odontoprime.js?v=2" />
-
-
+		
 		<!-- Config de css e script para alterar cor do sistema -->
 		<ui:include src="/template/ScriptCorMenu.xhtml" />
 
@@ -121,7 +120,7 @@
 								header="Finalizando..."
 								message="Deseja realmente sair do sistema?">
 
-								<p:commandButton icon="fa fa-check"
+								<p:commandButton icon="pi pi-caret-right"
 									onstart="PF('statusDialog').show()"
 									oncomplete="PF('statusDialog').hide(); PF('confirmarSaida').hide()"
 									action="#{usuarioMB.registrarSaida}" value="Sim" />
@@ -285,7 +284,7 @@
 						action="#{usuarioMB.salvarImagemRecortada}" icon="fa fa-save"
 						value="Salvar" />
 					<p:commandButton oncomplete="PF('dlgFotoPerfilUsuario').hide();"
-						icon="fa fa-close" value="Fechar" />
+						icon="pi pi-times" value="Fechar" />
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
@@ -300,7 +299,7 @@
 				<h:panelGrid columns="2">
 					<p:commandButton icon="fa fa-camera" onclick="PF('pc').capture();"
 						value="Tirar foto" />
-					<p:commandButton update="frmTirarFotoUsuario" icon="fa fa-close"
+					<p:commandButton update="frmTirarFotoUsuario" icon="pi pi-times"
 						oncomplete="PF('dlgTirarFotoUsuario').hide();" value="Fechar" />
 				</h:panelGrid>
 			</h:form>

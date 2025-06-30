@@ -8,14 +8,14 @@
 		<p:toolbarGroup>
 			<p:commandButton update="frmConsulta"
 				action="#{consultaMB.limparCampos}" process="@this" value="Limpar"
-				icon="fa fa-file-o">
+				icon="pi pi-file-o">
 				<p:resetInput target="frmConsulta" />
 			</p:commandButton>
-			<p:commandButton icon="fa fa-floppy-o" value="Salvar"
+			<p:commandButton icon="pi pi-save" value="Salvar"
 				actionListener="#{consultaMB.efetuarConsulta}" update="@form, msg" />
 		</p:toolbarGroup>
 		<p:toolbarGroup align="right">
-			<p:button value="Pesquisar" icon="fa fa-search"
+			<p:button value="Pesquisar" icon="pi pi-search"
 				outcome="PesquisaConsulta.xhtml" />
 		</p:toolbarGroup>
 	</p:toolbar>

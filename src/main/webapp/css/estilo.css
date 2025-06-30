@@ -13,8 +13,12 @@
 	--corTitulo: black;
 }
 
+.coluna-filtro-oculto .ui-column-filter {
+	display: none !important;
+}
+
 button.ui-button {
-	margin: 5px !important;
+	margin: .1em !important;
 }
 
 .pesquisaPaciente {
@@ -22,7 +26,8 @@ button.ui-button {
 	justify-content: center;
 	margin-bottom: 20px;
 }
-.pesquisaPaciente input{
+
+.pesquisaPaciente input {
 	max-width: 250px !important;
 	width: 100% !important;
 	text-align: center;
@@ -51,6 +56,10 @@ ul.ui-menu-list, ul.ui-menu-list>li.ui-menuitem {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+}
+
+ul.ui-selectonemenu-items li {
+	overflow: visible !important;
 }
 
 ul.ui-selectonemenu-items {
@@ -205,6 +214,8 @@ ul.ui-tabs-nav {
 
 .ui-menuitem {
 	margin: 20px;
+	max-width: 150px !important;
+	width: auto !important;
 }
 
 body .ui-menu.ui-menubar {
@@ -336,7 +347,7 @@ tr[aria-selected=true] {
 	display: flex;
 	align-items: center; /* alinha verticalmente a imagem e o texto */
 	justify-content: flex-end; /* alinha tudo à direita */
-	gap: 1rem;
+	gap: .3em;
 	height: 100% !important;
 }
 
@@ -377,6 +388,7 @@ tr[aria-selected=true] {
 	justify-content: center; /* Centraliza horizontalmente */
 	align-items: center; /* Centraliza verticalmente */
 	height: 100% !important;
+	margin: 0 1em;
 }
 
 ui-button-text.ui-c .ui-menu .ui-menuitem-text {

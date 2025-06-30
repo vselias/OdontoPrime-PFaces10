@@ -25,13 +25,11 @@
 			<center>
 
 
-				<p:dataTable widgetVar="tblConsulta" tableStyle="width:auto"
-					resizableColumns="true" styleClass="tabela" paginator="true"
-					rowsPerPageTemplate="5,10,15" rowKey="#{c.id}"
-					selectionMode="single" selection="#{consultaMB.consulta}"
-					value="#{consultaMB.consultas}" id="tblConsulta" var="c" rows="5"
-					paginatorPosition="top" emptyMessage="Nenhum registro.">
-
+				<p:dataTable size="small" stripedRows="true" widgetVar="tblConsulta"
+					styleClass="tabela" paginator="true" rowsPerPageTemplate="5,10,15"
+					rowKey="#{c.id}" value="#{consultaMB.consultas}" id="tblConsulta"
+					var="c" rows="5" paginatorPosition="top"
+					emptyMessage="Nenhum registro.">
 
 					<p:column headerText="Foto">
 						<p:graphicImage cache="false" styleClass="imagens"
@@ -48,14 +46,19 @@
 						<p:outputLabel value="#{c.paciente.nome}" />
 					</p:column>
 
-
 					<p:column headerText="Consulta" filterBy="#{c.tipoConsulta}"
 						sortBy="#{c.tipoConsulta}">
+						<p:outputLabel value="ID: #{c.id}" />
+
+						<br />
 						<p:outputLabel value="#{c.tipoConsulta.descricao}" />
 						<p:outputLabel rendered="#{c.tipoConsulta.descricao eq null}"
 							value="Não informado." />
 
 					</p:column>
+
+
+
 
 					<p:column filterMatchMode="startsWith" filterBy="#{c.dataConsulta}"
 						sortBy="#{c.dataConsulta}" headerText="Data">
@@ -66,39 +69,39 @@
 					</p:column>
 
 
-					<p:column filterBy="#{c.entrada.valor}" sortBy="#{c.entrada.valor}"
-						headerText="Valor">
-						<p:outputLabel value="#{c.entrada.valor}">
-							<f:convertNumber pattern="R$ #,##0.00" />
-						</p:outputLabel>
-						<p:outputLabel rendered="#{c.entrada.valor eq null}"
-							value="R$ 0,00" />
+					<p:column sortBy="#{c.entrada.valor}"
+						headerText="Dados do Pagamento">
+
+						<p:panelGrid columns="1">
+							<p:outputLabel value="#{c.entrada.valor}">
+								<f:convertNumber pattern="Valor: R$ #,##0.00" />
+							</p:outputLabel>
+							<p:outputLabel rendered="#{c.entrada.valor eq null}"
+								value="Valor: R$ 0,00" />
+
+
+							<p:outputLabel rendered="#{c.entrada.desconto ne null}"
+								value="Desconto: #{c.entrada.desconto}%" />
+							<p:outputLabel rendered="#{c.entrada.desconto eq null}"
+								value="Desconto: 0%" />
+
+
+							<p:outputLabel value="#{c.entrada.valorDesconto}">
+								<f:convertNumber pattern="Valor com Desconto: R$ #,##0.00" />
+							</p:outputLabel>
+							<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
+								value="Valor com Desconto: R$ 0,00" />
+
+						</p:panelGrid>
+
 					</p:column>
-					<p:column filterBy="#{c.entrada.desconto}"
-						sortBy="#{c.entrada.desconto}" headerText="Desconto">
-						<p:outputLabel rendered="#{c.entrada.desconto ne null}"
-							value="#{c.entrada.desconto}%" />
-						<p:outputLabel rendered="#{c.entrada.desconto eq null}" value="0" />
-					</p:column>
 
 
 
-					<p:column filterBy="#{c.entrada.valorDesconto}"
-						sortBy="#{c.entrada.valorDesconto}" headerText="Total">
+					<p:column styleClass="colunaAcoes" style="text-align:center;"
+						headerText="Ações">
 
-						<p:outputLabel value="#{c.entrada.valorDesconto}">
-							<f:convertNumber pattern="R$ #,##0.00" />
-						</p:outputLabel>
-
-						<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
-							value="R$ 0,00" />
-					</p:column>
-
-
-					<p:column styleClass="colunaAcoes"
-						style="text-align:center;" headerText="Ações">
-
-						<p:commandButton value="Pesquisar" icon="fa fa-search"
+						<p:commandButton title="Pesquisar" icon="pi pi-search"
 							update=" :frmPesqConsulta"
 							oncomplete="PF('dlgPesqConsulta').show()">
 							<f:setPropertyActionListener value="#{c}"
@@ -106,21 +109,22 @@
 						</p:commandButton>
 
 
-						<p:button value="Editar" icon="fa fa-edit" outcome="Consulta">
+						<p:button title="Editar" icon="pi pi-pencil" outcome="Consulta">
 							<f:param name="consulta" value="#{c.id}" />
 						</p:button>
 
 
-						<p:commandButton value="Info" rendered="#{usuarioMB.usuario.adm}"
+						<p:commandButton title="Info" rendered="#{usuarioMB.usuario.adm}"
 							update=":frmDetalheConsulta"
-							oncomplete="PF('dlgDetalheConsulta').show();" icon="fa fa-info">
+							oncomplete="PF('dlgDetalheConsulta').show();"
+							icon="pi pi-info-circle">
 							<f:setPropertyActionListener value="#{c}"
 								target="#{consultaMB.consulta}" />
 						</p:commandButton>
 
-						<p:commandButton value="Excluir"
+						<p:commandButton title="Excluir"
 							rendered="#{usuarioMB.usuario.adm}" update="@form"
-							oncomplete="PF('exclusao').show()" icon="fa fa-trash">
+							oncomplete="PF('exclusao').show()" icon="pi pi-trash">
 							<f:setPropertyActionListener value="#{c}"
 								target="#{consultaMB.consulta}" />
 						</p:commandButton>
@@ -132,23 +136,25 @@
 
 
 			<!-- 			confirm dialog para exclusao da consulta -->
-			<p:confirmDialog widgetVar="exclusao" severity="alert"
-				header="Confirmação de exclusão"
-				message="Você deseja remover a consulta?" >
+			<p:dialog draggable="true" modal="true" widgetVar="exclusao"
+				severity="alert" header="Confirmação de exclusão"
+				message="Você deseja remover a consulta?">
 
-				<p:panelGrid styleClass="ui-grid" columns="2">
-					<p:outputLabel value="Paciente:" />
-					<p:outputLabel value="#{consultaMB.consulta.paciente.nome}" />
-					<p:outputLabel value="Consulta:" />
-					<p:outputLabel
-						value="#{consultaMB.consulta.tipoConsulta.descricao}" />
-				</p:panelGrid>
-				<div class="btnConfirmExcluConsulta">
-					<p:commandButton update="@form , tblConsulta,  msg" value="Sim"
-						oncomplete="PF('exclusao').hide()" action="#{consultaMB.excluir}" />
-					<p:commandButton value="Não" oncomplete="PF('exclusao').hide()" />
-				</div>
-			</p:confirmDialog>
+				<center>
+					<h:panelGrid columns="1">
+						<p:outputLabel value="ID: #{consultaMB.consulta.id}" />
+						<p:outputLabel
+							value="Consulta: #{consultaMB.consulta.tipoConsulta.descricao}" />
+					</h:panelGrid>
+					<div class="btnConfirmExcluConsulta">
+						<p:commandButton icon="pi pi-check"
+							update="@form , tblConsulta,  msg" value="Sim"
+							oncomplete="PF('exclusao').hide()" action="#{consultaMB.excluir}" />
+						<p:commandButton icon="pi pi-times" value="Não"
+							oncomplete="PF('exclusao').hide()" />
+					</div>
+				</center>
+			</p:dialog>
 
 
 

@@ -10,17 +10,17 @@
 
 			<p:commandButton actionListener="#{orcamentoMB.limparCampos}"
 				process="@this" update="frmOrcamento , msg" value="Limpar"
-				icon="fa fa-file-o">
+				icon="pi pi-file-o">
 				<p:resetInput target="frmOrcamento" />
 			</p:commandButton>
 			<p:separator />
 			<p:commandButton update="frmOrcamento msg"
-				action="#{orcamentoMB.salvar}" icon="fa fa-floppy-o" value="Salvar" />
+				action="#{orcamentoMB.salvar}" icon="pi pi-save" value="Salvar" />
 
 		</p:toolbarGroup>
 		<p:toolbarGroup align="right">
 			<p:separator />
-			<p:button value="Pesquisar" icon="fa fa-search"
+			<p:button value="Pesquisar" icon="pi pi-search"
 				outcome="PesquisaOrcamento.xhtml" />
 		</p:toolbarGroup>
 	</p:toolbar>

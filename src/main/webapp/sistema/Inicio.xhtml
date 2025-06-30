@@ -53,7 +53,8 @@
 
 			</div>
 			<h:form>
-				<p:schedule resizable="true" id="agenda" timeZone="America/Sao_Paulo" clientTimeZone="true"
+				<p:schedule resizable="true" id="agenda"
+					timeZone="America/Sao_Paulo" clientTimeZone="true"
 					widgetVar="lembrete" value="#{lembreteMB.scheduleModel}">
 					<p:ajax event="dateSelect" listener="#{lembreteMB.selecionarData}"
 						update="lembretePanel panelLembreteBt @form"
@@ -64,19 +65,17 @@
 					<p:ajax event="eventMove" listener="#{lembreteMB.moverLembrete}"
 						update="agenda :formGlobal:msgGlobal" />
 					<p:ajax event="eventResize"
-							update="agenda @form :formGlobal:msgGlobal"
-						listener="#{lembreteMB.redimensionarLembrete}"
-						 />
+						update="agenda @form :formGlobal:msgGlobal"
+						listener="#{lembreteMB.redimensionarLembrete}" />
 				</p:schedule>
 
-				<div class="ui-fluid">
-					<p:dialog closeOnEscape="true" width="600" position="top"
-						widgetVar="eventDialog" header="Detalhes do lembrete">
+				<p:dialog width="40%" closeOnEscape="true" modal="true" draggable="true"
+					position="center" widgetVar="eventDialog" height="350"
+					header="Detalhes do lembrete">
+					<div class="ui-fluid">
 						<p:panelGrid layout="grid"
 							columnClasses="ui-grid-col-4,ui-grid-col-8"
 							styleClass="ui-panelgrid-blank" id="lembretePanel" columns="2">
-
-
 							<p:outputLabel for="title" value="Título:" />
 							<p:inputText id="title" value="#{lembreteMB.lembrete.titulo}"
 								required="true" />
@@ -113,15 +112,16 @@
 									oncomplete="PF('lembrete').update();PF('eventDialog').hide();" />
 							</p:panelGrid>
 						</div>
-
-					</p:dialog>
-				</div>
-				<p:confirmDialog closeOnEscape="true" widgetVar="confirmDelLembrete" header="Confirmação"
-					message="Tem certeza que deseja excluir?" severity="alert">
+					</div>
+				</p:dialog>
+				<p:confirmDialog closeOnEscape="true" widgetVar="confirmDelLembrete"
+					header="Confirmação" message="Tem certeza que deseja excluir?"
+					severity="alert">
 					<p:commandButton value="Sim" action="#{lembreteMB.excluir()}"
-						update="@form agenda :formGlobal:msgGlobal" oncomplete="PF('confirmDelLembrete').hide();" />
-					<p:commandButton value="Não" onclick="PF('confirmDelLembrete').hide();"
-						type="button" />
+						update="@form agenda :formGlobal:msgGlobal"
+						oncomplete="PF('confirmDelLembrete').hide();" />
+					<p:commandButton value="Não"
+						onclick="PF('confirmDelLembrete').hide();" type="button" />
 				</p:confirmDialog>
 
 			</h:form>

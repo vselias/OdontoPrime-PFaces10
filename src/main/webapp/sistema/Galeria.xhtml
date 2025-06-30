@@ -69,7 +69,7 @@
 
 					<p:column headerText="Ações">
 						<p:commandButton update=":frmUploadFoto"
-							oncomplete="PF('dlgGaleriaImg').show();" icon="fa fa-plus">
+							oncomplete="PF('dlgGaleriaImg').show();" icon="pi pi-plus">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{galeriaMB.paciente}" />
 						</p:commandButton>
@@ -118,7 +118,7 @@
 							var="foto" value="#{galeriaMB.paciente.fotos}">
 							<p:commandButton action="#{galeriaMB.selecionarFoto}"
 								update=":frmExclusao" oncomplete="PF('exclusao').show();"
-								icon="fa fa-trash">
+								icon="pi pi-trash">
 								<f:param name="fotoId" value="#{foto.id}" />
 							</p:commandButton>
 							<p:graphicImage styleClass="imagem-centralizada"
@@ -137,7 +137,7 @@
 				message="Deseja remover a foto? id = #{galeriaMB.fotoId}">
 				<p:commandButton oncomplete="PF('exclusao').hide()" immediate="true"
 					update=":frmExbFoto :frmTblGaleria :formGlobal:msgGlobal"
-					value="Sim" action="#{galeriaMB.excluirFoto}" icon="fa fa-trash">
+					value="Sim" action="#{galeriaMB.excluirFoto}" icon="pi pi-trash">
 
 				</p:commandButton>
 				<p:commandButton value="Não" oncomplete="PF('exclusao').hide()" />

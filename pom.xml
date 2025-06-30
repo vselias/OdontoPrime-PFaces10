@@ -57,20 +57,20 @@
 		</plugins>
 	</build>
 
-		<dependencies>
-		
-				<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-pdf -->
+<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-pdf -->
 		<dependency>
 		    <groupId>net.sf.jasperreports</groupId>
 		    <artifactId>jasperreports-pdf</artifactId>
 		    <version>7.0.3</version>
 		</dependency>
-				
-   <dependency>
-        <groupId>net.sf.jasperreports</groupId>
-        <artifactId>jasperreports-jdt</artifactId>
-        <version>7.0.0</version>
-    </dependency>
+					
+	   <dependency>
+	        <groupId>net.sf.jasperreports</groupId>
+	        <artifactId>jasperreports-jdt</artifactId>
+	        <version>7.0.0</version>
+	    </dependency>
 		<dependency>
 		  <groupId>net.sf.jasperreports</groupId>
 		  <artifactId>jasperreports</artifactId>
@@ -181,11 +181,12 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
-		<dependency>
-		    <groupId>org.primefaces</groupId>
-		    <artifactId>primefaces</artifactId>
-		    <version>10.0.0-RC1</version>
-		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+			<dependency>
+			    <groupId>org.primefaces</groupId>
+			    <artifactId>primefaces</artifactId>
+			    <version>11.0.0</version>
+			</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -202,12 +203,11 @@
 			<artifactId>primefaces-extensions</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-		</dependency>
-
+			<dependency>
+			    <groupId>com.github.librepdf</groupId>
+			    <artifactId>openpdf</artifactId>
+			    <version>1.3.30</version>
+			</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

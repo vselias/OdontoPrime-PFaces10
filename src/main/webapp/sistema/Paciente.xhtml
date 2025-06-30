@@ -220,7 +220,7 @@
 					<p:commandButton onclick="PF('statusDialog').show()"
 						oncomplete="PF('statusDialog').hide()"
 						update=":formGlobal:msgGlobal , :frmPaciente:fotoPaciente"
-						action="#{pacienteMB.salvarImagemRecortada}" icon="fa fa-floppy-o"
+						action="#{pacienteMB.salvarImagemRecortada}" icon="pi pi-save"
 						value="Salvar" />
 					<p:commandButton update="@form, :frmWebCam , :frmWebCam:photocam"
 						oncomplete="PF('dlgExibirFoto').hide();" value="Fechar" />
@@ -243,7 +243,7 @@
 					<p:commandButton icon="fa fa-camera" onclick="PF('pc').capture()"
 						value="Capturar" />
 					<p:commandButton update=":frmSelecionarFoto, @form , photocam"
-						icon="fa fa-close" action="#{pacienteMB.desativarWebCam}"
+						icon="pi pi-times" action="#{pacienteMB.desativarWebCam}"
 						oncomplete="PF('dlgWebCam').hide();" value="Fechar" />
 				</h:panelGrid>
 			</h:form>

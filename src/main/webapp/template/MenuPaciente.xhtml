@@ -7,17 +7,17 @@
 	<p:toolbar style="marin" id="idToolbar">
 		<p:toolbarGroup>
 			<p:commandButton process="@this" action="#{pacienteMB.limpar}"
-				update="frmPaciente" value="Limpar" icon="fa fa-file-o">
+				update="frmPaciente" value="Limpar" icon="pi pi-file-o">
 				<p:resetInput target="frmPaciente" />
 			</p:commandButton>
-			<p:commandButton id="btnSalvar" icon="fa fa-floppy-o" value="Salvar"
+			<p:commandButton id="btnSalvar" icon="pi pi-save" value="Salvar"
 				action="#{pacienteMB.salvar}" update="@form  :frmPaciente:msg" />
 			<p:separator />
 
 		</p:toolbarGroup>
 		<p:toolbarGroup align="right">
 
-			<p:button value="Pesquisar" icon="fa fa-search"
+			<p:button value="Pesquisar" icon="pi pi-search"
 				outcome="PesquisaPaciente.xhtml" />
 		</p:toolbarGroup>
 	</p:toolbar>

@@ -101,12 +101,12 @@
                                 </div>
                                 <h:panelGrid columns="3">
                                     <p:commandButton update="@form msg"
-                                                     action="#{cadastroUsuarioMB.salvar}" icon="fa fa-floppy-o"
+                                                     action="#{cadastroUsuarioMB.salvar}" icon="pi pi-save"
                                                      value="Salvar" />
                                     <p:button outcome="Login" value="Login" icon="fa fa-sign-in" />
                                     <p:commandButton process="@this" update="frmUsuario"
                                                      action="#{cadastroUsuarioMB.resetarObjetos}"
-                                                     oncomplete="removerMsg()" icon="fa fa-file-o" value="Limpar">
+                                                     oncomplete="removerMsg()" icon="pi pi-file-o" value="Limpar">
                                         <p:resetInput target="frmUsuario" />
                                     </p:commandButton>
                                 </h:panelGrid>

@@ -7,12 +7,12 @@
 
 
 <ui:composition template="/template/Template.xhtml">
-	
+
 	<ui:define name="title">
 		<title>Vendas Por Paciente</title>
 	</ui:define>
-	
-	
+
+
 	<ui:define name="content">
 
 		<h:form>
@@ -40,8 +40,7 @@
 							rendered="#{c.paciente.nomeImagem eq null}"
 							value="/img/new-user.png" />
 						<p:graphicImage rendered="#{c.paciente.nomeImagem ne null}"
-							styleClass="imagens"
-							value="/imagens/#{c.paciente.nomeImagem}" />
+							styleClass="imagens" value="/imagens/#{c.paciente.nomeImagem}" />
 					</p:column>
 
 					<p:column sortBy="#{c.tipoConsulta.descricao}"

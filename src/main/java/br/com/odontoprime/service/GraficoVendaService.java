@@ -92,7 +92,7 @@ public class GraficoVendaService implements Serializable {
 		return barChartModel;
 	}
 
-	public BarChartModel novoBarChartModel(FiltroNovoGrafico filtroNovoGrafico) {
+	public BarChartModel novoBarChartModel2(FiltroNovoGrafico filtroNovoGrafico) {
 		
 		BarChartModel barChartModel = new BarChartModel();
 
@@ -179,5 +179,79 @@ public class GraficoVendaService implements Serializable {
 		MensagemUtil.enviarMensagem("Para comparar as consultas é necessário preencher os dados de comparação!",
 				FacesMessage.SEVERITY_ERROR);
 		return barChartModel;
+	}
+		//valor monetario no eixo x
+	public BarChartModel novoBarChartModel(FiltroNovoGrafico filtroNovoGrafico) {
+	    BarChartModel barChartModel = new BarChartModel();
+
+	    ChartSeries primeiraComparacao = new ChartSeries();
+	    ChartSeries segundaComparacao = new ChartSeries();
+
+	    barChartModel.setTitle("Comparação de vendas por tipos de consulta");
+	    barChartModel.setLegendPosition("ne");
+
+	    String txtPrimero = "";
+	    String txtSegundo = "";
+
+	    if (filtroNovoGrafico != null 
+	        && filtroNovoGrafico.getPrimeiroTipoComparacao() != null
+	        && filtroNovoGrafico.getSegundoTipoComparacao() != null) {
+
+	        txtPrimero = filtroNovoGrafico.getPrimeiroTipoComparacao().getDescricao();
+	        txtSegundo = filtroNovoGrafico.getSegundoTipoComparacao().getDescricao();
+	    }
+
+	    primeiraComparacao.setLabel(txtPrimero);
+	    segundaComparacao.setLabel(txtSegundo);
+
+	    Axis xAxis = barChartModel.getAxis(AxisType.X);
+	    xAxis.setLabel("Ano");
+
+	    Axis yAxis = barChartModel.getAxis(AxisType.Y);
+	    yAxis.setLabel("Valor R$");
+	    yAxis.setTickFormat("R$ %.2f"); // ✅ Isso funciona!
+
+	    if (filtroNovoGrafico != null 
+	        && filtroNovoGrafico.getPrimeiroTipoComparacao() != null 
+	        && filtroNovoGrafico.getSegundoTipoComparacao() != null 
+	        && filtroNovoGrafico.getAno() != 0) {
+
+	        try {
+	            Double valorPrimeira;
+	            Double valorSegunda;
+
+	            int anoDe = filtroNovoGrafico.getAno();
+	            int anoAte = filtroNovoGrafico.getAnoAte() > 0 ? filtroNovoGrafico.getAnoAte() : anoDe;
+
+	            for (int ano = anoDe; ano <= anoAte; ano++) {
+	                valorPrimeira = consultaDAO.vendasPorAnoGrafico(filtroNovoGrafico.getPrimeiroTipoComparacao(), ano);
+	                valorSegunda = consultaDAO.vendasPorAnoGrafico(filtroNovoGrafico.getSegundoTipoComparacao(), ano);
+
+	                if (valorPrimeira == null) valorPrimeira = 0.0;
+	                if (valorSegunda == null) valorSegunda = 0.0;
+
+	                // Inclui valor formatado na label do eixo X para simular valor fixo em cima
+	                String labelAno = ano + " - R$ " + String.format("%.2f", valorPrimeira);
+	                primeiraComparacao.set(labelAno, valorPrimeira);
+
+	                String labelAno2 = ano + " - R$ " + String.format("%.2f", valorSegunda);
+	                segundaComparacao.set(labelAno2, valorSegunda);
+	            }
+
+	            barChartModel.addSeries(primeiraComparacao);
+	            barChartModel.addSeries(segundaComparacao);
+	            return barChartModel;
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    MensagemUtil.enviarMensagem(
+	        "Para comparar as consultas é necessário preencher os dados de comparação!",
+	        FacesMessage.SEVERITY_ERROR
+	    );
+
+	    return barChartModel;
 	}
 }

@@ -52,7 +52,7 @@ public class MovimentacaoCaixaMB implements Serializable {
 	private Saida selecaoSaidaFechamento;
 	private Entrada entradaVO;
 	private String dataAtual;
-	private List<Consulta> consultasFiltroGlobal = new ArrayList<Consulta>();
+	private List<Consulta> consultasFiltroGlobal;
 	private String filtroGlobal;
 
 	public String getFiltroGlobal() {
@@ -156,11 +156,11 @@ public class MovimentacaoCaixaMB implements Serializable {
 		movimentacaoCaixas = movimentacaoCaixaService.buscarTodos();
 		tiposMovimentacao = Arrays.asList(TipoMovimentacao.values());
 		exibirValorTotal = Boolean.FALSE;
-		consultasFechamento = new ArrayList<>();
 		recuperarMovimentacaoEdicao();
+		consultasFechamento = consultaService.buscarConsultasFechamento(movimentacaoCaixa.getData());
 		saidasFechamento = saidaService.buscarSaidasFechamento(movimentacaoCaixa.getData());
 		injetarUsuarioLogado();
-
+		System.out.println(consultasFechamento);
 	}
 
 	public void adicionarEntradaMovimentacao() {
@@ -210,6 +210,7 @@ public class MovimentacaoCaixaMB implements Serializable {
 
 	public void buscarConsultasFechamento() {
 		consultasFechamento = consultaService.buscarConsultasFechamento(movimentacaoCaixa.getData());
+		System.out.println(consultasFechamento);
 	}
 
 	public void injetarUsuarioLogado() {
@@ -247,19 +248,6 @@ public class MovimentacaoCaixaMB implements Serializable {
 
 		return Boolean.FALSE;
 
-	}
-
-	public boolean filtrarGlobal(Object value, Object filter, Locale locale) {
-	    if (filter == null || filter.toString().isBlank())
-	        return true;
-
-	    String termo = filter.toString().toLowerCase();
-	    Consulta c = (Consulta) value;
-	    System.out.println("Filtro: " + termo + " | Paciente: " + c.getPaciente().getNome());
-	    return (c.getPaciente() != null && c.getPaciente().getNome().toLowerCase().contains(termo))
-	        || (c.getTipoConsulta() != null && c.getTipoConsulta().getDescricao().toLowerCase().contains(termo))
-	        || (c.getEstadoConsulta() != null && c.getEstadoConsulta().getDescricao().toLowerCase().contains(termo))
-	        || (c.getDataConsulta() != null && c.getDataConsulta().toString().toLowerCase().contains(termo));
 	}
 
 }

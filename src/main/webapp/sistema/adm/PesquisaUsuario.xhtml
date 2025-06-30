@@ -55,10 +55,10 @@
 				</p:column>
 				<p:column style="text-align:center" headerText="Ação">
 
-					<p:button outcome="Usuario" icon="fa fa-pencil">
+					<p:button outcome="Usuario" icon="pi pi-pencil">
 						<f:param name="id" value="#{usu.id}" />
 					</p:button>
-					<p:commandButton update="@form" icon="fa fa-trash"
+					<p:commandButton update="@form" icon="pi pi-trash"
 						oncomplete="PF('exclusao').show();">
 						<f:setPropertyActionListener value="#{usu}"
 							target="#{cadastroUsuarioMB.usuario}" />

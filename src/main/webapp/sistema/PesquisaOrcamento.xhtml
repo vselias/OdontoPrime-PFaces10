@@ -72,20 +72,20 @@
 						headerText="Ações">
 
 						<p:commandButton title="Informações" update=":frmInfoCadastro"
-							oncomplete="PF('dlgInfoCadastro').show();" icon="fa fa-info">
+							oncomplete="PF('dlgInfoCadastro').show();" icon="pi pi-info-circle">
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>
 
 						<p:spacer width="5" />
 
-						<p:button title="Editar" outcome="Orcamento" icon="fa fa-edit">
+						<p:button title="Editar" outcome="Orcamento" icon="pi pi-pencil">
 							<f:param name="codigo" value="#{orcamento.id}" />
 						</p:button>
 						<p:spacer width="5" />
 						<p:commandButton title="Excluir" rendered="#{usuarioMB.usuario.adm}"
 							update=":frmExclusao" oncomplete="PF('exclusao').show();"
-							icon="fa fa-trash">
+							icon="pi pi-trash">
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>

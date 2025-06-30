@@ -22,13 +22,12 @@
 			<p:messages id="msg" />
 
 			<center>
-				<p:dataTable styleClass="tabela" value="#{pacienteMB.pacientes}"
+				<p:dataTable size="small" styleClass="tabela" value="#{pacienteMB.pacientes}"
 					paginatorPosition="top" var="p" paginator="true"
 					tableStyle="width:auto" resizableColumns="true"
 					rowsPerPageTemplate="5,10,15" rows="5"
 					filteredValue="#{pacienteMB.listaPesquisa}"
-					emptyMessage="Nenhum registro." rowKey="#{p.id}" widgetVar="tabela"
-					selection="#{pacienteMB.paciente}" selectionMode="single"
+					emptyMessage="Nenhum registro." widgetVar="tabela"
 					id="tblPacientes">
 
 					<p:column headerText="Foto">
@@ -74,26 +73,27 @@
 
 					<p:column styleClass="colunaAcoes" headerText="Ações">
 						<p:commandButton oncomplete="PF('dlgDetalheEndereco').show()"
-							value="Pesquisar" update=":frmDetalheEndereco"
-							icon="fa fa-search">
+							title="Pesquisar" update=":frmDetalheEndereco"
+							icon="pi pi-search">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{pacienteMB.paciente}" />
 						</p:commandButton>
 
-						<p:button value="Editar" icon="fa fa-edit" outcome="Paciente">
+						<p:button title="Editar" icon="pi pi-pencil" outcome="Paciente">
 							<f:param name="codigo" value="#{p.id}" />
 						</p:button>
 
-						<p:commandButton value="Info" rendered="#{usuarioMB.usuario.adm}"
+						<p:commandButton title="Info" rendered="#{usuarioMB.usuario.adm}"
 							update=":frmDetalhePaciente"
-							oncomplete="PF('dlgDetalhePaciente').show();" icon="fa fa-info">
+							oncomplete="PF('dlgDetalhePaciente').show();"
+							icon="pi pi-info-circle">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{pacienteMB.paciente}" />
 						</p:commandButton>
 
-						<p:commandButton value="Excluir"
+						<p:commandButton title="Excluir"
 							rendered="#{usuarioMB.usuario.adm}" update="@form"
-							oncomplete="PF('exclusao').show()" icon="fa fa-trash">
+							oncomplete="PF('exclusao').show()" icon="pi pi-trash">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{pacienteMB.paciente}" />
 						</p:commandButton>
@@ -106,27 +106,34 @@
 
 			<!-- 				dialog exclusão paciente -->
 
-			<p:confirmDialog widgetVar="exclusao" severity="alert"
-				closeOnEscape="true" closable="true"
-				header="Confirmação exclusão paciente"
-				message="Você deseja remover paciente #{pacienteMB.paciente.nome}?">
-				<div class="btnConfirmExcluConsulta">
-					<p:commandButton icon="fa fa-check" update="@form , msg" value="Sim"
-						oncomplete="PF('exclusao').hide()"
-						action="#{pacienteMB.excluirPaciente}" />
-					<p:commandButton icon="fa fa-times" value="Não" oncomplete="PF('exclusao').hide()" />
+			<p:dialog position="center" draggable="true" modal="true"
+				widgetVar="exclusao" severity="alert" closeOnEscape="true"
+				closable="true" header="Confirmação exclusão paciente">
+				<center>
+					<h:panelGrid columns="1">
+						<p:outputLabel value="CPF: #{pacienteMB.paciente.cpf}" />
+						<p:outputLabel value="Paciente: #{pacienteMB.paciente.nome}" />
+					</h:panelGrid>
 
-				</div>
+					<div class="btnConfirmExcluConsulta">
+						<p:commandButton icon="pi pi-check" update="@form , msg"
+							value="Sim" oncomplete="PF('exclusao').hide()"
+							action="#{pacienteMB.excluirPaciente}" />
+						<p:commandButton icon="pi pi-times" value="Não"
+							oncomplete="PF('exclusao').hide()" />
 
-			</p:confirmDialog>
+					</div>
+				</center>
+
+			</p:dialog>
 		</h:form>
 
 		<!-- 	dialog exibir informações do cadastro do paciente -->
 
-		<p:dialog header="Informações do cadastro do paciente"
-			closeOnEscape="true" closable="true" draggable="false"
-			resizable="false" modal="true" appendTo="@(body)"
-			widgetVar="dlgDetalhePaciente">
+		<p:dialog position="center"
+			header="Informações do cadastro do paciente" closeOnEscape="true"
+			closable="true" draggable="true" resizable="false" modal="true"
+			appendTo="@(body)" widgetVar="dlgDetalhePaciente">
 			<h:form id="frmDetalhePaciente">
 				<h:panelGrid cellpadding="5px;" columns="2">
 					<p:outputLabel value="Cadastrado por:" />
@@ -148,11 +155,11 @@
 		</p:dialog>
 
 		<p:dialog header="Informações do endereço do paciente"
-			closeOnEscape="true" closable="true" draggable="false"
+			closeOnEscape="true" closable="true" draggable="true"
 			resizable="false" modal="true" appendTo="@(body)"
 			widgetVar="dlgDetalheEndereco">
 			<h:form id="frmDetalheEndereco">
-				<h:panelGrid cellpadding="5px;" columns="2">
+				<h:panelGrid columns="2">
 					<p:outputLabel value="Paciente:" />
 					<p:inputText readonly="true" value="#{pacienteMB.paciente.nome}" />
 
