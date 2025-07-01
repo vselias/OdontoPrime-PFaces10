@@ -54,6 +54,15 @@ public class MovimentacaoCaixaMB implements Serializable {
 	private String dataAtual;
 	private List<Consulta> consultasFiltroGlobal;
 	private String filtroGlobal;
+	private Consulta consultaBtPagamentoParcela;
+
+	public Consulta getConsultaBtPagamentoParcela() {
+		return consultaBtPagamentoParcela;
+	}
+
+	public void setConsultaBtPagamentoParcela(Consulta consultaBtPagamentoParcela) {
+		this.consultaBtPagamentoParcela = consultaBtPagamentoParcela;
+	}
 
 	public String getFiltroGlobal() {
 		return filtroGlobal;
@@ -224,8 +233,9 @@ public class MovimentacaoCaixaMB implements Serializable {
 		return "FechamentoCaixa?faces-redirect=true";
 	}
 
-	public void buscarEntradaComParcela(Entrada entrada) {
-		entradaVO = entradaService.buscarEntradaComParcelas(entrada.getId());
+	public void buscarEntradaComParcela(Consulta consulta) {
+		this.consultaBtPagamentoParcela = consulta;
+		entradaVO = entradaService.buscarEntradaComParcelas(consulta.getEntrada().getId());
 	}
 
 	public void calcularValorTotal() {

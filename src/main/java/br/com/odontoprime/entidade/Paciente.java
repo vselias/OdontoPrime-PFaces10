@@ -172,7 +172,7 @@ public class Paciente implements Serializable {
 	}
 
 	public String getNome() {
-		return nome;
+	    return nome != null ? nome.toUpperCase() : null;
 	}
 
 	public void setNome(String nome) {
@@ -191,7 +191,7 @@ public class Paciente implements Serializable {
 		if (this.email != null && this.email.isBlank()) {
 			this.email = "Não informado.";
 		}
-		return email;
+		  return this.email != null ? this.email.toUpperCase() : null;
 	}
 
 	public void setEmail(String email) {
@@ -214,10 +214,6 @@ public class Paciente implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	@Override
-	public String toString() {
-		return nome;
-	}
 
 	@Override
 	public int hashCode() {

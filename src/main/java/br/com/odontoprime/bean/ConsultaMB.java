@@ -195,6 +195,7 @@ public class ConsultaMB implements Serializable {
 		consultasFuturas = consultaService.buscarConsultasFuturas();
 		pacientes = pacienteService.buscarTodos();
 		consulta.setEntrada(new Entrada());
+		
 	}
 
 	public List<Paciente> getPacientes() {

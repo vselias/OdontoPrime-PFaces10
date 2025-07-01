@@ -49,7 +49,7 @@
 
 						<p:column filterBy="#{c.tipoConsulta}" sortBy="#{c.tipoConsulta}"
 							headerText="Consulta">
-							<p:outputLabel value="#{c.tipoConsulta.descricao}" />
+							<p:outputLabel value="#{c.tipoConsulta}" />
 
 						</p:column>
 
@@ -107,7 +107,7 @@
 						<p:outputLabel value="#{consultaMB.consulta.paciente.nome}" />
 						<p:outputLabel value="Consulta" />
 						<p:outputLabel
-							value="#{consultaMB.consulta.tipoConsulta.descricao}" />
+							value="#{consultaMB.consulta.tipoConsulta}" />
 						<p:outputLabel value="Data" />
 						<p:outputLabel value="#{consultaMB.consulta.dataConsulta}">
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
@@ -118,7 +118,7 @@
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
 						<p:outputLabel value="Estado" />
-						<p:selectOneMenu value="#{consultaMB.consulta.estadoConsulta}">
+						<p:selectOneMenu value="#{consultaMB.consulta.estadoConsulta.descricao}">
 							<f:selectItems var="estado" itemLabel="#{estado.descricao}"
 								itemValue="#{estado}" value="#{consultaMB.estadosConsulta}" />
 						</p:selectOneMenu>

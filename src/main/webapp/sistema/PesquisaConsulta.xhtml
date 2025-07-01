@@ -51,8 +51,8 @@
 						<p:outputLabel value="ID: #{c.id}" />
 
 						<br />
-						<p:outputLabel value="#{c.tipoConsulta.descricao}" />
-						<p:outputLabel rendered="#{c.tipoConsulta.descricao eq null}"
+						<p:outputLabel value="#{c.tipoConsulta}" />
+						<p:outputLabel rendered="#{c.tipoConsulta eq null}"
 							value="Não informado." />
 
 					</p:column>
@@ -72,7 +72,7 @@
 					<p:column sortBy="#{c.entrada.valor}"
 						headerText="Dados do Pagamento">
 
-						<p:panelGrid columns="1">
+						<p:panelGrid layout="grid" columns="1">
 							<p:outputLabel value="#{c.entrada.valor}">
 								<f:convertNumber pattern="Valor: R$ #,##0.00" />
 							</p:outputLabel>
@@ -103,7 +103,7 @@
 					<p:column styleClass="colunaAcoes" style="text-align:center;"
 						headerText="Ações">
 
-						<p:commandButton title="Pesquisar" icon="pi pi-search"
+						<p:commandButton title="Informações do pagamento" icon="pi pi-search"
 							update=" :frmPesqConsulta"
 							oncomplete="PF('dlgPesqConsulta').show()">
 							<f:setPropertyActionListener value="#{c}"
@@ -116,7 +116,7 @@
 						</p:button>
 
 
-						<p:commandButton title="Info" rendered="#{usuarioMB.usuario.adm}"
+						<p:commandButton title="Informações do cadastro" rendered="#{usuarioMB.usuario.adm}"
 							update=":frmDetalheConsulta"
 							oncomplete="PF('dlgDetalheConsulta').show();"
 							icon="pi pi-info-circle">
@@ -145,7 +145,7 @@
 					<h:panelGrid columns="1">
 						<p:outputLabel value="ID: #{consultaMB.consulta.id}" />
 						<p:outputLabel
-							value="Consulta: #{consultaMB.consulta.tipoConsulta.descricao}" />
+							value="Consulta: #{consultaMB.consulta.tipoConsulta}" />
 					</h:panelGrid>
 					<div class="btnConfirmExcluConsulta">
 						<p:commandButton icon="pi pi-check"
@@ -180,11 +180,11 @@
 						value="#{consultaMB.consulta.paciente.nome}" />
 
 					<p:outputLabel
-						rendered="#{consultaMB.consulta.tipoConsulta.descricao ne null}"
+						rendered="#{consultaMB.consulta.tipoConsulta ne null}"
 						value="Consulta" />
 					<p:inputText readonly="true"
-						rendered="#{consultaMB.consulta.tipoConsulta.descricao ne null}"
-						value="#{consultaMB.consulta.tipoConsulta.descricao}" />
+						rendered="#{consultaMB.consulta.tipoConsulta ne null}"
+						value="#{consultaMB.consulta.tipoConsulta}" />
 
 					<p:outputLabel value="Opção de pagamento" />
 					<p:inputText readonly="true"
@@ -209,7 +209,7 @@
 
 					<p:outputLabel value="Status do Pagamento" />
 					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.entrada.estadoPagamento.descricao}" />
+						value="#{consultaMB.consulta.entrada.estadoPagamento}" />
 
 
 				</p:panelGrid>

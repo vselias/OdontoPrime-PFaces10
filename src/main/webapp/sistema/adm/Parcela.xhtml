@@ -94,7 +94,7 @@
 
 							<p:outputLabel value="Consulta" />
 							<p:inputText readonly="true"
-								value="#{entradaMB.consulta.tipoConsulta.descricao}" />
+								value="#{entradaMB.consulta.tipoConsulta}" />
 
 							<p:outputLabel value="Estado da Consulta" />
 							<p:inputText readonly="true"
@@ -112,7 +112,7 @@
 
 							<p:outputLabel value="Status do Pagamento" />
 							<p:inputText readonly="true"
-								value="#{entradaMB.consulta.entrada.estadoPagamento.descricao}" />
+								value="#{entradaMB.consulta.entrada.estadoPagamento}" />
 
 							<p:outputLabel value="Opção de Pagamento" />
 							<p:inputText readonly="true"
@@ -203,10 +203,10 @@
 					headerText="Número da Parcela">
 					<p:outputLabel value="#{p.numParcela}ª" />
 				</p:column>
-				<p:column sortBy="#{p.estadoPagamento.descricao}"
-					filterBy="#{p.estadoPagamento.descricao}"
+				<p:column sortBy="#{p.estadoPagamento}"
+					filterBy="#{p.estadoPagamento}"
 					headerText="Status do Pagamento">
-					<p:outputLabel value="#{p.estadoPagamento.descricao}" />
+					<p:outputLabel value="#{p.estadoPagamento}" />
 				</p:column>
 
 				<p:column sortBy="#{p.dataPagamento}" filterBy="#{p.dataPagamento}"
@@ -220,14 +220,14 @@
 
 					<p:commandButton icon="pi pi-caret-right" update="@form , :frmPagParcela"
 						action="#{entradaMB.limparDataPagamento}"
-						rendered="#{p.estadoPagamento.descricao ne 'Pago' and entradaMB.consulta.estadoConsulta.descricao ne 'Cancelado'}"
+						rendered="#{p.estadoPagamento ne 'Pago' and entradaMB.consulta.estadoConsulta.descricao ne 'Cancelado'}"
 						value="Pagar" oncomplete="PF('dlgPagParcela').show()">
 						<f:setPropertyActionListener value="#{p}"
 							target="#{entradaMB.parcela}" />
 					</p:commandButton>
 
 					<p:commandButton oncomplete="PF('dlgCancPagamento').show()"
-						rendered="#{p.estadoPagamento.descricao eq 'Pago'}"
+						rendered="#{p.estadoPagamento eq 'Pago'}"
 						icon="pi pi-times" value="Cancelar">
 						<f:setPropertyActionListener value="#{p}"
 							target="#{entradaMB.parcela}" />

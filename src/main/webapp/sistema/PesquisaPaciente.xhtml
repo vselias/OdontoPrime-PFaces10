@@ -52,7 +52,7 @@
 					<p:column filterMatchMode="contains" filterBy="#{p.dataNascimento}"
 						sortBy="#{p.dataNascimento}" headerText="Data de Nascimento">
 						<p:outputLabel value="#{p.dataNascimento}">
-							<f:convertDateTime locale="pt_BR" />
+							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
 						</p:outputLabel>
 						<p:outputLabel rendered="#{p.dataNascimento eq null}"
 							value="Não informado." />
@@ -73,17 +73,17 @@
 
 					<p:column styleClass="colunaAcoes" headerText="Ações">
 						<p:commandButton oncomplete="PF('dlgDetalheEndereco').show()"
-							title="Pesquisar" update=":frmDetalheEndereco"
+							title="Informações do endereço" update=":frmDetalheEndereco"
 							icon="pi pi-search">
 							<f:setPropertyActionListener value="#{p}"
 								target="#{pacienteMB.paciente}" />
 						</p:commandButton>
 
-						<p:button title="Editar" icon="pi pi-pencil" outcome="Paciente">
+						<p:button  title="Editar" icon="pi pi-pencil" outcome="Paciente">
 							<f:param name="codigo" value="#{p.id}" />
 						</p:button>
 
-						<p:commandButton title="Info" rendered="#{usuarioMB.usuario.adm}"
+						<p:commandButton title="Informações do cadastro" rendered="#{usuarioMB.usuario.adm}"
 							update=":frmDetalhePaciente"
 							oncomplete="PF('dlgDetalhePaciente').show();"
 							icon="pi pi-info-circle">

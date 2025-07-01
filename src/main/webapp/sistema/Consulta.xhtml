@@ -56,7 +56,7 @@
 											<h:panelGroup layout="block" class="panelGConsulta">
 												<p:outputLabel for="paciente" value="Selecione o paciente:" />
 												<p:inputText required="true" id="paciente"
-													value="#{consultaMB.consulta.paciente}" readonly="true" />
+													value="#{consultaMB.consulta.paciente.nome}" readonly="true" />
 												<p:commandButton immediate="true" icon="pi pi-search"
 													oncomplete="PF('tblPaciente').show()" />
 												<p:tooltip for="paciente"
@@ -66,9 +66,9 @@
 
 											<h:panelGroup layout="block" class="panelGConsulta">
 												<p:outputLabel for="estado" value="Estado da consulta:" />
-												<p:selectOneMenu id="estado" required="true"
+												<p:selectOneMenu  id="estado" required="true"
 													requiredMessage="Estado consulta deve ser informado."
-													value="#{consultaMB.consulta.estadoConsulta}">
+													value="#{consultaMB.consulta.estadoConsulta.descricao}">
 													<f:selectItem itemLabel="Selecione um estado" itemValue="" />
 													<f:selectItems var="estado" itemValue="#{estado}"
 														itemLabel="#{estado.descricao}"

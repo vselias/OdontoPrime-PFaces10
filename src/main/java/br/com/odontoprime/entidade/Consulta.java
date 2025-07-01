@@ -161,6 +161,7 @@ public class Consulta implements Serializable {
 		super();
 		entrada = new Entrada();
 		paciente = new Paciente();
+		this.estadoConsulta = EstadoConsulta.AUSENTE;
 	}
 
 	@Override

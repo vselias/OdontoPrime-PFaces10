@@ -29,7 +29,7 @@
 
 		<script type="text/javascript"
 			src="#{request.contextPath}/js/odontoprime.js?v=2" />
-		
+
 		<!-- Config de css e script para alterar cor do sistema -->
 		<ui:include src="/template/ScriptCorMenu.xhtml" />
 
@@ -120,16 +120,14 @@
 								header="Finalizando..."
 								message="Deseja realmente sair do sistema?">
 
-								<p:commandButton icon="pi pi-caret-right"
-									onstart="PF('statusDialog').show()"
-									oncomplete="PF('statusDialog').hide(); PF('confirmarSaida').hide()"
-									action="#{usuarioMB.registrarSaida}" value="Sim" />
-
-								<p:spacer height="5px;" />
-
-								<p:commandButton icon="fa fa-times"
-									onclick="PF('confirmarSaida').hide()" value="Não" />
-
+								<div style="text-align: center">
+									<p:commandButton icon="pi pi-check"
+										onstart="PF('statusDialog').show()"
+										oncomplete="PF('statusDialog').hide(); PF('confirmarSaida').hide()"
+										action="#{usuarioMB.registrarSaida}" value="Sim" />
+									<p:commandButton icon="pi pi-times"
+										onclick="PF('confirmarSaida').hide()" value="Não" />
+								</div>
 							</p:confirmDialog>
 						</h:form>
 
@@ -147,7 +145,8 @@
 
 						<h:form id="formGlobal">
 
-							<p:growl id="msgGlobal" sticky="false" globalOnly="false"  showDetail="false" />
+							<p:growl id="msgGlobal" sticky="false" globalOnly="false"
+								showDetail="false" />
 						</h:form>
 
 						<ui:insert name="content" />

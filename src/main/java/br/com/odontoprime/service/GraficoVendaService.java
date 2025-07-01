@@ -180,7 +180,7 @@ public class GraficoVendaService implements Serializable {
 				FacesMessage.SEVERITY_ERROR);
 		return barChartModel;
 	}
-		//valor monetario no eixo x
+	
 	public BarChartModel novoBarChartModel(FiltroNovoGrafico filtroNovoGrafico) {
 	    BarChartModel barChartModel = new BarChartModel();
 
@@ -209,7 +209,8 @@ public class GraficoVendaService implements Serializable {
 
 	    Axis yAxis = barChartModel.getAxis(AxisType.Y);
 	    yAxis.setLabel("Valor R$");
-	    yAxis.setTickFormat("R$ %.2f"); // ✅ Isso funciona!
+	    yAxis.setTickFormat("R$ %.2f");
+	    yAxis.setMin(0); // 🔧 Garante início em zero
 
 	    if (filtroNovoGrafico != null 
 	        && filtroNovoGrafico.getPrimeiroTipoComparacao() != null 
@@ -219,6 +220,7 @@ public class GraficoVendaService implements Serializable {
 	        try {
 	            Double valorPrimeira;
 	            Double valorSegunda;
+	            double maiorValor = 0.0;
 
 	            int anoDe = filtroNovoGrafico.getAno();
 	            int anoAte = filtroNovoGrafico.getAnoAte() > 0 ? filtroNovoGrafico.getAnoAte() : anoDe;
@@ -230,16 +232,20 @@ public class GraficoVendaService implements Serializable {
 	                if (valorPrimeira == null) valorPrimeira = 0.0;
 	                if (valorSegunda == null) valorSegunda = 0.0;
 
-	                // Inclui valor formatado na label do eixo X para simular valor fixo em cima
-	                String labelAno = ano + " - R$ " + String.format("%.2f", valorPrimeira);
-	                primeiraComparacao.set(labelAno, valorPrimeira);
+	                maiorValor = Math.max(maiorValor, Math.max(valorPrimeira, valorSegunda));
 
+	                String labelAno1 = ano + " - R$ " + String.format("%.2f", valorPrimeira);
 	                String labelAno2 = ano + " - R$ " + String.format("%.2f", valorSegunda);
+
+	                primeiraComparacao.set(labelAno1, valorPrimeira);
 	                segundaComparacao.set(labelAno2, valorSegunda);
 	            }
 
+	            yAxis.setMax(maiorValor * 1.1); // 🚀 Dá uma folga de 10% no topo
+
 	            barChartModel.addSeries(primeiraComparacao);
 	            barChartModel.addSeries(segundaComparacao);
+
 	            return barChartModel;
 
 	        } catch (Exception e) {

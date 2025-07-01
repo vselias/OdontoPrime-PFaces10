@@ -13,9 +13,16 @@
 			rowStyleClass="#{movimentacaoCaixaMB.isParcelaPaga(p)?'destacarPagamento':''}"
 			paginator="true" rowsPerPageTemplate="5,10,15"
 			value="#{movimentacaoCaixaMB.entradaVO.parcelas}" var="p">
+			<f:facet name="header">
+				<div style="text-align: center;">
+					<p:button icon="pi pi-money-bill"  outcome="/sistema/adm/PagamentoParcela" value="Pagamento" >
+						<f:param name="consulta" value="#{movimentacaoCaixaMB.consultaBtPagamentoParcela.id}"/>
+					</p:button>
+				</div>
+			</f:facet>
 			<p:column headerText="Valor / Parcela">
 
-				<p:outputLabel value="#{p.valor}">
+				<p:outputLabel  value="#{p.valor}">
 					<f:convertNumber pattern="R$#,##0.00" />
 				</p:outputLabel>
 
@@ -31,7 +38,7 @@
 				<p:outputLabel value="#{p.numParcela}ª" />
 			</p:column>
 			<p:column headerText="Status do Pagamento">
-				<p:outputLabel value="#{p.estadoPagamento.descricao}" />
+				<p:outputLabel value="#{p.estadoPagamento}" />
 			</p:column>
 
 			<p:column headerText="Data do Pagamento">

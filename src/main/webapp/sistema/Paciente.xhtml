@@ -46,13 +46,13 @@
 										<h:panelGrid  style="width: 100%;" cellpadding="5" columns="2">
 											<p:outputLabel for="nome" value="Nome" />
 											<br />
-											<p:inputText styleClass="estiloNome" id="nome" required="true" 
+											<p:inputText oninput="this.value = this.value.toUpperCase()" styleClass="estiloNome" id="nome" required="true" 
 												requiredMessage="Nome do paciente deve ser informado."
 												value="#{pacienteMB.paciente.nome}" />
 											<br />
 											<p:outputLabel for="cpf" value="CPF" />
 											<br />
-											<p:inputMask id="cpf" mask="999.999.999-99" required="true"
+											<p:inputMask  id="cpf" mask="999.999.999-99" required="true"
 												requiredMessage="Cpf deve ser informado."
 												validatorMessage="Cpf inválido!"
 												value="#{pacienteMB.paciente.cpf}">

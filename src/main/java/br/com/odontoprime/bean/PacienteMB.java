@@ -108,14 +108,6 @@ public class PacienteMB implements Serializable {
 		this.paciente = paciente;
 	}
 
-//	@Deprecated
-//	public StreamedContent getExibImg() {
-//		if (paciente.getId() != null && paciente.getByteImg() != null) {
-//			exibImg = pacienteService.exibirImg(paciente);
-//		}
-//
-//		return exibImg;
-//	}
 
 	public void setExibImg(StreamedContent exibImg) {
 		this.exibImg = exibImg;
@@ -211,6 +203,7 @@ public class PacienteMB implements Serializable {
 		exibirImagemCropper = Boolean.FALSE;
 		exibirImagemRecortada = Boolean.FALSE;
 		estados = Arrays.asList(Estado.values());
+		System.out.println(paciente);
 	}
 
 	public List<Paciente> buscarTodos() {
@@ -291,4 +284,5 @@ public class PacienteMB implements Serializable {
 	public void desativarWebCam() {
 		webCam = Boolean.FALSE;
 	}
+	
 }

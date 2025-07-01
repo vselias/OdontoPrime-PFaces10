@@ -98,7 +98,7 @@ public class Orcamento implements Serializable {
 	}
 
 	public String getTipoConsulta() {
-		return tipoConsulta;
+		return tipoConsulta != null? tipoConsulta.toUpperCase(): null;
 	}
 
 	public void setTipoConsulta(String tipoConsulta) {

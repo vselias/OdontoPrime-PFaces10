@@ -111,7 +111,8 @@
 
 
 		<!-- dialog para exibir as consultas do fechamento atual -->
-		<p:dialog focus="frmDetalheFechamento:tblConsulta" width="90%" height="350" appendTo="@(body)"
+		<p:dialog focus="frmDetalheFechamento:tblConsulta" width="90%"
+			height="350" appendTo="@(body)"
 			header="Consulta(s) paga(s) / Saída(s) efetuada(s) hoje."
 			closeOnEscape="true" closable="true" modal="true"
 			widgetVar="dlgDetalheFechamento">
@@ -122,9 +123,10 @@
 
 
 		<!-- dialog detalhamento das parcelas -->
-		<p:dialog width="80%" height="350" header="Parcela(s) paga(s) hoje."
-			widgetVar="dlgExbParcela" closeOnEscape="true" closable="true"
-			modal="true" resizable="false" responsive="true">
+		<p:dialog appendTo="@(body)" width="80%" height="350"
+			header="Parcela(s) paga(s) hoje." widgetVar="dlgExbParcela"
+			closeOnEscape="true" closable="true" modal="true" resizable="false"
+			responsive="true">
 
 
 			<ui:include src="/sistema/adm/ListaParcelaFechamento.xhtml" />
@@ -145,8 +147,9 @@
 				header="Confirmar fechamento de caixa?"
 				message="Deseja efetuar o registro?">
 				<p:commandButton update=":frmFechamento :frmFechamento:msg"
-					actionListener="#{movimentacaoCaixaMB.salvar}" icon="pi pi-caret-right"
-					oncomplete="PF('dlgConfPagamento').hide()" value="Sim" />
+					actionListener="#{movimentacaoCaixaMB.salvar}"
+					icon="pi pi-caret-right" oncomplete="PF('dlgConfPagamento').hide()"
+					value="Sim" />
 				<p:commandButton icon="pi pi-times" value="Fechar"
 					oncomplete="PF('dlgConfPagamento').hide()" />
 			</p:confirmDialog>

@@ -48,7 +48,7 @@
 					</p:column>
 					<p:column filterBy="#{c.tipoConsulta.descricao}"
 						sortBy="#{c.tipoConsulta.descricao}" headerText="Consulta">
-						<p:outputLabel value="#{c.tipoConsulta.descricao}" />
+						<p:outputLabel value="#{c.tipoConsulta}" />
 						<p:outputLabel rendered="#{c.tipoConsulta.descricao eq null}"
 							value="Não informado." />
 						<br />
@@ -59,13 +59,13 @@
 
 					<p:column filterBy="#{c.entrada.valor}" sortBy="#{c.entrada.valor}"
 						headerText="Total">
-						<h:panelGrid columns="1">
+						<p:panelGrid layout="grid" columns="1">
 							<p:outputLabel value="#{c.entrada.valor}">
 								<f:convertNumber pattern="R$#,##0.00" />
 							</p:outputLabel>
 							<p:outputLabel value="Desconto: #{c.entrada.desconto} %" />
 
-						</h:panelGrid>
+						</p:panelGrid>
 					</p:column>
 
 

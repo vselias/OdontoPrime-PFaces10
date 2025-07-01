@@ -25,28 +25,28 @@
 
 			<ui:include src="/template/MenuPagamento.xhtml" />
 
-
-			<div class="ui-grid-responsive">
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-11">
-						<p:spacer />
-					</div>
-
-					<div class="ui-grid-col-1">
-
-						<p:commandButton icon="fa fa-print">
-							<p:printer target="print" />
-						</p:commandButton>
-					</div>
-				</div>
-			</div>
-
 			<br />
-			<p:outputPanel id="print">
+			<p:outputPanel
+				style="height: 100vh !important; background-color: white;"
+				id="print">
 
 				<div class="ui-grid-responsive">
 
 					<div class="ui-grid-row">
+
+
+						<div class="ui-grid-col-2">
+							<p:panel style="text-align:center;" header="Foto">
+								<p:graphicImage
+									rendered="#{entradaMB.consulta.paciente.nomeImagem ne null}"
+									cache="false" styleClass="imagens"
+									value="/imagens/#{entradaMB.consulta.paciente.nomeImagem}" />
+								<p:graphicImage
+									rendered="#{entradaMB.consulta.paciente.nomeImagem eq null}"
+									cache="false" styleClass="imagens" value="/img/new-user.png" />
+							</p:panel>
+						</div>
+
 
 						<div class="ui-grid-col-5">
 
@@ -106,13 +106,12 @@
 						</div>
 
 						<div class="ui-grid-col-5">
-
 							<p:panel header="Dados da Consulta">
 								<h:panelGrid cellpadding="2" columns="2">
 
 									<p:outputLabel value="Consulta" />
 									<p:inputText readonly="true"
-										value="#{entradaMB.consulta.tipoConsulta.descricao}" />
+										value="#{entradaMB.consulta.tipoConsulta}" />
 
 									<p:outputLabel value="Estado da Consulta" />
 									<p:inputText readonly="true"
@@ -131,7 +130,7 @@
 
 									<p:outputLabel value="Status do Pagamento" />
 									<p:inputText readonly="true"
-										value="#{entradaMB.consulta.entrada.estadoPagamento.descricao}" />
+										value="#{entradaMB.consulta.entrada.estadoPagamento}" />
 
 									<p:outputLabel value="Opção de Pagamento" />
 									<p:inputText readonly="true"
@@ -168,25 +167,11 @@
 								</h:panelGrid>
 							</p:panel>
 						</div>
-
-						<div class="ui-grid-col-2">
-
-							<p:panel style="text-align:center;" header="Foto">
-								<p:graphicImage
-									rendered="#{entradaMB.consulta.paciente.nomeImagem ne null}"
-									cache="false" styleClass="imagens"
-									value="/imagens/#{entradaMB.consulta.paciente.nomeImagem}" />
-								<p:graphicImage
-									rendered="#{entradaMB.consulta.paciente.nomeImagem eq null}"
-									cache="false" styleClass="imagens" value="/img/new-user.png" />
-							</p:panel>
-
-						</div>
-
 					</div>
 				</div>
+			</p:outputPanel>
 
-
+			<div class="tabelaPagamentoParcela">
 				<center>
 					<p:dataTable size="small" tableStyle="width:auto" paginator="true"
 						rowsPerPageTemplate="5,10,15"
@@ -196,19 +181,24 @@
 						rowStyleClass="#{p.estadoPagamento.descricao eq 'Pago'? 'destacarPagamento': ''}"
 						paginatorPosition="bottom" value="#{entradaMB.entrada.parcelas}"
 						var="p">
-						<div style="text-align: center !important;">
-							<f:facet name="header">
-								<p:commandButton onclick="PF('dlgPagamentoTodas').show()"
+						<f:facet name="header">
+							<div style="text-align: center !important;">
+								<p:commandButton icon="pi pi-check" onclick="PF('dlgPagamentoTodas').show()"
 									value="Pagar Parcelas" />
-								<p:commandButton styleClass="btnCancelarPagamento"
+								<p:commandButton icon="pi pi-times" styleClass="btnCancelarPagamento"
 									onclick="PF('dlgCancelPagamentoTodas').show()"
 									value="Cancelar Parcelas" />
 								<p:outputLabel id="duvidaPagamentoParcela" style="float: left;"
 									value="AJUDA ?" />
 								<p:tooltip for="duvidaPagamentoParcela"
 									value="Segure shift ou control + clique esquerdo do mouse para selecionar as linhas para pagar ou cancelar as parcelas."></p:tooltip>
-							</f:facet>
-						</div>
+							</div>
+						</f:facet>
+						<p:column filterBy="#{entradaMB.consulta.id}" sortBy="#{entradaMB.consulta.id}" headerText="ID CONSULTA">
+
+							<p:outputLabel value="#{entradaMB.consulta.id}" />
+
+						</p:column>
 						<p:column filterBy="#{p.valor}" sortBy="#{p.valor}"
 							headerText="Valor / Parcela">
 
@@ -229,10 +219,10 @@
 							headerText="Número da Parcela">
 							<p:outputLabel value="#{p.numParcela}ª" />
 						</p:column>
-						<p:column sortBy="#{p.estadoPagamento.descricao}"
-							filterBy="#{p.estadoPagamento.descricao}"
+						<p:column sortBy="#{p.estadoPagamento}"
+							filterBy="#{p.estadoPagamento}"
 							headerText="Status do Pagamento">
-							<p:outputLabel value="#{p.estadoPagamento.descricao}" />
+							<p:outputLabel value="#{p.estadoPagamento}" />
 						</p:column>
 
 						<p:column sortBy="#{p.dataPagamento}"
@@ -247,7 +237,9 @@
 
 					</p:dataTable>
 				</center>
-			</p:outputPanel>
+			</div>
+
+
 		</h:form>
 
 		<!-- dialog confirmação do pagamento de todas parcelas -->

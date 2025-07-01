@@ -76,36 +76,28 @@
 						<p:spacer width="5px;" />
 
 						<p:commandButton update=":frmExbFoto"
-							action="#{galeriaMB.selecionarPaciente(p)}"
-							icon="fa fa-camera-retro">
+							action="#{galeriaMB.selecionarPaciente(p)}" icon="pi pi-images">
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 			</center>
 		</h:form>
+
+
+
+
 		<p:spacer height="20px" />
 		<center>
-
-
 			<h:form id="frmExbFoto">
 				<p:accordionPanel id="accordion">
 					<p:tab title="Galeria de imagens do paciente">
 
 						<p:outputLabel rendered="#{galeriaMB.paciente.id gt 0}"
-							value="Paciente:">
-							<p:outputLabel id="paciente"
-								rendered="#{galeriaMB.paciente.id gt 0}"
-								value="#{galeriaMB.paciente.nome}" />
-						</p:outputLabel>
+							value="Paciente: #{galeriaMB.paciente.nome}" />
 
 						<br />
-
 						<p:outputLabel rendered="#{galeriaMB.paciente.id gt 0}"
-							value="CPF:">
-							<p:outputLabel rendered="#{galeriaMB.paciente.id gt 0}"
-								value="#{galeriaMB.paciente.cpf}" />
-
-						</p:outputLabel>
+							value="CPF: #{galeriaMB.paciente.cpf}" />
 						<br />
 						<p:outputLabel
 							rendered="#{empty galeriaMB.paciente.fotos and galeriaMB.paciente.id gt 0}"
@@ -149,8 +141,8 @@
 
 		<h:form id="frmUploadFoto">
 			<p:dialog header="Adicionar foto na galeria" resizable="false"
-				widgetVar="dlgGaleriaImg" modal="true"
-				closeOnEscape="true" closable="true">
+				widgetVar="dlgGaleriaImg" modal="true" closeOnEscape="true"
+				closable="true">
 				<p:fileUpload cancelLabel="Cancelar" label="Escolha Imagem"
 					mode="advanced" skinSimple="true" auto="true" uploadLabel="Enviar"
 					invalidSizeMessage="Imagem precisa ter até 1MB."

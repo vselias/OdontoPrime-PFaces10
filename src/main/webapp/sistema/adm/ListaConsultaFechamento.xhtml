@@ -43,7 +43,7 @@
 
 			<p:column headerText="Consulta" styleClass="coluna-filtro-oculto"
 				filterBy="#{c.tipoConsulta}" sortBy="#{c.tipoConsulta}">
-				<p:outputLabel value="#{c.tipoConsulta.descricao}" />
+				<p:outputLabel value="#{c.tipoConsulta}" />
 
 			</p:column>
 
@@ -87,7 +87,7 @@
 			<p:column>
 				<p:commandButton icon="pi pi-caret-right"
 					oncomplete="PF('dlgExbParcela').show();" update=":frmExbParcela"
-					action="#{movimentacaoCaixaMB.buscarEntradaComParcela(c.entrada)}"
+					action="#{movimentacaoCaixaMB.buscarEntradaComParcela(c)}"
 					value="Parcelas" />
 
 			</p:column>

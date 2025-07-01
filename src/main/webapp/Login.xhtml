@@ -57,12 +57,12 @@
 						requiredMessage="Senha deve ser informada." autocomplete="false"
 						value="#{usuarioMB.usuario.senha}" />
 
-					<p:commandButton id="btn" icon="fa fa-sign-in"
+					<p:commandButton id="btn" icon="pi pi-sign-in"
 						update="frmLogin:msg" action="#{usuarioMB.autenticar}"
 						value="Entrar" />
 
 					<p:button outcome="CadastroUsuario" value="Cadastrar"
-						icon="fa fa-user" />
+						icon="pi pi-user-plus" />
 					<p:commandLink rendered="false" immediate="true"
 						oncomplete="PF('dlgRecuperarSenha').show();"
 						value="Esqueceu sua senha?" />
