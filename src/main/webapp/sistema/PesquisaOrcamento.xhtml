@@ -8,7 +8,7 @@
 
 <ui:composition template="/template/Template.xhtml">
 
-<ui:define name="title">
+	<ui:define name="title">
 		<title>Lista de Orçamentos</title>
 	</ui:define>
 	<ui:define name="content">
@@ -28,8 +28,9 @@
 					rows="5" paginatorPosition="bottom" emptyMessage="Nenhum registro.">
 
 					<f:facet name="header">
-						<p:inputText id="globalFilter" onkeyup="PrimeFaces.debounce(() => PF('tabela').filter())" style="width:10rem"
-                                 placeholder="Enter keyword" />
+						<p:inputText id="globalFilter"
+							onkeyup="PrimeFaces.debounce(() => PF('tabela').filter())"
+							style="width:10rem" placeholder="Enter keyword" />
 					</f:facet>
 
 					<p:column style="text-align:center;" headerText="Foto"
@@ -52,6 +53,8 @@
 						filterBy="#{orcamento.tipoConsulta}"
 						sortBy="#{orcamento.tipoConsulta}">
 						<p:outputLabel value="#{orcamento.tipoConsulta}" />
+						<br />
+						<p:outputLabel value="ID Orçamento: #{orcamento.id}" />
 
 					</p:column>
 					<p:column headerText="Valor" filterBy="#{orcamento.valor}"
@@ -72,7 +75,8 @@
 						headerText="Ações">
 
 						<p:commandButton title="Informações" update=":frmInfoCadastro"
-							oncomplete="PF('dlgInfoCadastro').show();" icon="pi pi-info-circle">
+							oncomplete="PF('dlgInfoCadastro').show();"
+							icon="pi pi-info-circle">
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>
@@ -83,15 +87,15 @@
 							<f:param name="codigo" value="#{orcamento.id}" />
 						</p:button>
 						<p:spacer width="5" />
-						<p:commandButton title="Excluir" rendered="#{usuarioMB.usuario.adm}"
-							update=":frmExclusao" oncomplete="PF('exclusao').show();"
-							icon="pi pi-trash">
+						<p:commandButton title="Excluir"
+							rendered="#{usuarioMB.usuario.adm}" update=":frmExclusao"
+							oncomplete="PF('exclusao').show();" icon="pi pi-trash">
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>
 					</p:column>
-					<f:facet   name="header">
-						<p:commandLink  rendered="#{not empty orcamentoMB.orcamentos}"
+					<f:facet name="header">
+						<p:commandLink rendered="#{not empty orcamentoMB.orcamentos}"
 							style="margin-left:250px;" id="pdf" ajax="false">
 							<p:graphicImage value="/img/pdf.png" />
 							<pe:exporter type="pdf" target="tabela" encoding="iso-8859-1"
@@ -104,28 +108,30 @@
 		</h:form>
 
 
+		<!-- 			confirm dialog para exclusao da consulta -->
 		<h:form id="frmExclusao">
-			<!-- 			confirm dialog para exclusao da consulta -->
-			<p:confirmDialog widgetVar="exclusao" severity="alert"
-				header="Confirmação exclusao saída"
-				message="Você deseja remover orçamento id: #{orcamentoMB.orcamento.id}?">
+			<p:dialog modal="true" closable="true" closeOnEscape="true"
+				widgetVar="exclusao" severity="alert"
+				header="Confirmação exclusao orçamento">
 
+				<center>
+					<h:panelGrid columns="1">
+						<p:outputLabel value="ID orçamento: #{orcamentoMB.orcamento.id}" />
+						<p:outputLabel
+							value="Paciente: #{orcamentoMB.orcamento.paciente.nome}" />
+						<p:outputLabel
+							value="Consulta: #{orcamentoMB.orcamento.tipoConsulta}" />
 
-				<p:outputLabel value="Paciente:" />
-				<p:outputLabel value="#{orcamentoMB.orcamento.paciente.nome}" />
-				<br />
-				<br />
+					</h:panelGrid>
+				</center>
+				<div class="btnConfirmExcluConsulta">
+					<p:commandButton icon="pi pi-check" update=":frmOrcamento:tabela ,  :frmOrcamento:msg"
+						value="Sim" oncomplete="PF('exclusao').hide()"
+						action="#{orcamentoMB.remover}" />
+					<p:commandButton icon="pi pi-times" value="Não" oncomplete="PF('exclusao').hide()" />
+				</div>
 
-				<p:outputLabel value="Consulta:" />
-				<p:outputLabel value="#{orcamentoMB.orcamento.tipoConsulta}" />
-				<br />
-
-				<p:commandButton update=":frmOrcamento:tabela ,  :frmOrcamento:msg"
-					value="Sim" oncomplete="PF('exclusao').hide()"
-					action="#{orcamentoMB.remover}" />
-
-				<p:commandButton value="Não" oncomplete="PF('exclusao').hide()" />
-			</p:confirmDialog>
+			</p:dialog>
 		</h:form>
 
 

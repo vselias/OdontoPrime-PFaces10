@@ -91,7 +91,9 @@
 							</p:outputLabel>
 							<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
 								value="Valor com Desconto: R$ 0,00" />
-
+							<p:commandLink immediate="true" value="Pagamento"
+								action="#{consultaMB.showPagamentoParcela(c)}">
+							</p:commandLink>
 						</p:panelGrid>
 
 					</p:column>
@@ -136,9 +138,8 @@
 
 
 			<!-- 			confirm dialog para exclusao da consulta -->
-			<p:dialog draggable="true" modal="true" widgetVar="exclusao"
-				severity="alert" header="Confirmação de exclusão"
-				message="Você deseja remover a consulta?">
+			<p:dialog closable="true" closeOnEscape="true" draggable="true"
+				modal="true" widgetVar="exclusao" header="Confirmação de exclusão da consulta">
 
 				<center>
 					<h:panelGrid columns="1">
@@ -168,9 +169,9 @@
 			<h:form id="frmPesqConsulta">
 				<p:panelGrid columns="2" layout="grid"
 					styleClass="ui-panelgrid-blank"
-					columnClasses="ui-grid-col-6,
-			ui-grid-col-6
-			">
+					columnClasses="ui-grid-col-6,ui-grid-col-6">
+
+
 					<p:outputLabel value="Id" />
 					<p:inputText readonly="true" value="#{consultaMB.consulta.id}" />
 
@@ -185,7 +186,6 @@
 						rendered="#{consultaMB.consulta.tipoConsulta.descricao ne null}"
 						value="#{consultaMB.consulta.tipoConsulta.descricao}" />
 
-
 					<p:outputLabel value="Opção de pagamento" />
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.entrada.opcaoPagamento eq null ? 'N/A' : ''}" />
@@ -193,7 +193,6 @@
 					<p:outputLabel value="Estado da consulta" />
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.estadoConsulta.descricao}" />
-
 
 					<p:outputLabel
 						rendered="#{consultaMB.consulta.entrada.parcela ne null}"
@@ -212,21 +211,22 @@
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.entrada.estadoPagamento.descricao}" />
 
+
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
 
 		<!-- dialog detalhes do cadastro da consulta -->
-		<p:dialog header="Informações do cadastro da consulta"
-			resizable="false" modal="true" appendTo="@(body)"
-			widgetVar="dlgDetalheConsulta">
+		<p:dialog header="Informações do cadastro da consulta" closable="true"
+			closeOnEscape="true" resizable="false" modal="true"
+			appendTo="@(body)" widgetVar="dlgDetalheConsulta">
 			<h:form id="frmDetalheConsulta">
 				<h:panelGrid cellpadding="10" columns="2">
-					<p:outputLabel value="Cadastrado por:" />
+					<p:outputLabel value="Cadastrado por" />
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.nomeUsuarioCadastrou}" />
 
-					<p:outputLabel value="Data modificação:" />
+					<p:outputLabel value="Data modificação" />
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.dataCadastro}">
 						<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
@@ -237,7 +237,7 @@
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.statusCadastro.descricao}" />
 
-					<p:outputLabel value="Data registro:" />
+					<p:outputLabel value="Data registro" />
 					<p:inputText readonly="true"
 						value="#{consultaMB.consulta.entrada.dataLancamento}">
 						<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"

@@ -159,8 +159,9 @@ public class ParcelaService implements Serializable {
 		}
 	}
 
-	public void pagarParcelas(List<Parcela> parcelas) {
+	public void pagarParcelas(Entrada entrada, List<Parcela> parcelas) {
 		try {
+
 			parcelas.forEach(p -> {
 				p.setEstadoPagamento(EstadoPagamento.PAGO);
 				if (p.getDataPagamento() == null) {
@@ -169,15 +170,24 @@ public class ParcelaService implements Serializable {
 				parcelaDAO.salvar(p);
 				System.out.println(p);
 			});
+
+			atualizarEstadoPagamentoEntrada(entrada, parcelas);
+
 			MensagemUtil.enviarMensagem("Parcelas pagas com sucesso!", FacesMessage.SEVERITY_INFO);
+
 		} catch (Exception e) {
-			MensagemUtil.enviarMensagem("Erro ao pagar parcelas! Contate o admnistrador.",
-					FacesMessage.SEVERITY_ERROR);
+			MensagemUtil.enviarMensagem("Erro ao pagar parcelas! Contate o admnistrador.", FacesMessage.SEVERITY_ERROR);
 			e.printStackTrace();
 		}
 	}
 
-	public void cancelarPagamentosParcelas(List<Parcela> parcelas) {
+	public void atualizarEstadoPagamentoEntrada(Entrada entrada, List<Parcela> parcelas) {
+		boolean todasPagas = parcelas.stream().allMatch(p -> p.getEstadoPagamento().equals(EstadoPagamento.PAGO));
+		entrada.setEstadoPagamento(todasPagas ? EstadoPagamento.PAGO : EstadoPagamento.PENDENTE);
+		entradaDAO.salvar(entrada);
+	}
+
+	public void cancelarPagamentosParcelas(Entrada entrada, List<Parcela> parcelas) {
 		try {
 			parcelas.forEach(p -> {
 				p.setEstadoPagamento(EstadoPagamento.PENDENTE);
@@ -185,6 +195,7 @@ public class ParcelaService implements Serializable {
 				parcelaDAO.salvar(p);
 				System.out.println(p);
 			});
+			atualizarEstadoPagamentoEntrada(entrada, parcelas);
 			MensagemUtil.enviarMensagem("Parcelas canceladas com sucesso!", FacesMessage.SEVERITY_INFO);
 		} catch (Exception e) {
 			MensagemUtil.enviarMensagem("Erro ao cancelar parcelas! Contate o admnistrador.",

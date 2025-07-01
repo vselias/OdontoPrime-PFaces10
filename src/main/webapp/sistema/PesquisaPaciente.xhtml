@@ -22,9 +22,9 @@
 			<p:messages id="msg" />
 
 			<center>
-				<p:dataTable size="small" styleClass="tabela" value="#{pacienteMB.pacientes}"
-					paginatorPosition="top" var="p" paginator="true"
-					tableStyle="width:auto" resizableColumns="true"
+				<p:dataTable size="small" styleClass="tabela"
+					value="#{pacienteMB.pacientes}" paginatorPosition="top" var="p"
+					paginator="true" tableStyle="width:auto" resizableColumns="true"
 					rowsPerPageTemplate="5,10,15" rows="5"
 					filteredValue="#{pacienteMB.listaPesquisa}"
 					emptyMessage="Nenhum registro." widgetVar="tabela"
@@ -108,7 +108,7 @@
 
 			<p:dialog position="center" draggable="true" modal="true"
 				widgetVar="exclusao" severity="alert" closeOnEscape="true"
-				closable="true" header="Confirmação exclusão paciente">
+				closable="true" header="Confirmação de exclusão do paciente">
 				<center>
 					<h:panelGrid columns="1">
 						<p:outputLabel value="CPF: #{pacienteMB.paciente.cpf}" />
@@ -121,7 +121,6 @@
 							action="#{pacienteMB.excluirPaciente}" />
 						<p:commandButton icon="pi pi-times" value="Não"
 							oncomplete="PF('exclusao').hide()" />
-
 					</div>
 				</center>
 
@@ -135,18 +134,18 @@
 			closable="true" draggable="true" resizable="false" modal="true"
 			appendTo="@(body)" widgetVar="dlgDetalhePaciente">
 			<h:form id="frmDetalhePaciente">
-				<h:panelGrid cellpadding="5px;" columns="2">
-					<p:outputLabel value="Cadastrado por:" />
+				<h:panelGrid cellpadding="10" columns="2">
+					<p:outputLabel value="Cadastrado por" />
 					<p:inputText readonly="true"
 						value="#{pacienteMB.paciente.nomeUsuarioRegistrou}" />
 
-					<p:outputLabel value="Data cadastro:" />
+					<p:outputLabel value="Data cadastro" />
 					<p:inputText readonly="true"
 						value="#{pacienteMB.paciente.dataCadastro}">
 						<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
 							pattern="dd/MM/yyyy HH:mm:ss" />
 					</p:inputText>
-					<p:outputLabel value="Status cadastro:" />
+					<p:outputLabel value="Status cadastro" />
 					<p:inputText readonly="true"
 						value="#{pacienteMB.paciente.statusCadastro.descricao}" />
 
@@ -154,49 +153,38 @@
 			</h:form>
 		</p:dialog>
 
+
+		<!-- botao de search -->
 		<p:dialog header="Informações do endereço do paciente"
 			closeOnEscape="true" closable="true" draggable="true"
 			resizable="false" modal="true" appendTo="@(body)"
 			widgetVar="dlgDetalheEndereco">
 			<h:form id="frmDetalheEndereco">
-				<h:panelGrid columns="2">
-					<p:outputLabel value="Paciente:" />
+				<h:panelGrid layout="grid" columnClasses="ui-grid-col-6,ui-grid-col-6" columns="2">
+					<p:outputLabel value="Paciente" />
 					<p:inputText readonly="true" value="#{pacienteMB.paciente.nome}" />
 
-					<p:outputLabel value="Rua:" />
-					<p:inputText rendered="#{pacienteMB.paciente.endereco.rua ne ''}"
-						readonly="true" value="#{pacienteMB.paciente.endereco.rua}" />
-					<p:inputText rendered="#{pacienteMB.paciente.endereco.rua eq ''}"
-						readonly="true" value="Não informado." />
+					<p:outputLabel value="Rua" />
+					<p:inputText readonly="true"
+						value="#{pacienteMB.paciente.endereco.rua}" />
 
-					<p:outputLabel value="Número:" />
+
+					<p:outputLabel value="Número" />
 					<p:inputText readonly="true"
 						value="#{pacienteMB.paciente.endereco.numero}" />
 
 
-					<p:outputLabel value="Bairro:" />
-					<p:inputText
-						rendered="#{pacienteMB.paciente.endereco.bairro ne ''}"
-						readonly="true" value="#{pacienteMB.paciente.endereco.bairro}" />
-					<p:inputText
-						rendered="#{pacienteMB.paciente.endereco.bairro eq ''}"
-						readonly="true" value="Não informado." />
+					<p:outputLabel value="Bairro" />
+					<p:inputText readonly="true"
+						value="#{pacienteMB.paciente.endereco.bairro}" />
 
-					<p:outputLabel value="Cidade:" />
-					<p:inputText
-						rendered="#{pacienteMB.paciente.endereco.cidade ne ''}"
-						readonly="true" value="#{pacienteMB.paciente.endereco.cidade}" />
-					<p:inputText
-						rendered="#{pacienteMB.paciente.endereco.cidade eq ''}"
-						readonly="true" value="Não informado." />
+					<p:outputLabel value="Cidade" />
+					<p:inputText readonly="true"
+						value="#{pacienteMB.paciente.endereco.cidade}" />
 
 					<p:outputLabel value="Estado" />
 					<p:inputText readonly="true"
-						rendered="#{pacienteMB.paciente.endereco.estado.descricao ne ''}"
 						value="#{pacienteMB.paciente.endereco.estado.descricao}" />
-					<p:inputText
-						rendered="#{pacienteMB.paciente.endereco.estado.descricao eq ''}"
-						readonly="true" value="Não informado." />
 
 				</h:panelGrid>
 			</h:form>

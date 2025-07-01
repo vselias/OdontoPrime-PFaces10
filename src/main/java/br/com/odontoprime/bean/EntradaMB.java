@@ -181,10 +181,10 @@ public class EntradaMB implements Serializable {
 	}
 
 	public void pagarParcelas() {
-		parcelaService.pagarParcelas(parcelasSelecionadas);
+		parcelaService.pagarParcelas(entrada, parcelasSelecionadas);
 	}
 	public void cancelarPagamentosParcelas() {
-		parcelaService.cancelarPagamentosParcelas(parcelasSelecionadas);
+		parcelaService.cancelarPagamentosParcelas(entrada, parcelasSelecionadas);
 	}
 
 	public void buscarConsultaComParcela(ComponentSystemEvent event) {

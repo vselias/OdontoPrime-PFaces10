@@ -156,7 +156,7 @@
 									<p:inputText readonly="true"
 										value="#{entradaMB.consulta.entrada.valorDesconto}">
 										<f:convertNumber pattern="R$#,##0.00" />
-									
+
 									</p:inputText>
 
 									<p:outputLabel value="Usuário de Registro:" />
@@ -167,10 +167,6 @@
 										value="#{entradaMB.consulta.statusCadastro.descricao}" />
 								</h:panelGrid>
 							</p:panel>
-
-
-
-
 						</div>
 
 						<div class="ui-grid-col-2">
@@ -191,15 +187,9 @@
 				</div>
 
 
-				<p:outputLabel styleClass="tituloEstadoPagamentoParcela"
-					rendered="#{entradaMB.consulta.estadoConsulta.descricao eq 'Cancelado'}"
-					value="Consulta com estado cancelado não pode registrar pagamento ou
-			cancelamento." />
-				<p:messages styleClass="pMessages" id="msgCancParcela"
-					closable="true" />
-
 				<center>
-					<p:dataTable size="small" tableStyle="width:auto" paginator="true" rowsPerPageTemplate="5,10,15"
+					<p:dataTable size="small" tableStyle="width:auto" paginator="true"
+						rowsPerPageTemplate="5,10,15"
 						selection="#{entradaMB.parcelasSelecionadas}"
 						selectionMode="multiple" rowKey="#{p.id}" rows="10"
 						resizableColumns="true" id="tabelaParcela"
@@ -255,111 +245,46 @@
 								value="Pendente" />
 						</p:column>
 
-						<!-- coluna ocultada antiga ações dos botões -->
-						<p:column rendered="false" style="text-align:center;"
-							headerText="Efetuar Pagamento">
-							<f:facet name="header">
-								<h:outputText value="Efetuar Pagamento" />
-								<br />
-								<p:selectBooleanCheckbox value="#{entradaMB.selecionarTodos}"
-									id="selectAll">
-									<p:ajax event="change" update="tabelaParcela"
-										listener="#{entradaMB.ativarTodos}" />
-
-								</p:selectBooleanCheckbox>
-							</f:facet>
-							<!-- <p:selectBooleanCheckbox value="#{entradaMB.pagamentoAtivado}" /> -->
-
-							<!-- 	rendered antigo	"#{p.estadoPagamento.descricao ne 'Pago' and entradaMB.consulta.estadoConsulta.descricao ne 'Cancelado'}" -->
-							<p:commandButton icon="pi pi-caret-right"
-								update="@form , :frmPagParcela"
-								action="#{entradaMB.limparDataPagamento}" rendered="false"
-								value="Pagar" oncomplete="PF('dlgPagParcela').show()">
-								<f:setPropertyActionListener value="#{p}"
-									target="#{entradaMB.parcela}" />
-							</p:commandButton>
-
-							<!-- rendered antigo #{p.estadoPagamento.descricao eq 'Pago'} -->
-							<p:commandButton styleClass="btnCancelarPagamento"
-								oncomplete="PF('dlgCancPagamento').show()" rendered="false"
-								icon="pi pi-times" value="Cancelar">
-								<f:setPropertyActionListener value="#{p}"
-									target="#{entradaMB.parcela}" />
-							</p:commandButton>
-
-						</p:column>
-
 					</p:dataTable>
 				</center>
 			</p:outputPanel>
 		</h:form>
 
 		<!-- dialog confirmação do pagamento de todas parcelas -->
-		<p:confirmDialog appendTo="@(body)" widgetVar="dlgPagamentoTodas"
+		<p:dialog draggable="true" modal="true" widgetVar="dlgPagamentoTodas"
 			header="Confirmar os pagamentos das parcelas?" closable="true"
 			closeOnEscape="true" message="Deseja efetuar o registro?">
 			<h:form>
-				<p:commandButton
-					update=":formGlobal:msgGlobal :frmPagParcela :frmExbParcela:tabelaParcela "
-					icon="pi pi-caret-right" action="#{entradaMB.pagarParcelas}"
-					oncomplete="PF('dlgPagamentoTodas').hide()" value="Sim" />
+				<center>
+					<p:commandButton
+						update=":formGlobal:msgGlobal :frmExbParcela:tabelaParcela "
+						icon="pi pi-check" action="#{entradaMB.pagarParcelas}"
+						oncomplete="PF('dlgPagamentoTodas').hide()" value="Sim" />
+					<p:commandButton icon="pi pi-times" value="Fechar"
+						oncomplete="PF('dlgPagamentoTodas').hide()" />
 
-				<p:commandButton icon="pi pi-times" value="Fechar"
-					oncomplete="PF('dlgPagamentoTodas').hide()" />
+				</center>
 			</h:form>
-		</p:confirmDialog>
-
-		<!-- dialog confirmação do pagamento das parcelas -->
-		<p:confirmDialog appendTo="@(body)" widgetVar="dlgConfPagamento"
-			header="Confirmar o pagamento da parcela?" closable="true"
-			closeOnEscape="true" message="Deseja efetuar o registro?">
-			<h:form>
-				<p:commandButton
-					update=":frmExbParcela:tabelaParcela, :frmPagParcela:msgPagamento"
-					action="#{entradaMB.efetuarPagamentoParcela}" icon="pi pi-caret-right"
-					oncomplete="PF('dlgConfPagamento').hide()" value="Sim" />
-
-				<p:commandButton icon="pi pi-times" value="Fechar"
-					oncomplete="PF('dlgConfPagamento').hide()" />
-			</h:form>
-		</p:confirmDialog>
+		</p:dialog>
 
 		<!-- dialog confirmação do cancelamento do pagamento de todas parcelas -->
-		<p:confirmDialog appendTo="@(body)"
+		<p:dialog draggable="true" modal="true"
 			widgetVar="dlgCancelPagamentoTodas" closable="true"
 			closeOnEscape="true" header="Cancelar os pagamentos das parcelas?"
 			message="Deseja efetuar o registro?">
 			<h:form>
-				<p:commandButton
-					update=":frmExbParcela:tabelaParcela, :formGlobal:msgGlobal"
-					action="#{entradaMB.cancelarPagamentosParcelas}" icon="pi pi-caret-right"
-					oncomplete="PF('dlgCancelPagamentoTodas').hide()" value="Sim" />
-				<p:commandButton icon="pi pi-times" value="Não"
-					oncomplete="PF('dlgCancelPagamentoTodas').hide()" />
+				<center>
+					<p:commandButton
+						update=":frmExbParcela:tabelaParcela, :formGlobal:msgGlobal"
+						action="#{entradaMB.cancelarPagamentosParcelas}"
+						icon="pi pi-check"
+						oncomplete="PF('dlgCancelPagamentoTodas').hide()" value="Sim" />
+					<p:commandButton icon="pi pi-times" value="Não"
+						oncomplete="PF('dlgCancelPagamentoTodas').hide()" />
+				</center>
 			</h:form>
-		</p:confirmDialog>
-
-		<!-- dialog confirmação do cancelamento do pagamento das parcelas -->
-		<p:confirmDialog appendTo="@(body)" widgetVar="dlgCancPagamento"
-			header="Cancelar o pagamento da parcela?" closable="true"
-			closeOnEscape="true" message="Deseja efetuar o registro?">
-			<h:form>
-				<p:commandButton
-					update=":frmExbParcela:tabelaParcela, :frmExbParcela:msgCancParcela"
-					action="#{entradaMB.cancelarPagamentoParcela}" icon="pi pi-caret-right"
-					oncomplete="PF('dlgCancPagamento').hide()" value="Sim" />
-				<p:commandButton icon="pi pi-times" value="Não"
-					oncomplete="PF('dlgCancPagamento').hide()" />
-			</h:form>
-		</p:confirmDialog>
-
-
-		<p:dialog header="Concluir o pagamento da parcela." modal="true"
-			closable="true" closeOnEscape="true" dynamic="true"
-			appendTo="@(body)" resizable="false" widgetVar="dlgPagParcela">
-
-			<ui:include src="/sistema/adm/CorpoParcela.xhtml" />
 		</p:dialog>
+
 
 	</ui:define>
 </ui:composition>

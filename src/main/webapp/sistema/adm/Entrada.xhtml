@@ -46,31 +46,16 @@
 						headerText="Paciente">
 						<p:outputLabel value="#{c.paciente.nome}" />
 					</p:column>
-
 					<p:column filterBy="#{c.tipoConsulta.descricao}"
 						sortBy="#{c.tipoConsulta.descricao}" headerText="Consulta">
 						<p:outputLabel value="#{c.tipoConsulta.descricao}" />
 						<p:outputLabel rendered="#{c.tipoConsulta.descricao eq null}"
 							value="Não informado." />
+						<br />
+						<p:outputLabel value="ID: #{c.id}" />
 
 					</p:column>
-					<p:column filterBy="#{c.entrada.dataLancamento}"
-						sortBy="#{c.entrada.dataLancamento}"
-						headerText="Data do Lançamento">
-						<p:outputLabel value="#{c.entrada.dataLancamento}">
-							<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
-								pattern="dd/MM/yyyy" />
-						</p:outputLabel>
-					</p:column>
-					<p:outputLabel rendered="#{c.entrada.dataVencimento eq null}"
-						value="Não informado." />
 
-
-					<p:column filterBy="#{c.entrada.formaPagamento.nome}"
-						sortBy="#{c.entrada.formaPagamento.nome}"
-						headerText="Opção de Pagamento">
-						<p:outputLabel value="#{c.entrada.formaPagamento.nome}" />
-					</p:column>
 
 					<p:column filterBy="#{c.entrada.valor}" sortBy="#{c.entrada.valor}"
 						headerText="Total">

@@ -395,4 +395,8 @@ public class ConsultaMB implements Serializable {
 		textoPaciente = "";
 		pacientes = pacienteService.buscarTodos();
 	}
+	public String showPagamentoParcela(Consulta consulta) {
+	    return "/sistema/adm/PagamentoParcela.xhtml?faces-redirect=true&consulta=" + consulta.getId();
+
+	}
 }
