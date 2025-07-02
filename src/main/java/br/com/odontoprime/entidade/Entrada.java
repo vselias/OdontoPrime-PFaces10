@@ -37,7 +37,6 @@ public class Entrada implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 
-	private String opcaoPagamento;
 
 	private String parcela;
 
@@ -59,6 +58,9 @@ public class Entrada implements Serializable {
 	@JoinColumn(name = "entrada_id")
 	private List<Parcela> parcelas;
 
+	
+	
+	
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
@@ -153,14 +155,6 @@ public class Entrada implements Serializable {
 
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
-	}
-
-	public String getOpcaoPagamento() {
-		return opcaoPagamento;
-	}
-
-	public void setOpcaoPagamento(String opcaoPagamento) {
-		this.opcaoPagamento = opcaoPagamento;
 	}
 
 	public Double getValor() {

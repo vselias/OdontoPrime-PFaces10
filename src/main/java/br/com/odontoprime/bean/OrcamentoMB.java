@@ -12,6 +12,10 @@ import javax.inject.Named;
 import org.omnifaces.cdi.ViewScoped;
 import org.primefaces.event.SelectEvent;
 
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPRow;
+import com.lowagie.text.pdf.PdfPTable;
+
 import br.com.odontoprime.entidade.Orcamento;
 import br.com.odontoprime.entidade.Paciente;
 import br.com.odontoprime.service.OrcamentoService;
@@ -110,6 +114,7 @@ public class OrcamentoMB implements Serializable {
 		orcamentoService.salvar(orcamento);
 	}
 
+
 	public void gerarPDF(Object document) {
 		orcamentoService.gerarPDF(document);
 	}
@@ -127,9 +132,10 @@ public class OrcamentoMB implements Serializable {
 		init();
 		MensagemUtil.enviarMensagem("Campos limpos!", FacesMessage.SEVERITY_INFO);
 	}
+
 	public void selecionarPaciente() {
-		if(this.orcamento.getPaciente() != null && this.orcamento.getPaciente().getId() != null &&
-				this.orcamento.getPaciente().getId() > 0) {
+		if (this.orcamento.getPaciente() != null && this.orcamento.getPaciente().getId() != null
+				&& this.orcamento.getPaciente().getId() > 0) {
 			MensagemUtil.enviarMensagem("Paciente selecionado.", FacesMessage.SEVERITY_INFO);
 		}
 	}

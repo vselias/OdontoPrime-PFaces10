@@ -25,12 +25,42 @@
 			<center>
 
 
-				<p:dataTable size="small" stripedRows="true" widgetVar="tblConsulta"
+				<p:dataTable size="small"  widgetVar="tblConsulta"
 					styleClass="tabela" paginator="true" rowsPerPageTemplate="5,10,15"
-					rowKey="#{c.id}" value="#{consultaMB.consultas}" id="tblConsulta"
+					value="#{consultaMB.consultas}" id="tblConsulta"
 					var="c" rows="5" paginatorPosition="top"
 					emptyMessage="Nenhum registro.">
+					<p:column  style="text-align:center;"
+						headerText="Ações">
 
+						<p:menuButton icon="pi pi-cog" value="Opções">
+							<p:menuitem value="Informações do Pagamento"
+								oncomplete="PF('dlgPesqConsulta').show()"
+								update=":frmPesqConsulta" icon="pi pi-search">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{consultaMB.consulta}" />
+							</p:menuitem>
+							<p:menuitem value="Editar" icon="pi pi-pencil" outcome="Consulta">
+								<f:param name="consulta" value="#{c.id}" />
+							</p:menuitem>
+
+							<p:menuitem value="Informações do cadastro"
+								oncomplete="PF('dlgDetalheConsulta').show()"
+								update=":frmDetalheConsulta" icon="pi pi-search">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{consultaMB.consulta}" />
+							</p:menuitem>
+
+							<p:menuitem value="Excluir" update=":formGlobal:msgGlobal"
+								oncomplete="PF('exclusao').show()" icon="pi pi-trash">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{consultaMB.consulta}" />
+							</p:menuitem>
+							<p:menuitem value="Pagamento" icon="pi pi-money-bill"
+								action="#{consultaMB.showPagamentoParcela(c)}" immediate="true" />
+						</p:menuButton>
+
+					</p:column>
 					<p:column headerText="Foto">
 						<p:graphicImage cache="false" styleClass="imagens"
 							rendered="#{c.paciente.nomeImagem eq null or c.paciente.nomeImagem eq ''}"
@@ -91,45 +121,8 @@
 							</p:outputLabel>
 							<p:outputLabel rendered="#{c.entrada.valorDesconto eq null}"
 								value="Valor com Desconto: R$ 0,00" />
-							<p:commandLink immediate="true" value="Pagamento"
-								action="#{consultaMB.showPagamentoParcela(c)}">
-							</p:commandLink>
+
 						</p:panelGrid>
-
-					</p:column>
-
-
-
-					<p:column styleClass="colunaAcoes" style="text-align:center;"
-						headerText="Ações">
-
-						<p:commandButton title="Informações do pagamento" icon="pi pi-search"
-							update=" :frmPesqConsulta"
-							oncomplete="PF('dlgPesqConsulta').show()">
-							<f:setPropertyActionListener value="#{c}"
-								target="#{consultaMB.consulta}" />
-						</p:commandButton>
-
-
-						<p:button title="Editar" icon="pi pi-pencil" outcome="Consulta">
-							<f:param name="consulta" value="#{c.id}" />
-						</p:button>
-
-
-						<p:commandButton title="Informações do cadastro" rendered="#{usuarioMB.usuario.adm}"
-							update=":frmDetalheConsulta"
-							oncomplete="PF('dlgDetalheConsulta').show();"
-							icon="pi pi-info-circle">
-							<f:setPropertyActionListener value="#{c}"
-								target="#{consultaMB.consulta}" />
-						</p:commandButton>
-
-						<p:commandButton title="Excluir"
-							rendered="#{usuarioMB.usuario.adm}" update="@form"
-							oncomplete="PF('exclusao').show()" icon="pi pi-trash">
-							<f:setPropertyActionListener value="#{c}"
-								target="#{consultaMB.consulta}" />
-						</p:commandButton>
 
 					</p:column>
 
@@ -139,7 +132,8 @@
 
 			<!-- 			confirm dialog para exclusao da consulta -->
 			<p:dialog closable="true" closeOnEscape="true" draggable="true"
-				modal="true" widgetVar="exclusao" header="Confirmação de exclusão da consulta">
+				modal="true" widgetVar="exclusao"
+				header="Confirmação de exclusão da consulta">
 
 				<center>
 					<h:panelGrid columns="1">
@@ -188,7 +182,7 @@
 
 					<p:outputLabel value="Opção de pagamento" />
 					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.entrada.opcaoPagamento eq null ? 'N/A' : ''}" />
+						value="#{consultaMB.consulta.entrada.formaPagamento.descricao}" />
 
 					<p:outputLabel value="Estado da consulta" />
 					<p:inputText readonly="true"

@@ -12,9 +12,18 @@
 	--corBackBody: white;
 	--corTitulo: black;
 }
-div.tabelaPagamentoParcela{
+
+div.ui-menu.ui-menu-dynamic, div.ui-menu.ui-menu-dynamic  ul li {
+	min-width: unset !important;
+	max-width: unset !important;
+	width: auto !important;
+	text-align: center;
+}
+
+div.tabelaPagamentoParcela {
 	margin: 15px;
 }
+
 .coluna-filtro-oculto .ui-column-filter {
 	display: none !important;
 }
@@ -510,15 +519,8 @@ button.ui-button.ui-state-default span, .ui-button.ui-state-default span
 	margin-top: 30px;
 }
 
-.ui-datatable-table {
-	width: auto !important;
-	overflow: visible !important;
-}
-
 .ui-datatable-tablewrapper table {
 	width: auto !important;
-	table-layout: auto !important;
-	margin: 0 auto;
 }
 
 .panelCadastroConsulta {
@@ -760,6 +762,7 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 .ui-spinner-button {
 	z-index: auto !important;
 }
+
 /* 	definir o tamanho do link dentro do menu */
 @media ( max-width : 800px) {
 	/* 	definir o tamanho do link dentro do menu */

@@ -42,9 +42,6 @@ public class Consulta implements Serializable {
 	@Column(nullable = false, unique = true)
 	private Date dataConsulta;
 
-	private Double valorConsulta;
-
-	private Double valorTotal;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Entrada entrada;
@@ -52,18 +49,10 @@ public class Consulta implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EstadoConsulta estadoConsulta;
 
-	private String tipoImagem;
 
 	@ManyToOne
 	private Paciente paciente;
 
-	public Double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
 
 	public String getNomeUsuarioCadastrou() {
 		return nomeUsuarioCadastrou;
@@ -105,13 +94,6 @@ public class Consulta implements Serializable {
 		this.estadoConsulta = estadoConsulta;
 	}
 
-	public String getTipoImagem() {
-		return tipoImagem;
-	}
-
-	public void setTipoImagem(String tipoImagem) {
-		this.tipoImagem = tipoImagem;
-	}
 
 	public Paciente getPaciente() {
 		return paciente;
@@ -137,22 +119,14 @@ public class Consulta implements Serializable {
 		this.dataConsulta = dataConsulta;
 	}
 
-	public Double getValorConsulta() {
-		return valorConsulta;
-	}
-
-	public void setValorConsulta(Double valorConsulta) {
-		this.valorConsulta = valorConsulta;
-	}
 
 	// construtor para metodo
-	public Consulta(String nomeImagem, Long id, Double valorTotal, TipoConsulta tipoConsulta, String paciente,
+	public Consulta(String nomeImagem, Long id,TipoConsulta tipoConsulta, String nome,
 			Date dataConsulta) {
 		this.id = id;
 		this.tipoConsulta = tipoConsulta;
-		this.valorConsulta = valorTotal;
 		this.paciente = new Paciente();
-		this.paciente.setNome(paciente);
+		this.paciente.setNome(nome);
 		this.paciente.setNomeImagem(nomeImagem);
 		this.dataConsulta = dataConsulta;
 	}
@@ -161,7 +135,6 @@ public class Consulta implements Serializable {
 		super();
 		entrada = new Entrada();
 		paciente = new Paciente();
-		this.estadoConsulta = EstadoConsulta.AUSENTE;
 	}
 
 	@Override

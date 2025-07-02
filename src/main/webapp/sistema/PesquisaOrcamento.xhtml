@@ -20,18 +20,26 @@
 
 			<p:messages id="msg" escape="true" closable="true" />
 			<center>
-				<p:dataTable filteredValue="#{orcamentoMB.orcamentosFiltrados}"
+
+
+
+				<p:dataTable size="small"
+					filteredValue="#{orcamentoMB.orcamentosFiltrados}"
 					styleClass="tabela" paginator="true" rowsPerPageTemplate="5,10,15"
-					reflow="true" widgetVar="tabela" selectionMode="single"
-					selection="#{orcamentoMB.orcamento}" rowKey="#{orcamento.id}"
-					value="#{orcamentoMB.orcamentos}" id="tabela" var="orcamento"
-					rows="5" paginatorPosition="bottom" emptyMessage="Nenhum registro.">
+					reflow="true" widgetVar="tabela" value="#{orcamentoMB.orcamentos}"
+					id="tabela" var="orcamento" rows="5" paginatorPosition="bottom"
+					emptyMessage="Nenhum registro.">
 
 					<f:facet name="header">
-						<p:inputText id="globalFilter"
-							onkeyup="PrimeFaces.debounce(() => PF('tabela').filter())"
-							style="width:10rem" placeholder="Enter keyword" />
+						<h:panelGroup
+							rendered="#{!requestScope['primefaces.datatable.exporting']}">
+							<div style="text-align: center;">
+								<p:inputText style="width:10rem" id="globalFilter"
+									onkeyup="PF('tabela').filter()" placeholder="Enter keyword" />
+							</div>
+						</h:panelGroup>
 					</f:facet>
+
 
 					<p:column style="text-align:center;" headerText="Foto"
 						exportable="false">
@@ -42,20 +50,24 @@
 							rendered="#{orcamento.paciente.nomeImagem ne null}"
 							value="/imagens/#{orcamento.paciente.nomeImagem}" />
 					</p:column>
-
+					<p:column filterBy="#{orcamento.id}" sortBy="#{orcamento.id}"
+						headerText="ID Orçamento">
+						<p:outputLabel value="#{orcamento.id}" />
+					</p:column>
 					<p:column filterBy="#{orcamento.paciente.nome}"
 						sortBy="#{orcamento.paciente.nome}" headerText="Paciente">
 						<p:outputLabel value="#{orcamento.paciente.nome}" />
 					</p:column>
 
+					<p:column filterBy="#{orcamento.paciente.email}"
+						sortBy="#{orcamento.paciente.email}" headerText="E-mail">
+						<p:outputLabel value="#{orcamento.paciente.email}" />
+					</p:column>
 
 					<p:column headerText="Consulta"
 						filterBy="#{orcamento.tipoConsulta}"
 						sortBy="#{orcamento.tipoConsulta}">
 						<p:outputLabel value="#{orcamento.tipoConsulta}" />
-						<br />
-						<p:outputLabel value="ID ORÇAMENTO: #{orcamento.id}" />
-
 					</p:column>
 					<p:column headerText="Valor" filterBy="#{orcamento.valor}"
 						sortBy="#{orcamento.valor}">
@@ -71,8 +83,8 @@
 								pattern="dd/MM/yyyy" locale="pt_BR" />
 						</p:outputLabel>
 					</p:column>
-					<p:column style="text-align:center;" exportable="false"
-						headerText="Ações">
+					<p:column styleClass="colunaAcoes" style="text-align:center;"
+						exportable="false" headerText="Ações">
 
 						<p:commandButton title="Informações" update=":frmInfoCadastro"
 							oncomplete="PF('dlgInfoCadastro').show();"
@@ -80,13 +92,9 @@
 							<f:setPropertyActionListener value="#{orcamento}"
 								target="#{orcamentoMB.orcamento}" />
 						</p:commandButton>
-
-						<p:spacer width="5" />
-
 						<p:button title="Editar" outcome="Orcamento" icon="pi pi-pencil">
 							<f:param name="codigo" value="#{orcamento.id}" />
 						</p:button>
-						<p:spacer width="5" />
 						<p:commandButton title="Excluir"
 							rendered="#{usuarioMB.usuario.adm}" update=":frmExclusao"
 							oncomplete="PF('exclusao').show();" icon="pi pi-trash">
@@ -98,8 +106,10 @@
 						<p:commandLink rendered="#{not empty orcamentoMB.orcamentos}"
 							style="margin-left:250px;" id="pdf" ajax="false">
 							<p:graphicImage value="/img/pdf.png" />
-							<pe:exporter type="pdf" target="tabela" encoding="iso-8859-1"
-								preProcessor="#{orcamentoMB.gerarPDF}" fileName="rel_orçamento" />
+							<pe:exporter fontName="Consolas" pageOnly="true"
+								skipComponents="true" type="pdf" target="tabela"
+								encoding="iso-8859-1" preProcessor="#{orcamentoMB.gerarPDF}"
+								fileName="rel_orçamento" />
 						</p:commandLink>
 
 					</f:facet>
@@ -125,10 +135,11 @@
 					</h:panelGrid>
 				</center>
 				<div class="btnConfirmExcluConsulta">
-					<p:commandButton icon="pi pi-check" update=":frmOrcamento:tabela ,  :frmOrcamento:msg"
-						value="Sim" oncomplete="PF('exclusao').hide()"
-						action="#{orcamentoMB.remover}" />
-					<p:commandButton icon="pi pi-times" value="Não" oncomplete="PF('exclusao').hide()" />
+					<p:commandButton icon="pi pi-check"
+						update=":frmOrcamento:tabela ,  :frmOrcamento:msg" value="Sim"
+						oncomplete="PF('exclusao').hide()" action="#{orcamentoMB.remover}" />
+					<p:commandButton icon="pi pi-times" value="Não"
+						oncomplete="PF('exclusao').hide()" />
 				</div>
 
 			</p:dialog>
@@ -138,22 +149,25 @@
 		<p:dialog header="Detalhes do cadastro do orçamento" modal="true"
 			closable="true" resizable="false" closeOnEscape="true"
 			widgetVar="dlgInfoCadastro">
-			<h:form id="frmInfoCadastro">
-				<h:panelGrid columns="2">
-					<p:outputLabel value="Usuário:" />
-					<p:outputLabel value="#{orcamentoMB.orcamento.usuario.login}" />
+			<center>
+				<h:form id="frmInfoCadastro">
+					<h:panelGrid columns="1">
+						<p:outputLabel
+							value="Usuário: #{orcamentoMB.orcamento.usuario.login}" />
 
-					<p:outputLabel value="Status:" />
-					<p:outputLabel
-						value="#{orcamentoMB.orcamento.statusCadastro.descricao}" />
+						<p:outputLabel
+							value="Status: #{orcamentoMB.orcamento.statusCadastro.descricao}" />
 
-					<p:outputLabel value="Data cadastro:" />
-					<p:outputLabel value="#{orcamentoMB.orcamento.dataCadastro}">
-						<f:convertDateTime timeZone="America/Sao_Paulo"
-							pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR" />
-					</p:outputLabel>
-				</h:panelGrid>
-			</h:form>
+						<p:outputLabel value="Data do cadastro: ">
+							<p:outputLabel value="#{orcamentoMB.orcamento.dataCadastro}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR" />
+							</p:outputLabel>
+						</p:outputLabel>
+
+
+					</h:panelGrid>
+				</h:form>
+			</center>
 		</p:dialog>
 
 

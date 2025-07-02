@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.com.odontoprime.dao.OrcamentoDAO;
@@ -22,9 +23,14 @@ import br.com.odontoprime.util.MensagemUtil;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPRow;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.draw.LineSeparator;
 
 @SuppressWarnings("serial")
@@ -88,6 +94,8 @@ public class OrcamentoService implements Serializable {
 		return orcamentoDAO.buscarTodos(Orcamento.class);
 	}
 
+
+
 	public void gerarPDF(Object document) {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		try {
@@ -95,6 +103,7 @@ public class OrcamentoService implements Serializable {
 			pdf.addCreationDate();
 			pdf.setPageSize(PageSize.A4);
 			pdf.open();
+			Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
 			String dataAtual = format.format(new Date().getTime());
 			Paragraph paragrafo = new Paragraph();
 			Image image = Image.getInstance(this.getClass().getResource("/img/logo-login.png"));
@@ -107,7 +116,7 @@ public class OrcamentoService implements Serializable {
 			pdf.add(paragrafo);
 			LineSeparator lineSeparator = new LineSeparator();
 			pdf.add(lineSeparator);
-			Paragraph paragraph = new Paragraph("Relatório de Orçamentos");
+			Paragraph paragraph = new Paragraph("Relatório de Orçamentos", font);
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			paragraph.setSpacingAfter(10);
 			pdf.add(paragraph);

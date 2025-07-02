@@ -37,44 +37,52 @@
 					<center>
 						<div class="ui-grid-row">
 							<div class="ui-grid-col-6">
-								<h:panelGrid cellpadding="5" columns="2">
+								<p:panelGrid  styleClass="ui-panelgrid-blank" columns="1">
+									<h:panelGroup layout="block" class="panelGConsulta">
+										<p:outputLabel for="paciente" value="Selecione o paciente" />
+										<p:inputText id="paciente" readonly="true" required="true"
+											value="#{orcamentoMB.orcamento.paciente.nome}">
+											<p:tooltip for="paciente"
+												value="Digite um nome para selecionar o paciente."
+												position="top" />
+										</p:inputText>
+										<p:commandButton immediate="true"
+											onclick="PF('tblPaciente').show()" icon="pi pi-check" />
+									</h:panelGroup>
 
-									<p:outputLabel for="paciente" value="Selecione o paciente" />
-									<br />
 
-									<p:inputText id="paciente" readonly="true" required="true"
-										value="#{orcamentoMB.orcamento.paciente.nome}">
-										<p:tooltip for="paciente"
-											value="Digite um nome para selecionar o paciente."
-											position="top" />
-									</p:inputText>
-									<p:commandButton immediate="true"
-										onclick="PF('tblPaciente').show()" icon="pi pi-check" />
+									<h:panelGroup layout="block" class="panelGConsulta">
+										<p:outputLabel for="email" value="E-mail" />
+										<p:inputText id="email" readonly="true"
+											value="#{orcamentoMB.orcamento.paciente.email}">
+										</p:inputText>
+									</h:panelGroup>
 
 
-									<p:outputLabel value="Consulta" />
+									<h:panelGroup layout="block" class="panelGConsulta">
+										<p:outputLabel value="Consulta" />
+										<p:selectOneMenu value="#{orcamentoMB.orcamento.tipoConsulta}">
+											<f:selectItem itemLabel="Canal" itemValue="Canal" />
+											<f:selectItem itemLabel="Cirurgia" itemValue="Cirurgia" />
+											<f:selectItem itemLabel="Clareamento" itemValue="Clareamento" />
+											<f:selectItem itemLabel="Extração" itemValue="Extração" />
+											<f:selectItem itemLabel="Limpeza" itemValue="Limpeza" />
+											<f:selectItem itemLabel="Montagem de Aparelho"
+												itemValue="Montagem de Aparelho" />
+											<f:selectItem itemLabel="Manutenção" itemValue="Manutenção" />
+										</p:selectOneMenu>
+									</h:panelGroup>
+									<h:panelGroup layout="block" class="panelGConsulta">
+										<p:outputLabel for="valor" value="Valor" />
+										<p:inputText id="valor" maxlength="10" required="true"
+											validatorMessage="Valor inválido."
+											requiredMessage="Valor deve ser informado."
+											value="#{orcamentoMB.orcamento.valor}">
+											<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+										</p:inputText>
+									</h:panelGroup>
 
-									<br />
-									<p:selectOneMenu value="#{orcamentoMB.orcamento.tipoConsulta}">
-										<f:selectItem itemLabel="Canal" itemValue="Canal" />
-										<f:selectItem itemLabel="Cirurgia" itemValue="Cirurgia" />
-										<f:selectItem itemLabel="Clareamento" itemValue="Clareamento" />
-										<f:selectItem itemLabel="Extração" itemValue="Extração" />
-										<f:selectItem itemLabel="Limpeza" itemValue="Limpeza" />
-										<f:selectItem itemLabel="Montagem de Aparelho"
-											itemValue="Montagem de Aparelho" />
-										<f:selectItem itemLabel="Manutenção" itemValue="Manutenção" />
-									</p:selectOneMenu>
-									<br />
-									<p:outputLabel for="valor" value="Valor" />
-									<br />
-									<p:inputText id="valor" maxlength="10" required="true"
-										validatorMessage="Valor inválido."
-										requiredMessage="Valor deve ser informado."
-										value="#{orcamentoMB.orcamento.valor}">
-										<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
-									</p:inputText>
-								</h:panelGrid>
+								</p:panelGrid>
 							</div>
 
 

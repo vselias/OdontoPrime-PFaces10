@@ -68,7 +68,7 @@
 												<p:outputLabel for="estado" value="Estado da consulta:" />
 												<p:selectOneMenu  id="estado" required="true"
 													requiredMessage="Estado consulta deve ser informado."
-													value="#{consultaMB.consulta.estadoConsulta.descricao}">
+													value="#{consultaMB.consulta.estadoConsulta}">
 													<f:selectItem itemLabel="Selecione um estado" itemValue="" />
 													<f:selectItems var="estado" itemValue="#{estado}"
 														itemLabel="#{estado.descricao}"
@@ -184,6 +184,7 @@
 														pattern="dd/MM/yyyy" locale="pt_BR"
 														value="#{consultaMB.consulta.entrada.dataVencimento}" />
 												</h:panelGroup>
+												
 												<h:panelGroup layout="block" class="panelGConsulta">
 													<p:outputLabel for="formaPagamento"
 														value="Opção de pagamento" />
@@ -195,12 +196,12 @@
 														value="#{consultaMB.consulta.entrada.formaPagamento}">
 														<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
 														<f:selectItems value="#{consultaMB.opcoesPagamento}"
-															var="pag" itemLabel="#{pag.nome}" itemValue="#{pag}" />
+															var="pag" itemLabel="#{pag.descricao}" itemValue="#{pag}" />
 														<p:column>
 															<p:graphicImage cache="false" value="/img/#{opcao.img}" />
 														</p:column>
 														<p:column>
-															<p:outputLabel value="#{opcao.nome}" />
+															<p:outputLabel value="#{opcao.descricao}" />
 														</p:column>
 													</p:selectOneMenu>
 												</h:panelGroup>
