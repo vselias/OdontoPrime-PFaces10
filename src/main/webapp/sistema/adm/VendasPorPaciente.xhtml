@@ -31,8 +31,11 @@
 					paginatorPosition="top" rowsPerPageTemplate="5,10,15"
 					emptyMessage="Nenhum registro encontrado.">
 					<f:facet name="header">
-						<p:inputText placeholder="Pesquise por algo..." id="globalFilter"
-							onkeyup="PF('table').filter()" />
+						<div style="text-align: center">
+							<p:inputText placeholder="Pesquise por algo..." id="globalFilter"
+								onkeyup="PF('table').filter()" />
+
+						</div>
 					</f:facet>
 
 					<p:column style="text-align:center;" headerText="Foto">
@@ -58,9 +61,9 @@
 
 					</p:column>
 
-					<p:column sortBy="#{c.entrada.valorDesconto}"
-						filterBy="#{c.entrada.valorDesconto}" headerText="Total">
-						<p:outputLabel value="#{c.valorConsulta}">
+					<p:column sortBy="#{c.valorTotal}" filterBy="#{c.valorTotal}"
+						headerText="Total">
+						<p:outputLabel value="#{c.valorTotal}">
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
 					</p:column>

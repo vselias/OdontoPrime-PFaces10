@@ -1,6 +1,7 @@
 package br.com.odontoprime.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,15 +36,17 @@ public class ParcelaDAO extends GenericDAO<Parcela, Long> implements Serializabl
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Parcela> buscarParcelasPorId(Long idEntrada) {
 		try {
-			List<Parcela> lista = entityManager.createQuery("select p from Parcela p where p.entrada.id = :id ")
-					.setParameter("id", idEntrada).getResultList();
+			return entityManager
+					   .createNativeQuery("SELECT * FROM parcela WHERE entrada_id = :id", Parcela.class)
+					   .setParameter("id", idEntrada)
+					   .getResultList();
 
-			Hibernate.initialize(lista);
-			return lista;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return null;
+		return new ArrayList<Parcela>();
 	}
 }

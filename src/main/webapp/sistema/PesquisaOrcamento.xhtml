@@ -23,11 +23,12 @@
 
 
 
-				<p:dataTable size="small"
+				<p:dataTable size="small" tableStyle="width:auto"
+					resizableColumns="true"
 					filteredValue="#{orcamentoMB.orcamentosFiltrados}"
 					styleClass="tabela" paginator="true" rowsPerPageTemplate="5,10,15"
-					reflow="true" widgetVar="tabela" value="#{orcamentoMB.orcamentos}"
-					id="tabela" var="orcamento" rows="5" paginatorPosition="bottom"
+					widgetVar="tabela" value="#{orcamentoMB.orcamentos}" id="tabela"
+					var="orcamento" rows="5" paginatorPosition="bottom"
 					emptyMessage="Nenhum registro.">
 
 					<f:facet name="header">

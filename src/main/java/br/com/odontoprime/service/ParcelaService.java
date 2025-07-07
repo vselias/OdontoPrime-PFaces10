@@ -162,6 +162,10 @@ public class ParcelaService implements Serializable {
 	public void pagarParcelas(Entrada entrada, List<Parcela> parcelas) {
 		try {
 
+			if (parcelas.isEmpty() || parcelas == null) {
+				MensagemUtil.enviarMensagem("Nenhuma consulta para ser paga!", FacesMessage.SEVERITY_WARN);
+				return;
+			}
 			parcelas.forEach(p -> {
 				p.setEstadoPagamento(EstadoPagamento.PAGO);
 				if (p.getDataPagamento() == null) {
@@ -182,13 +186,23 @@ public class ParcelaService implements Serializable {
 	}
 
 	public void atualizarEstadoPagamentoEntrada(Entrada entrada, List<Parcela> parcelas) {
+
+		parcelas = parcelaDAO.buscarParcelasPorId(entrada.getId());
 		boolean todasPagas = parcelas.stream().allMatch(p -> p.getEstadoPagamento().equals(EstadoPagamento.PAGO));
+		System.out.println(parcelas);
+		System.out.println("Estado do pagamento parcelas: " + todasPagas);
 		entrada.setEstadoPagamento(todasPagas ? EstadoPagamento.PAGO : EstadoPagamento.PENDENTE);
+		System.out.println("Estado do pagamento Entrada: " + entrada.getEstadoPagamento());
 		entradaDAO.salvar(entrada);
 	}
 
 	public void cancelarPagamentosParcelas(Entrada entrada, List<Parcela> parcelas) {
 		try {
+
+			if (parcelas.isEmpty() || parcelas == null) {
+				MensagemUtil.enviarMensagem("Nenhuma consulta para ser cancelada!", FacesMessage.SEVERITY_WARN);
+				return;
+			}
 			parcelas.forEach(p -> {
 				p.setEstadoPagamento(EstadoPagamento.PENDENTE);
 				p.setDataPagamento(null);

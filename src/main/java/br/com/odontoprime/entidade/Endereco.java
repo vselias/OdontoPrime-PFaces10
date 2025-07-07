@@ -21,10 +21,10 @@ public class Endereco {
 
 	public Endereco() {
 
-		this.rua = "N/A";
-		this.bairro = "N/A";
+		this.rua = "Não informado.";
+		this.bairro = "Não informado.";
 		this.numero = 0;
-		this.cidade = "N/A";
+		this.cidade = "Não informado.";
 		this.estado = Estado.N_A;
 	}
 

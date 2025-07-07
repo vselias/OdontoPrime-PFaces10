@@ -1,11 +1,30 @@
-window.addEventListener('load', function() {
+window.addEventListener("load", function() {
+
+
+
 
 	const DIV_MENU_TOP = 105;
-	
-	
 	function fecharSubmenus() {
 		document.querySelectorAll(".ui-menu-list ul").forEach(sub => {
 			sub.classList.remove("show-submenu");
+		});
+	}
+	function fecharSubmenusHover() {
+		document.querySelectorAll(".ui-menu-list ul").forEach(sub => {
+			sub.style.display = "none";
+		});
+	}
+	function mostrarMenuComClick() {
+		document.querySelectorAll(".ui-menu-list > li").forEach(item => {
+			item.addEventListener("mouseleave", (e) => {
+				item.classList.remove("ui-menuitem-active"); // fecha visual ativo
+				const link = item.querySelector("a");
+				if (link) link.classList.remove("ui-state-hover"); // remove o destaque de hover
+				const submenu = item.querySelector("ul");
+				if (submenu) fecharSubmenusHover();
+
+				console.log("Saiu do item, submenu fechado");
+			});
 		});
 	}
 
@@ -35,15 +54,6 @@ window.addEventListener('load', function() {
 					btFechar.remove();
 				console.log("Menu fechado");
 			}
-
-			// Verifica se o clique aconteceu dentro de uma LI, mas FORA do A
-			menuItems.forEach(li => {
-				let link = li.querySelector("a");
-
-				if (li.contains(event.target) && event.target !== link) {
-
-				}
-			});
 		});
 	}
 
@@ -75,7 +85,7 @@ window.addEventListener('load', function() {
 
 			if (window.scrollY > 0) {
 				divMenu.style.position = "fixed !important";
-				divMenu.style.top = DIV_MENU_TOP+"px !important";
+				divMenu.style.top = DIV_MENU_TOP + "px !important";
 				divMenu.style.width = "100% !important";
 				divMenu.style.maxWidth = "100vw !important"; // Ajuste conforme necessário
 			} else {
@@ -99,6 +109,7 @@ window.addEventListener('load', function() {
 		botaoFechar.id = "btFecharMenu";
 		divMenu.appendChild(botaoFechar);
 	}
+
 	function showMenu() {
 		var btnMenu = document.querySelector(".btnMenu");
 		btnMenu.addEventListener("click", (event) => {
@@ -112,6 +123,8 @@ window.addEventListener('load', function() {
 			}, 1000);
 		});
 	}
+
+	mostrarMenuComClick();
 	posicionarMenuScroll();
 	showMenu();
 	showSubMenu();

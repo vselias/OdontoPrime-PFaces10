@@ -26,9 +26,9 @@
 			<ui:include src="/template/MenuPagamento.xhtml" />
 
 			<br />
-			<p:outputPanel
+			<p:outputPanel rendered="#{entradaMB.consulta.id ne null}"
 				style="height: 100vh !important; background-color: white;"
-				id="print">
+				id="panel">
 
 				<div class="ui-grid-responsive">
 
@@ -107,7 +107,7 @@
 
 						<div class="ui-grid-col-5">
 							<p:panel header="Dados da Consulta">
-								<h:panelGrid cellpadding="2" columns="2">
+								<h:panelGrid id="dadosPagamento" cellpadding="2" columns="2">
 
 									<p:outputLabel value="Consulta" />
 									<p:inputText readonly="true"
@@ -134,7 +134,7 @@
 
 									<p:outputLabel value="Opção de Pagamento" />
 									<p:inputText readonly="true"
-										value="#{entradaMB.consulta.entrada.formaPagamento.nome}" />
+										value="#{entradaMB.consulta.entrada.formaPagamento.descricao}" />
 
 									<p:outputLabel value="Forma de Pagamento" />
 									<p:inputText readonly="true"
@@ -174,8 +174,8 @@
 			<div class="tabelaPagamentoParcela">
 				<center>
 					<p:dataTable size="small" tableStyle="width:auto" paginator="true"
-						rowsPerPageTemplate="5,10,15"
-						selection="#{entradaMB.parcelasSelecionadas}"
+						rowsPerPageTemplate="5,10,15" scrollable="true"
+						selection="#{entradaMB.parcelasSelecionadas}" lazy="true"
 						selectionMode="multiple" rowKey="#{p.id}" rows="10"
 						resizableColumns="true" id="tabelaParcela"
 						rowStyleClass="#{p.estadoPagamento.descricao eq 'Pago'? 'destacarPagamento': ''}"
@@ -183,9 +183,14 @@
 						var="p">
 						<f:facet name="header">
 							<div style="text-align: center !important;">
-								<p:commandButton icon="pi pi-check" onclick="PF('dlgPagamentoTodas').show()"
-									value="Pagar Parcelas" />
-								<p:commandButton icon="pi pi-times" styleClass="btnCancelarPagamento"
+								<p:commandButton
+									update=":frmExbParcela :frmPesqConsultaPagamento"
+									oncomplete="PF('dlgPesquisaConsulta').show()"
+									icon="pi pi-search" value="Pesquisar" />
+								<p:commandButton icon="pi pi-check" update=":frmExbParcela"
+									onclick="PF('dlgPagamentoTodas').show()" value="Pagar Parcelas" />
+								<p:commandButton icon="pi pi-times" update=":frmExbParcela"
+									styleClass="btnCancelarPagamento"
 									onclick="PF('dlgCancelPagamentoTodas').show()"
 									value="Cancelar Parcelas" />
 								<p:outputLabel id="duvidaPagamentoParcela" style="float: left;"
@@ -194,7 +199,8 @@
 									value="Segure shift ou control + clique esquerdo do mouse para selecionar as linhas para pagar ou cancelar as parcelas."></p:tooltip>
 							</div>
 						</f:facet>
-						<p:column filterBy="#{entradaMB.consulta.id}" sortBy="#{entradaMB.consulta.id}" headerText="ID CONSULTA">
+						<p:column filterBy="#{entradaMB.consulta.id}"
+							sortBy="#{entradaMB.consulta.id}" headerText="ID CONSULTA">
 
 							<p:outputLabel value="#{entradaMB.consulta.id}" />
 
@@ -220,8 +226,7 @@
 							<p:outputLabel value="#{p.numParcela}ª" />
 						</p:column>
 						<p:column sortBy="#{p.estadoPagamento}"
-							filterBy="#{p.estadoPagamento}"
-							headerText="Status do Pagamento">
+							filterBy="#{p.estadoPagamento}" headerText="Status do Pagamento">
 							<p:outputLabel value="#{p.estadoPagamento}" />
 						</p:column>
 
@@ -232,14 +237,15 @@
 									pattern="dd/MM/yyyy" />
 							</p:outputLabel>
 							<p:outputLabel rendered="#{p.dataPagamento eq null}"
-								value="Pendente" />
+								value="PENDENTE" />
 						</p:column>
 
 					</p:dataTable>
 				</center>
 			</div>
 
-
+			<p:remoteCommand name="testeRender"
+				update=":frmExbParcela:dadosPagamento" />
 		</h:form>
 
 		<!-- dialog confirmação do pagamento de todas parcelas -->
@@ -249,7 +255,7 @@
 			<h:form>
 				<center>
 					<p:commandButton
-						update=":formGlobal:msgGlobal :frmExbParcela:tabelaParcela "
+						update=":formGlobal:msgGlobal, :frmExbParcela, :frmExbParcela:dadosPagamento, :frmExbParcela:tabelaParcela"
 						icon="pi pi-check" action="#{entradaMB.pagarParcelas}"
 						oncomplete="PF('dlgPagamentoTodas').hide()" value="Sim" />
 					<p:commandButton icon="pi pi-times" value="Fechar"
@@ -267,7 +273,7 @@
 			<h:form>
 				<center>
 					<p:commandButton
-						update=":frmExbParcela:tabelaParcela, :formGlobal:msgGlobal"
+						update=":frmExbParcela:tabelaParcela, :frmExbParcela, :frmExbParcela:dadosPagamento, :formGlobal:msgGlobal"
 						action="#{entradaMB.cancelarPagamentosParcelas}"
 						icon="pi pi-check"
 						oncomplete="PF('dlgCancelPagamentoTodas').hide()" value="Sim" />
@@ -277,6 +283,15 @@
 			</h:form>
 		</p:dialog>
 
+
+		<!-- dialog para pesquisar consultas -->
+		<p:dialog appendTo="@(body)" position="center" height="300"
+			draggable="true" modal="true" widgetVar="dlgPesquisaConsulta"
+			header="Pesquisar consulta" closable="true" closeOnEscape="true">
+			<h:form id="frmPesqConsultaPagamento">
+				<ui:include src="/template/PesquisaConsultaPagamento.xhtml" />
+			</h:form>
+		</p:dialog>
 
 	</ui:define>
 </ui:composition>

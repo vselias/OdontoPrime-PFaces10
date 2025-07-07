@@ -13,11 +13,46 @@
 	--corTitulo: black;
 }
 
+body .ui-menu {
+	border: none !important;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link * {
+	color: #495057 !important;
+}
+
+.ui-menuitem-link.ui-submenu-link.ui-corner-all.ui-state-hover {
+	background: var(--corMenu) ! important;
+}
+
 div.ui-menu.ui-menu-dynamic, div.ui-menu.ui-menu-dynamic  ul li {
 	min-width: unset !important;
 	max-width: unset !important;
 	width: auto !important;
+	height: auto !important;
 	text-align: center;
+}
+
+div.ui-menu.ui-menu-dynamic {
+	position: absolute !important;
+}
+
+.ui-datatable table {
+	width: auto !important;
+	table-layout: auto !important;
+	text-align: center !important;
+}
+.txt-n{
+	font-weight: bold !important;
+}
+div.ui-menu.ui-menu-dynamic ul.ui-menu-list.ui-helper-reset {
+	position: absolute !important;
+	background: white !important;
+	position: absolute !important;
+	right: 10px;
+	top: -85px;
+	box-shadow: 0 1px 1px rgb(0, 0, 0, .5), 0 -1px 1px rgb(0, 0, 0, .5), 1px
+		0 1px rgb(0, 0, 0, .5), -1px 0 1px rgb(0, 0, 0, .5);
 }
 
 div.tabelaPagamentoParcela {
@@ -71,6 +106,9 @@ ul.ui-menu-list, ul.ui-menu-list>li.ui-menuitem {
 
 ul.ui-selectonemenu-items li {
 	overflow: visible !important;
+	display: block;
+	width: 100%;
+	text-align: center !important;
 }
 
 ul.ui-selectonemenu-items {
@@ -108,11 +146,12 @@ body .ui-button.ui-state-focus {
 }
 
 .divBtnMenu {
-	position: sticky;
+	position: fixed !important;
 	top: var(--DIV_MENU_TOP);
 	z-index: 2;
 	width: 100%;
 	height: auto;
+	margin: 9px 0;
 }
 
 body .ui-menu.ui-menubar .ui-menu-list .ui-menuitem .ui-menuitem-link span
@@ -324,10 +363,6 @@ tr[aria-selected=true] {
 	justify-content: center;
 }
 
-.ui-datatable-tablewrapper table tr {
-	text-align: center;
-}
-
 .btnCancelarPagamento {
 	background-color: #eb867f !important;
 	color: white !important;
@@ -519,10 +554,6 @@ button.ui-button.ui-state-default span, .ui-button.ui-state-default span
 	margin-top: 30px;
 }
 
-.ui-datatable-tablewrapper table {
-	width: auto !important;
-}
-
 .panelCadastroConsulta {
 	margin: 2em !important;
 }
@@ -709,11 +740,8 @@ input.estiloNome {
 	font-size: var(--tamanhoFonte) !important;
 }
 
-.ui-menuitem  a:hover span {
-	color: white !important;
-}
-
-ul.ui-menu-list li.ui-menuitem-active a.ui-state-hover span {
+body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link span
+	{
 	color: white !important;
 }
 
@@ -765,6 +793,45 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 
 /* 	definir o tamanho do link dentro do menu */
 @media ( max-width : 800px) {
+	div.ui-menu.ui-menu-dynamic::before, div.ui-menu.ui-menu-dynamic::after
+		{
+		content: none !important;
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+	div.ui-menu.ui-menu-dynamic {
+		position: relative !important;
+		width: 230px !important;
+		height: auto !important;
+		color: black !important;
+	}
+	div.ui-menu.ui-menu-dynamic ul.ui-menu-list.ui-helper-reset {
+		min-width: 100% !important;
+		min-height: 100% !important;
+		display: block !important;
+		position: absolute !important;
+		overflow: auto !important;
+		position: absolute !important;
+		right: 115px !important;
+		top: -95px !important;
+		box-shadow: 0 1px 1px rgb(0, 0, 0, .5), 0 -1px 1px rgb(0, 0, 0, .5), 1px
+			0 1px rgb(0, 0, 0, .5), -1px 0 1px rgb(0, 0, 0, .5);
+		position: absolute !important;
+	}
+	div.ui-menu.ui-menu-dynamic ul.ui-menu-list.ui-helper-reset li, div.ui-menu.ui-menu-dynamic ul.ui-menu-list.ui-helper-reset li a,
+		div.ui-menu.ui-menu-dynamic ul.ui-menu-list.ui-helper-reset li a span
+		{
+		width: 100% !important;
+		height: 100% !important;
+		display: block; /* Certifique que estão visíveis */
+		visibility: visible;
+		color: black !important;
+		opacity: 1;
+	}
+	.ui-menuitem-link:active {
+		background-color: var(--corMenu) !important;
+	}
 	/* 	definir o tamanho do link dentro do menu */
 	ul.ui-widget-content {
 		width: 200px !important;
@@ -800,7 +867,6 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 		{
 		flex-shrink: 0; /* Evita que os spans encolham */
 	}
-	/* 	definir o tamanho do link dentro do menu */
 
 	/* consertar o problema do menu mobile com top 0 */
 	.ui-menu.ui-menubar {
@@ -853,8 +919,8 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 		max-width: 1200px;
 		z-index: var(--menuZIndex);
 	}
-	.ui-menubar.ui-sticky {
-		margin-top: .4em;
+	div.ui-menu.ui-menubar.ui-widget {
+		top: var(--DIV_MENU_TOP) !important;
 	}
 	ul.ui-menu-list>li {
 		position: relative;
@@ -902,13 +968,13 @@ ul.ui-widget-content>li.ui-menuitem.ui-widget.ui-corner-all>a.ui-menuitem-link.u
 	}
 	body .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active>.ui-menuitem-link
 		{
-		background: silver ! important;
+		background: var(--corMenu) ! important;
 	}
-	body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s
+	.ui-menuitem-link.ui-submenu-link.ui-corner-all.ui-state-hover {
+		background: var(--corMenu) ! important;
+	}
+	body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-icon-triangle-1-s:last-child
 		{
 		color: black !important;
-	}
-	body .ui-menu .ui-menu-list .ui-menuitem:not(:hover) .ui-menuitem-link {
-		background: none !important;
 	}
 }

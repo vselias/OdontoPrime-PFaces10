@@ -2,7 +2,7 @@ package br.com.odontoprime.entidade;
 
 public enum Estado {
 
-	N_A("N/A"), ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapá"), AMAZONAS("Amazonas"), BAHIA(
+	N_A("Não informado."), ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapá"), AMAZONAS("Amazonas"), BAHIA(
 			"Bahia"), CEARA("Ceará"), DISTRITO_FEDERAL("Distrito Federal"), ESPIRITO_SANTO(
 			"Espírito Santo"), MARANHAO("Maranhão"), MATO_GROSSO("Mato Grosso"), MATO_GROSSO_DO_SUL(
 			"Mato Grosso do Sul"), MINAS_GERAIS("Minas Gerais"), PARA("Pará"), PARAIBA(

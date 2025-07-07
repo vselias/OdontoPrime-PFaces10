@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Consulta implements Serializable {
@@ -24,7 +25,7 @@ public class Consulta implements Serializable {
 	 */
 	private static final long serialVersionUID = -2506625216868058689L;
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
@@ -42,17 +43,24 @@ public class Consulta implements Serializable {
 	@Column(nullable = false, unique = true)
 	private Date dataConsulta;
 
-
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Entrada entrada;
 
 	@Enumerated(EnumType.STRING)
 	private EstadoConsulta estadoConsulta;
 
-
+	@Transient
+	private Double valorTotal;
 	@ManyToOne
 	private Paciente paciente;
 
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 
 	public String getNomeUsuarioCadastrou() {
 		return nomeUsuarioCadastrou;
@@ -94,7 +102,6 @@ public class Consulta implements Serializable {
 		this.estadoConsulta = estadoConsulta;
 	}
 
-
 	public Paciente getPaciente() {
 		return paciente;
 	}
@@ -119,14 +126,14 @@ public class Consulta implements Serializable {
 		this.dataConsulta = dataConsulta;
 	}
 
-
-	// construtor para metodo
-	public Consulta(String nomeImagem, Long id,TipoConsulta tipoConsulta, String nome,
+	// construtor para metodo na pagina VendasPorPaciente
+	public Consulta(String nomeImagem, Long id, Double valorTotal, TipoConsulta tipoConsulta, String paciente,
 			Date dataConsulta) {
 		this.id = id;
 		this.tipoConsulta = tipoConsulta;
+		this.valorTotal = valorTotal;
 		this.paciente = new Paciente();
-		this.paciente.setNome(nome);
+		this.paciente.setNome(paciente);
 		this.paciente.setNomeImagem(nomeImagem);
 		this.dataConsulta = dataConsulta;
 	}
@@ -172,10 +179,7 @@ public class Consulta implements Serializable {
 
 	@Override
 	public String toString() {
-	    return paciente.getNome() + " "
-	         + tipoConsulta.getDescricao() + " "
-	         + dataConsulta + " "
-	         + estadoConsulta.getDescricao();
+		return paciente.getNome() + " " + tipoConsulta.getDescricao() + " " + dataConsulta + " "
+				+ (estadoConsulta != null ? estadoConsulta.getDescricao() : "");
 	}
-	
 }

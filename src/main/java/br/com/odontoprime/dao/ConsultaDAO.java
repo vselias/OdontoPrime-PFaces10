@@ -55,8 +55,8 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@Transactional
 	public Object[] buscarValorTotalEData(Date data) {
 		try {
-			Query query = entityManager.createQuery(
-					"select sum(c.entrada.valorDesconto), dataConsulta from Consulta c join c.entrada e "
+			Query query = entityManager
+					.createQuery("select sum(c.entrada.valorDesconto), dataConsulta from Consulta c join c.entrada e "
 							+ "where date(e.dataLancamento) = :data");
 
 			query.setParameter("data", data);
@@ -98,19 +98,18 @@ public class ConsultaDAO extends GenericDAO<Consulta, Long> implements Serializa
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Consulta> buscarConsultasPorPaciente() {
-		Query query = entityManager.createQuery("select distinct  new " + "br.com.odontoprime.entidade.Consulta"
-				+ "(p.nomeImagem, p.id,sum(c.entrada.valorDesconto), c.tipoConsulta, p.nome , c.dataConsulta ) "
-				+ "from Consulta c inner join c.paciente p group by p.id, p.nome ,c.tipoConsulta, p.nomeImagem, c.dataConsulta");
+		Query query = entityManager.createQuery("SELECT new br.com.odontoprime.entidade.Consulta("
+				+ "p.nomeImagem, p.id, SUM(c.entrada.valor), c.tipoConsulta, p.nome, MAX(c.dataConsulta)) "
+				+ "FROM Consulta c " + "JOIN c.paciente p " + "GROUP BY p.id, p.nome, p.nomeImagem, c.tipoConsulta");
 		return query.getResultList();
 	}
 
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Object[]> vendasPorAno(int data) {
-		Query query = entityManager
-				.createQuery("select distinct year(e.dataLancamento) , sum(c.entrada.valorDesconto) "
-						+ " from Consulta c join c.entrada e where year(e.dataLancamento) in (:data)"
-						+ " group by year(dataConsulta) ");
+		Query query = entityManager.createQuery("select distinct year(e.dataLancamento) , sum(c.entrada.valorDesconto) "
+				+ " from Consulta c join c.entrada e where year(e.dataLancamento) in (:data)"
+				+ " group by year(dataConsulta) ");
 		query.setParameter("data", data);
 		query.setMaxResults(1);
 		return query.getResultList();

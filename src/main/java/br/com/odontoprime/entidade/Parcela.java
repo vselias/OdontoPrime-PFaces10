@@ -96,7 +96,7 @@ public class Parcela implements Serializable {
 	public String toString() {
 		return "Parcela [id=" + id + ", valor=" + valor + ", dataVencimento=" + dataVencimento + ", numParcela="
 				+ numParcela + ", estadoPagamento=" + estadoPagamento + ", dataPagamento=" + dataPagamento
-				+ ", dataRegistro=" + dataRegistro + "]";
+				+ ", dataRegistro=" + dataRegistro + "]\n";
 	}
 
 }

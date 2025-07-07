@@ -37,7 +37,6 @@ public class Entrada implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 
-
 	private String parcela;
 
 	private Double valor;
@@ -58,9 +57,6 @@ public class Entrada implements Serializable {
 	@JoinColumn(name = "entrada_id")
 	private List<Parcela> parcelas;
 
-	
-	
-	
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
@@ -115,7 +111,7 @@ public class Entrada implements Serializable {
 	}
 
 	public Double getValorDesconto() {
-		if(valorDesconto == null) {
+		if (valorDesconto == null) {
 			valorDesconto = Double.valueOf(0);
 		}
 		return valorDesconto;
@@ -163,6 +159,14 @@ public class Entrada implements Serializable {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	@Override
+	public String toString() {
+		return "Entrada [\nid=" + id + ", estadoPagamento=" + estadoPagamento + ", dataPagamento=" + dataPagamento
+				+ ", dataVencimento=" + dataVencimento + ", parcela=" + parcela + ", valor=" + valor
+				+ ", dataLancamento=" + dataLancamento + ", desconto=" + desconto + ", valorDesconto=" + valorDesconto
+				+ ", parcelado=" + parcelado + ", formaPagamento=" + formaPagamento + ",\nparcelas=\n" + parcelas +"\n]";
 	}
 
 }

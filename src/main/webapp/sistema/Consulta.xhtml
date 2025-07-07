@@ -56,7 +56,8 @@
 											<h:panelGroup layout="block" class="panelGConsulta">
 												<p:outputLabel for="paciente" value="Selecione o paciente:" />
 												<p:inputText required="true" id="paciente"
-													value="#{consultaMB.consulta.paciente.nome}" readonly="true" />
+													value="#{consultaMB.consulta.paciente.nome}"
+													readonly="true" />
 												<p:commandButton immediate="true" icon="pi pi-search"
 													oncomplete="PF('tblPaciente').show()" />
 												<p:tooltip for="paciente"
@@ -66,7 +67,7 @@
 
 											<h:panelGroup layout="block" class="panelGConsulta">
 												<p:outputLabel for="estado" value="Estado da consulta:" />
-												<p:selectOneMenu  id="estado" required="true"
+												<p:selectOneMenu id="estado" required="true"
 													requiredMessage="Estado consulta deve ser informado."
 													value="#{consultaMB.consulta.estadoConsulta}">
 													<f:selectItem itemLabel="Selecione um estado" itemValue="" />
@@ -184,7 +185,7 @@
 														pattern="dd/MM/yyyy" locale="pt_BR"
 														value="#{consultaMB.consulta.entrada.dataVencimento}" />
 												</h:panelGroup>
-												
+
 												<h:panelGroup layout="block" class="panelGConsulta">
 													<p:outputLabel for="formaPagamento"
 														value="Opção de pagamento" />
@@ -209,12 +210,13 @@
 
 												<h:panelGroup layout="block" class="panelGConsulta">
 
-													<p:outputLabel value="Parcelado" />
-													<p:selectBooleanCheckbox id="parcelado"
-														disabled="#{consultaMB.desativarComboBoxParcela or consultaMB.editarConsultaPaga}"
-														value="#{consultaMB.consulta.entrada.parcelado}">
-														<p:ajax event="change" update="parcela parcelado" />
-													</p:selectBooleanCheckbox>
+													<p:outputLabel value="Parcelado: ">
+														<p:selectBooleanCheckbox id="parcelado"
+															disabled="#{consultaMB.desativarComboBoxParcela or consultaMB.editarConsultaPaga}"
+															value="#{consultaMB.consulta.entrada.parcelado}">
+															<p:ajax event="change" update="parcela parcelado" />
+														</p:selectBooleanCheckbox>
+													</p:outputLabel>
 
 													<p:selectOneMenu id="parcela"
 														disabled="#{not consultaMB.consulta.entrada.parcelado or consultaMB.editarConsultaPaga}"

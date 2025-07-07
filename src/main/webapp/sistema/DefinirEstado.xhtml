@@ -7,10 +7,10 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <body>
 	<ui:composition template="/template/Template.xhtml">
-	<ui:define name="title">
-		<title>Definir Estado da Consulta</title>
-	</ui:define>
-	
+		<ui:define name="title">
+			<title>Definir Estado da Consulta</title>
+		</ui:define>
+
 		<ui:define name="content">
 			<h3 class="tituloPagina">Definir Estado da Consulta</h3>
 
@@ -106,8 +106,7 @@
 						<p:outputLabel value="Paciente" />
 						<p:outputLabel value="#{consultaMB.consulta.paciente.nome}" />
 						<p:outputLabel value="Consulta" />
-						<p:outputLabel
-							value="#{consultaMB.consulta.tipoConsulta}" />
+						<p:outputLabel value="#{consultaMB.consulta.tipoConsulta}" />
 						<p:outputLabel value="Data" />
 						<p:outputLabel value="#{consultaMB.consulta.dataConsulta}">
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
@@ -118,7 +117,7 @@
 							<f:convertNumber pattern="R$ #,##0.00" />
 						</p:outputLabel>
 						<p:outputLabel value="Estado" />
-						<p:selectOneMenu value="#{consultaMB.consulta.estadoConsulta.descricao}">
+						<p:selectOneMenu value="#{consultaMB.consulta.estadoConsulta}">
 							<f:selectItems var="estado" itemLabel="#{estado.descricao}"
 								itemValue="#{estado}" value="#{consultaMB.estadosConsulta}" />
 						</p:selectOneMenu>

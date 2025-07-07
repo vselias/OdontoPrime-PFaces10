@@ -1,5 +1,6 @@
 package br.com.odontoprime.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -43,8 +44,6 @@ public class EntradaMB implements Serializable {
 	private ConsultaService consultaService;
 	private Consulta consulta;
 	private List<Parcela> parcelasSelecionadas;
-	
-	
 
 	public List<Parcela> getParcelasSelecionadas() {
 		return parcelasSelecionadas;
@@ -96,7 +95,7 @@ public class EntradaMB implements Serializable {
 		consultas = consultaService.buscarTodos();
 		consulta = new Consulta();
 		parcela = new Parcela();
-		// recuperarDadosPagamento();
+//		 recuperarDadosPagamento();
 	}
 
 	public Consulta getConsulta() {
@@ -152,16 +151,13 @@ public class EntradaMB implements Serializable {
 		entrada = (Entrada) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("entrada");
 		consulta = (Consulta) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("consulta");
 
-		if (entrada == null) {
+		if (entrada == null && consulta == null) {
 			entrada = new Entrada();
+			consulta = new Consulta();
 		} else {
-
 			entrada = entradaService.buscarEntradaComParcelas(entrada.getId());
 		}
 
-		if (consulta == null) {
-			consulta = new Consulta();
-		}
 	}
 
 	public void efetuarPagamentoParcela() {
@@ -182,15 +178,43 @@ public class EntradaMB implements Serializable {
 
 	public void pagarParcelas() {
 		parcelaService.pagarParcelas(entrada, parcelasSelecionadas);
+		atualizarConsulta();
 	}
+
 	public void cancelarPagamentosParcelas() {
 		parcelaService.cancelarPagamentosParcelas(entrada, parcelasSelecionadas);
+		atualizarConsulta();
 	}
 
 	public void buscarConsultaComParcela(ComponentSystemEvent event) {
 		if (!FacesContext.getCurrentInstance().isPostback()) {
-			this.consulta = consultaService.buscarConsultaComParcela(this.consulta.getEntrada().getId());
-			this.entrada = consulta.getEntrada();
+			if (this.consulta != null && this.consulta.getId() != null) {
+				this.consulta = consultaService.buscarConsultaComParcela(this.consulta.getEntrada().getId());
+				this.entrada = consulta.getEntrada();
+			}
 		}
+	}
+
+	public void atualizarConsulta() {
+
+		try {
+			this.consulta = consultaService.buscarPorId(consulta.getId());
+			this.entrada = consulta.getEntrada();
+			System.out.println("consulta: " + this.consulta);
+			System.out.println("entrada: " + this.entrada);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void desmarcarConsulta() {
+		try {
+			this.consulta = new Consulta();
+			FacesContext.getCurrentInstance().getExternalContext().redirect("PagamentoParcela.xhtml");
+			FacesContext.getCurrentInstance().responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

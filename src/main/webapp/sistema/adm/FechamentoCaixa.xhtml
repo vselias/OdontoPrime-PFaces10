@@ -110,19 +110,22 @@
 		</h:form>
 
 
+		<ui:include src="/sistema/adm/ListaConsultaFechamento.xhtml" />
+
 		<!-- dialog para exibir as consultas do fechamento atual -->
-		<p:dialog focus="frmDetalheFechamento:tblConsulta" width="90%"
-			height="350" appendTo="@(body)"
-			header="Consulta(s) paga(s) / Saída(s) efetuada(s) hoje."
-			closeOnEscape="true" closable="true" modal="true"
-			widgetVar="dlgDetalheFechamento">
+		<!-- 		<p:dialog focus="frmDetalheFechamento:tblConsulta" width="90%" -->
+		<!-- 			height="350" appendTo="@(body)" -->
+		<!-- 			header="Consulta(s) paga(s) / Saída(s) efetuada(s) hoje." -->
+		<!-- 			closeOnEscape="true" closable="true" modal="true" -->
+		<!-- 			widgetVar="dlgDetalheFechamento"> -->
 
-			<ui:include src="/sistema/adm/ListaConsultaFechamento.xhtml" />
+		<!-- 			<ui:include src="/sistema/adm/ListaConsultaFechamento.xhtml" /> -->
 
-		</p:dialog>
+		<!-- 		</p:dialog> -->
 
 
-		<!-- dialog detalhamento das parcelas -->
+
+		<!-- 		dialog detalhamento das parcelas -->
 		<p:dialog appendTo="@(body)" width="80%" height="350"
 			header="Parcela(s) paga(s) hoje." widgetVar="dlgExbParcela"
 			closeOnEscape="true" closable="true" modal="true" resizable="false"
