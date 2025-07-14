@@ -10,8 +10,9 @@
 
 	<center>
 		<h3>Consulta(s) paga(s) / Saída(s) efetuada(s) hoje.</h3>
-		<p:dataTable widgetVar="tblConsulta" styleClass="tabela"
-			tableStyle="width:auto" resizableColumns="true" paginator="true"
+		<p:dataTable widgetVar="tblConsulta"
+			styleClass="tabelasFechamento tabela" tableStyle="width:auto"
+			resizableColumns="true" paginator="true"
 			rowsPerPageTemplate="5,10,15"
 			filteredValue="#{movimentacaoCaixaMB.consultasFiltroGlobal}"
 			value="#{movimentacaoCaixaMB.consultasFechamento}" id="tblConsulta"
@@ -92,8 +93,9 @@
 					value="Parcelas" />
 
 			</p:column>
+
 			<f:facet name="footer">
-				<p:outputLabel style="text-align:right"
+				<p:outputLabel
 					value="#{movimentacaoCaixaMB.movimentacaoCaixa.entrada}">
 					<f:convertNumber pattern="Total + R$ #,##0.00" locale="pt_BR" />
 				</p:outputLabel>
@@ -105,8 +107,8 @@
 	<center>
 		<h3>Saída(s) realizada(s) hoje.</h3>
 		<p:dataTable tableStyle="width:auto" resizableColumns="true"
-			widgetVar="tabela" styleClass="tabela" paginator="true"
-			rowsPerPageLabel="5,10,15" rowKey="#{s.id}"
+			widgetVar="tabela" styleClass="tabelasFechamento tabela"
+			paginator="true" rowsPerPageLabel="5,10,15" rowKey="#{s.id}"
 			selection="#{movimentacaoCaixaMB.selecaoSaidaFechamento}"
 			selectionMode="single"
 			value="#{movimentacaoCaixaMB.saidasFechamento}" id="tabela" rows="5"
@@ -183,10 +185,12 @@
 			</p:column>
 
 			<f:facet name="footer">
-				<p:outputLabel style="text-align:right;"
+
+				<p:outputLabel
 					value="#{movimentacaoCaixaMB.movimentacaoCaixa.saida}">
 					<f:convertNumber pattern="Total - R$ #,##0.00" locale="pt_BR" />
 				</p:outputLabel>
+
 			</f:facet>
 		</p:dataTable>
 	</center>

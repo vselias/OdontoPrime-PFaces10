@@ -195,7 +195,7 @@ public class ConsultaMB implements Serializable {
 		consultasFuturas = consultaService.buscarConsultasFuturas();
 		pacientes = pacienteService.buscarTodos();
 		consulta.setEntrada(new Entrada());
-		
+
 	}
 
 	public List<Paciente> getPacientes() {
@@ -260,6 +260,7 @@ public class ConsultaMB implements Serializable {
 		consultaService.remover(consulta);
 		atualizarListaConsulta();
 	}
+
 
 	public void selecionarPacienteConsulta(Paciente paciente) {
 		this.paciente = paciente;
@@ -396,8 +397,9 @@ public class ConsultaMB implements Serializable {
 		textoPaciente = "";
 		pacientes = pacienteService.buscarTodos();
 	}
+
 	public String showPagamentoParcela(Consulta consulta) {
-	    return "/sistema/adm/PagamentoParcela.xhtml?faces-redirect=true&consulta=" + consulta.getId();
+		return "/sistema/adm/PagamentoParcela.xhtml?faces-redirect=true&consulta=" + consulta.getId();
 
 	}
 }

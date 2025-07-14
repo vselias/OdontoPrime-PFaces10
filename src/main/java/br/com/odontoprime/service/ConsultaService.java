@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -126,12 +127,11 @@ public class ConsultaService implements Serializable {
 	}
 
 	public boolean efetuarConsulta(Consulta consulta) {
-		boolean consultaEfetuada = Boolean.FALSE;
 		try {
 
 			/*
-			 * buscando instancia atualizada com as consultas referente ao
-			 * paciente resolvendo problema do lazyLoading
+			 * buscando instancia atualizada com as consultas referente ao paciente
+			 * resolvendo problema do lazyLoading
 			 */
 			Paciente paciente = pacienteDAO.buscarPacienteComConsultas(consulta.getPaciente().getId());
 
@@ -156,35 +156,20 @@ public class ConsultaService implements Serializable {
 				paciente.getConsultas().add(consulta);
 				consulta.setPaciente(paciente);
 
-				if (consultaEditavel(consulta))
-					pacienteDAO.atualizar(paciente);
-				else
-					pacienteDAO.salvar(paciente);
+				pacienteDAO.salvar(paciente);
 
-				consultaEfetuada = Boolean.TRUE;
+				enviarMensagemCadastroConsulta(consulta, true);
 
-				enviarMensagemCadastroConsulta(consulta, consultaEfetuada);
+				return true;
 			}
 
-		} catch (PersistenceException e) {
-			Throwable t = e.getCause();
-			while ((t != null) && !(t instanceof ConstraintViolationException)) {
-				t = t.getCause();
-			}
-			if (t instanceof ConstraintViolationException) {
-				String msg = t.getCause().getMessage();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				if (msg.contains(sdf.format(consulta.getDataConsulta()))) {
-					MensagemUtil.enviarMensagem("Esse horário ja foi definido. Escolha novo horário!",
-							FacesMessage.SEVERITY_WARN);
-				}
-			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			MensagemUtil.enviarMensagem("Erro ao efetuar consulta! Contate o administrador. " + e.getMessage(),
+			MensagemUtil.enviarMensagem(
+					"Erro ao salvar consulta! tente novamente mais tarde ou contate o admnistrador.",
 					FacesMessage.SEVERITY_ERROR);
+			e.printStackTrace();
 		}
-		return consultaEfetuada;
+		return false;
 
 	}
 
@@ -259,10 +244,10 @@ public class ConsultaService implements Serializable {
 		LocalDate vencimento = Instant.ofEpochMilli(consulta.getEntrada().getDataVencimento().getTime())
 				.atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate hoje = LocalDate.now();
-		
-		if(existeConsultaPaga(consulta) && vencimento.isBefore(hoje)){
+
+		if (existeConsultaPaga(consulta) && vencimento.isBefore(hoje)) {
 			return true;
-		} 
+		}
 
 		if (vencimento.compareTo(hoje) == -1) {
 			MensagemUtil.enviarMensagem("Data de vencimento não pode ser anterior atual", FacesMessage.SEVERITY_WARN);
@@ -285,7 +270,8 @@ public class ConsultaService implements Serializable {
 
 		if (consulta.getEntrada().getParcelado()) {
 			String[] dadosParcela = consulta.getEntrada().getParcela().split("X");
-
+			dadosParcela[1] = dadosParcela[1].trim().replace("R$", " ");
+			System.out.println(dadosParcela[1]);
 			// capturar quantidade de parcela e alterar o formato dos valores.
 			numParcela = Integer.parseInt(dadosParcela[0].trim());
 			if (!dadosParcela[1].contains(".")) {
@@ -320,8 +306,8 @@ public class ConsultaService implements Serializable {
 			dataVencimento.setTime(dadosEntrada.getDataVencimento());
 
 			/*
-			 * i começa do zero logo primeiro mês é a propria data de vencimento
-			 * sem alteração
+			 * i começa do zero logo primeiro mês é a propria data de vencimento sem
+			 * alteração
 			 */
 			dataVencimento.add(Calendar.MONTH, +i);
 
@@ -343,8 +329,8 @@ public class ConsultaService implements Serializable {
 
 	public boolean existeConsultaPaga(Consulta consulta) {
 		/*
-		 * Método para verificar se existe alguma parcela da consulta paga. Caso
-		 * exista, é retornado true para não permitir a alteração da consulta.
+		 * Método para verificar se existe alguma parcela da consulta paga. Caso exista,
+		 * é retornado true para não permitir a alteração da consulta.
 		 */
 
 		Entrada dadosEntrada = consulta.getEntrada();
@@ -447,14 +433,13 @@ public class ConsultaService implements Serializable {
 	}
 
 	public boolean calcularDesconto(Entrada entrada) {
-		boolean flag = false;
 		try {
 			DecimalFormat format = new DecimalFormat("R$ #,##0.00");
 			// recuperando o valor antigo {TOTAL}
-			double valorAntigo = entrada.getValorDesconto();
+			double valorTotal = entrada.getValorDesconto();
 
 			// SETANDO O VALOR TOTAL
-			entrada.setValor(valorAntigo);
+			entrada.setValor(valorTotal);
 
 			// calculando novo valor com desconto
 			double valorComDesconto = entrada.getValor() - ((entrada.getDesconto() * entrada.getValor()) / 100);
@@ -462,17 +447,15 @@ public class ConsultaService implements Serializable {
 			// SETANDO O VALOR COM DESCONTO
 			entrada.setValorDesconto(valorComDesconto);
 
-			MensagemUtil.enviarMensagem("Valor SEM desconto: " + format.format(valorAntigo),
-					FacesMessage.SEVERITY_INFO);
-			MensagemUtil.enviarMensagem("Desconto de " + entrada.getDesconto() + "%", FacesMessage.SEVERITY_INFO);
-			MensagemUtil.enviarMensagem("Valor COM desconto: " + format.format(entrada.getValorDesconto()),
-					FacesMessage.SEVERITY_INFO);
-			flag = true;
+			String mensagem = "VALOR TOTAL: " + format.format(valorTotal) + " DESCONTO: " + entrada.getDesconto() + "%"
+					+ " VALOR COM DESCONTO: " + format.format(entrada.getValorDesconto());
+			MensagemUtil.enviarMensagem(mensagem, FacesMessage.SEVERITY_INFO);
+			return true;
 		} catch (Exception e) {
 			MensagemUtil.enviarMensagem("Erro ao calcular desconto!", FacesMessage.SEVERITY_FATAL);
 		}
 
-		return flag;
+		return false;
 
 	}
 
@@ -539,14 +522,15 @@ public class ConsultaService implements Serializable {
 			}
 
 			/*
-			 * verificar calculo desconto para valor não ser burlado pelo
-			 * front-end
+			 * verificar calculo desconto para valor não ser burlado pelo front-end
 			 */
 			if (consulta.getEntrada().getDesconto() > 0) {
 
-				Double valorComDesconto = consulta.getEntrada().getValor()
+				double valorComDesconto = consulta.getEntrada().getValor()
 						- ((consulta.getEntrada().getDesconto() * consulta.getEntrada().getValor()) / 100);
-				if (!valorComDesconto.equals(consulta.getEntrada().getValorDesconto())) {
+				System.out.println("Calc Valor: " + valorComDesconto + "Desconto Entrada: "
+						+ consulta.getEntrada().getValorDesconto());
+				if (valorComDesconto == consulta.getEntrada().getValorDesconto()) {
 					MensagemUtil.enviarMensagem("Valor da consulta não compatível com desconto.",
 							FacesMessage.SEVERITY_WARN);
 					return false;
@@ -554,8 +538,7 @@ public class ConsultaService implements Serializable {
 			}
 
 			/*
-			 * caso não aplique o desconto o valor total é recebido no valor com
-			 * desconto
+			 * caso não aplique o desconto o valor total é recebido no valor com desconto
 			 */
 			if (consulta.getEntrada().getDesconto() == 0) {
 				consulta.getEntrada().setValor(consulta.getEntrada().getValorDesconto());
@@ -567,24 +550,27 @@ public class ConsultaService implements Serializable {
 	public List<SelectItem> gerarQuantidadePagamento(Double valor) {
 		List<SelectItem> quantidadePagamentos = new ArrayList<>();
 
-		DecimalFormat format = new DecimalFormat("#,###.00");
+		DecimalFormat format = new DecimalFormat("R$#,###.00");
 
 		if (valor == null) {
 			valor = new Double(0);
 		}
 		SelectItemGroup dividido = new SelectItemGroup("Prestação");
-		dividido.setSelectItems(new SelectItem[] { new SelectItem(valor > 0 ? "1 X " + format.format(valor) : "1 X"),
-				new SelectItem(valor > 0 ? "2 X " + format.format((valor / 2)) : "2 X"),
-				new SelectItem(valor > 0 ? "3 X " + format.format((valor / 3)) : "3 X"),
-				new SelectItem(valor > 0 ? "4 X " + format.format((valor / 4)) : "4 X"),
-				new SelectItem(valor > 0 ? "5 X " + format.format((valor / 5)) : "5 X"),
-				new SelectItem(valor > 0 ? "6 X " + format.format((valor / 6)) : "6 X"),
-				new SelectItem(valor > 0 ? "7 X " + format.format((valor / 7)) : "7 X"),
-				new SelectItem(valor > 0 ? "8 X " + format.format((valor / 8)) : "8 X"),
-				new SelectItem(valor > 0 ? "9 X " + format.format((valor / 9)) : "9 X"),
-				new SelectItem(valor > 0 ? "10 X " + format.format((valor / 10)) : "10 X"), });
+		SelectItem[] itens = new SelectItem[10];
+
+		if (valor > 0) {
+			for (int i = 0; i < itens.length; i++) {
+				itens[i] = new SelectItem((i + 1) + " X " + format.format((valor / (i + 1))));
+			}
+			dividido.setSelectItems(itens);
+			quantidadePagamentos.add(dividido);
+			return quantidadePagamentos;
+		}
+
+		dividido.setSelectItems(new SelectItem[] { new SelectItem("Informe um valor.") });
 		quantidadePagamentos.add(dividido);
 		return quantidadePagamentos;
+
 	}
 
 	public List<Consulta> buscarConsultasFechamento(Date dataMovimentacao) {
@@ -603,7 +589,7 @@ public class ConsultaService implements Serializable {
 		Usuario usuarioLogado = (Usuario) FacesUtil.getSessionAttribute("usuario");
 		if (usuarioExiste(usuarioLogado)) {
 
-			consulta.setNomeUsuarioCadastrou(usuarioLogado.getLogin());
+			consulta.setUsuarioCadastro(usuarioLogado.getLogin());
 			consulta.setDataCadastro(new Date());
 		}
 	}

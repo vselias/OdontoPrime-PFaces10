@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
@@ -21,7 +20,6 @@ import br.com.odontoprime.entidade.Parcela;
 import br.com.odontoprime.service.ConsultaService;
 import br.com.odontoprime.service.EntradaService;
 import br.com.odontoprime.service.ParcelaService;
-import br.com.odontoprime.util.MensagemUtil;
 
 @Named
 @ViewScoped
@@ -44,6 +42,17 @@ public class EntradaMB implements Serializable {
 	private ConsultaService consultaService;
 	private Consulta consulta;
 	private List<Parcela> parcelasSelecionadas;
+	private List<Consulta> consultasFiltradas;
+	
+	
+	
+	public List<Consulta> getConsultasFiltradas() {
+		return consultasFiltradas;
+	}
+
+	public void setConsultasFiltradas(List<Consulta> consultasFiltradas) {
+		this.consultasFiltradas = consultasFiltradas;
+	}
 
 	public List<Parcela> getParcelasSelecionadas() {
 		return parcelasSelecionadas;
@@ -130,14 +139,8 @@ public class EntradaMB implements Serializable {
 		movimentacoes = entradaService.buscarEntradaPorData(dataPesquisa);
 	}
 
-	/**
-	 * 
-	 */
-	public void ativarTodos() {
-		System.out.println("Chamou o metodo ativar todos selecionarTodos =" + selecionarTodos);
-		pagamentoAtivado = selecionarTodos;
-	}
 
+	@Deprecated
 	public String selecionarDados(Entrada entrada) {
 		entrada = entradaService.buscarEntradaComParcelas(entrada.getId());
 
@@ -147,6 +150,7 @@ public class EntradaMB implements Serializable {
 		return "PagamentoParcela?faces-redirect=true";
 	}
 
+	@Deprecated
 	public void recuperarDadosPagamento() {
 		entrada = (Entrada) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("entrada");
 		consulta = (Consulta) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("consulta");
@@ -160,18 +164,16 @@ public class EntradaMB implements Serializable {
 
 	}
 
+	@Deprecated
 	public void efetuarPagamentoParcela() {
 		parcelaService.efetuarPagamentoParcela(parcela, entrada);
 	}
 
-	public void mensagemCancelamentoPagamentoParcela() {
-		MensagemUtil.enviarMensagem("Pagamento cancelado!", FacesMessage.SEVERITY_INFO);
-	}
-
+	@Deprecated
 	public void cancelarPagamentoParcela() {
 		parcelaService.cancelarPagamento(parcela);
 	}
-
+	@Deprecated
 	public void limparDataPagamento() {
 		parcelaService.limparDataPagamentoParcela(parcela);
 	}
@@ -199,7 +201,8 @@ public class EntradaMB implements Serializable {
 
 		try {
 			this.consulta = consultaService.buscarPorId(consulta.getId());
-			this.entrada = consulta.getEntrada();
+			this.entrada = entradaService.buscarEntradaComParcelas(this.consulta.getEntrada().getId());
+			consultas = consultaService.buscarTodos();
 			System.out.println("consulta: " + this.consulta);
 			System.out.println("entrada: " + this.entrada);
 		} catch (Exception e) {

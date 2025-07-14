@@ -29,30 +29,27 @@
 
 					<ui:include src="/template/MenuPaciente.xhtml" />
 
-					<p:messages id="msg" closable="true" />
-
-
 					<p:spacer height="10" />
 
-					<p:panel  id="pnlDadosPaciente"
-						header="Informações do Paciente">
+					<p:panel id="pnlDadosPaciente" header="Informações do Paciente">
 
-
+						<p:messages id="msg" closable="true" />
 						<p:tabView prependId="false">
 							<p:tab title="Dados do Paciente">
 								<div class="ui-grid-row">
 									<div class="ui-grid-col-6">
 
-										<h:panelGrid  style="width: 100%;" cellpadding="5" columns="2">
+										<h:panelGrid style="width: 100%;" cellpadding="5" columns="2">
 											<p:outputLabel for="nome" value="Nome" />
 											<br />
-											<p:inputText oninput="this.value = this.value.toUpperCase()" styleClass="estiloNome" id="nome" required="true" 
+											<p:inputText oninput="this.value = this.value.toUpperCase()"
+												styleClass="estiloNome" id="nome" required="true"
 												requiredMessage="Nome do paciente deve ser informado."
 												value="#{pacienteMB.paciente.nome}" />
 											<br />
 											<p:outputLabel for="cpf" value="CPF" />
 											<br />
-											<p:inputMask  id="cpf" mask="999.999.999-99" required="true"
+											<p:inputMask id="cpf" mask="999.999.999-99" required="true"
 												requiredMessage="Cpf deve ser informado."
 												validatorMessage="Cpf inválido!"
 												value="#{pacienteMB.paciente.cpf}">
@@ -131,23 +128,23 @@
 								</div>
 							</p:tab>
 							<p:tab title="Endereço">
-									<h:panelGrid cellpadding="5" columns="2">
-										<p:outputLabel value="Rua" />
-										<p:inputText value="#{pacienteMB.paciente.endereco.rua}" />
-										<p:outputLabel value="Número" />
-										<p:inputText value="#{pacienteMB.paciente.endereco.numero}" />
-										<p:outputLabel value="Bairro" />
-										<p:inputText value="#{pacienteMB.paciente.endereco.bairro}" />
-										<p:outputLabel value="Cidade" />
-										<p:inputText value="#{pacienteMB.paciente.endereco.cidade}" />
-										<p:outputLabel value="Estado" />
-										<p:selectOneMenu filter="true" filterMatchMode="contains"
-											value="#{pacienteMB.paciente.endereco.estado}">
-											<f:selectItem itemLabel="Selecione um Estado" itemValue="" />
-											<f:selectItems value="#{pacienteMB.estados}" var="e"
-												itemLabel="#{e.descricao}" itemValue="#{e}" />
-										</p:selectOneMenu>
-									</h:panelGrid>
+								<h:panelGrid cellpadding="5" columns="2">
+									<p:outputLabel value="Rua" />
+									<p:inputText value="#{pacienteMB.paciente.endereco.rua}" />
+									<p:outputLabel value="Número" />
+									<p:inputText value="#{pacienteMB.paciente.endereco.numero}" />
+									<p:outputLabel value="Bairro" />
+									<p:inputText value="#{pacienteMB.paciente.endereco.bairro}" />
+									<p:outputLabel value="Cidade" />
+									<p:inputText value="#{pacienteMB.paciente.endereco.cidade}" />
+									<p:outputLabel value="Estado" />
+									<p:selectOneMenu filter="true" filterMatchMode="contains"
+										value="#{pacienteMB.paciente.endereco.estado}">
+										<f:selectItem itemLabel="Selecione um Estado" itemValue="" />
+										<f:selectItems value="#{pacienteMB.estados}" var="e"
+											itemLabel="#{e.descricao}" itemValue="#{e}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
 							</p:tab>
 						</p:tabView>
 					</p:panel>

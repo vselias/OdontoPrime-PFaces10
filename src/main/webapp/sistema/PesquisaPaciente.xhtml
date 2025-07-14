@@ -71,34 +71,34 @@
 
 					</p:column>
 
-					<p:column styleClass="colunaAcoes" headerText="Ações">
-						<p:commandButton oncomplete="PF('dlgDetalheEndereco').show()"
-							title="Informações do endereço" update=":frmDetalheEndereco"
-							icon="pi pi-search">
-							<f:setPropertyActionListener value="#{p}"
-								target="#{pacienteMB.paciente}" />
-						</p:commandButton>
+					<p:column style="text-align: center;" headerText="Ações">
 
-						<p:button  title="Editar" icon="pi pi-pencil" outcome="Paciente">
-							<f:param name="codigo" value="#{p.id}" />
-						</p:button>
+						<p:menuButton styleClass="botaoMenuConsulta" collision="fit"
+							icon="pi pi-cog" value="Opções">
 
-						<p:commandButton title="Informações do cadastro" rendered="#{usuarioMB.usuario.adm}"
-							update=":frmDetalhePaciente"
-							oncomplete="PF('dlgDetalhePaciente').show();"
-							icon="pi pi-info-circle">
-							<f:setPropertyActionListener value="#{p}"
-								target="#{pacienteMB.paciente}" />
-						</p:commandButton>
+							<p:menuitem value="Informações do endereço"
+								oncomplete="PF('dlgDetalheEndereco').show()"
+								update=":frmDetalheEndereco" icon="pi pi-search">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{pacienteMB.paciente}" />
+							</p:menuitem>
+							<p:menuitem value="Editar" icon="pi pi-pencil" outcome="Paciente">
+								<f:param name="codigo" value="#{p.id}" />
+							</p:menuitem>
+							<p:menuitem icon="pi pi-search" value="Informações do cadastro"
+								rendered="#{usuarioMB.usuario.adm}" update=":frmDetalhePaciente"
+								oncomplete="PF('dlgDetalhePaciente').show();">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{pacienteMB.paciente}" />
+							</p:menuitem>
+							<p:menuitem value="Excluir" rendered="#{usuarioMB.usuario.adm}"
+								update="@form" oncomplete="PF('exclusao').show()"
+								icon="pi pi-trash">
+								<f:setPropertyActionListener value="#{p}"
+									target="#{pacienteMB.paciente}" />
+							</p:menuitem>
 
-						<p:commandButton title="Excluir"
-							rendered="#{usuarioMB.usuario.adm}" update="@form"
-							oncomplete="PF('exclusao').show()" icon="pi pi-trash">
-							<f:setPropertyActionListener value="#{p}"
-								target="#{pacienteMB.paciente}" />
-						</p:commandButton>
-
-
+						</p:menuButton>
 					</p:column>
 
 				</p:dataTable>
@@ -107,8 +107,8 @@
 			<!-- 				dialog exclusão paciente -->
 
 			<p:dialog position="center" draggable="true" modal="true"
-				widgetVar="exclusao" severity="alert" closeOnEscape="true"
-				closable="true" header="Confirmação de exclusão do paciente">
+				widgetVar="exclusao" closeOnEscape="true" closable="true"
+				header="Confirmação de exclusão do paciente">
 				<center>
 					<h:panelGrid columns="1">
 						<p:outputLabel value="CPF: #{pacienteMB.paciente.cpf}" />
@@ -160,7 +160,7 @@
 			resizable="false" modal="true" appendTo="@(body)"
 			widgetVar="dlgDetalheEndereco">
 			<h:form id="frmDetalheEndereco">
-				<h:panelGrid layout="grid" columnClasses="ui-grid-col-6,ui-grid-col-6" columns="2">
+				<h:panelGrid columnClasses="ui-grid-col-6,ui-grid-col-6" columns="2">
 					<p:outputLabel value="Paciente" />
 					<p:inputText readonly="true" value="#{pacienteMB.paciente.nome}" />
 

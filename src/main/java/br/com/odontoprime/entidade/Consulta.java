@@ -31,7 +31,7 @@ public class Consulta implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoConsulta tipoConsulta;
 
-	private String nomeUsuarioCadastrou;
+	private String usuarioCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
@@ -62,12 +62,12 @@ public class Consulta implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 
-	public String getNomeUsuarioCadastrou() {
-		return nomeUsuarioCadastrou;
+	public String getUsuarioCadastro() {
+		return usuarioCadastro;
 	}
 
-	public void setNomeUsuarioCadastrou(String nomeUsuarioCadastrou) {
-		this.nomeUsuarioCadastrou = nomeUsuarioCadastrou;
+	public void setUsuarioCadastro(String usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
 	}
 
 	public Date getDataCadastro() {

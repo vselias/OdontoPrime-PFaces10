@@ -14,10 +14,9 @@ import org.primefaces.event.CaptureEvent;
 import br.com.odontoprime.entidade.Usuario;
 import br.com.odontoprime.service.UserImagemService;
 import br.com.odontoprime.service.UsuarioService;
-import br.com.odontoprime.util.FacesUtil;
 import br.com.odontoprime.util.MensagemUtil;
 
-@Named
+@Named("cadastroUsuarioMB")
 @ViewScoped
 public class CadastroUsuarioMB implements Serializable {
 

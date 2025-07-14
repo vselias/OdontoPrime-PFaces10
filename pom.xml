@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com</groupId>
@@ -8,7 +9,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<m2e.cdi.activation>false</m2e.cdi.activation>
 	</properties>
+
 
 	<build>
 		<plugins>
@@ -23,15 +26,15 @@
 				</configuration>
 			</plugin>
 			<!-- Garante que todas dependências vão pro WAR -->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-war-plugin</artifactId>
-			<version>3.3.2</version>
-			<configuration>
-				<failOnMissingWebXml>false</failOnMissingWebXml>
-				<includeDependencies>true</includeDependencies>
-			</configuration>
-		</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<includeDependencies>true</includeDependencies>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -57,63 +60,65 @@
 		</plugins>
 	</build>
 
-<dependencies>
+	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-pdf -->
+		<!--
+		https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-pdf -->
 		<dependency>
-		    <groupId>net.sf.jasperreports</groupId>
-		    <artifactId>jasperreports-pdf</artifactId>
-		    <version>7.0.3</version>
-		</dependency>
-					
-	   <dependency>
-	        <groupId>net.sf.jasperreports</groupId>
-	        <artifactId>jasperreports-jdt</artifactId>
-	        <version>7.0.0</version>
-	    </dependency>
-		<dependency>
-		  <groupId>net.sf.jasperreports</groupId>
-		  <artifactId>jasperreports</artifactId>
-		  <version>7.0.3</version>
-		</dependency>
-		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-pdf</artifactId>
+			<version>7.0.3</version>
 		</dependency>
 
 		<dependency>
-		    <groupId>javax.persistence</groupId>
-		    <artifactId>javax.persistence-api</artifactId>
-		    <version>2.2</version>
-		    <scope>compile</scope> <!-- adiciona isso -->
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-jdt</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>7.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+			<scope>compile</scope> <!-- adiciona isso -->
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
 		<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
-			<dependency>
-			    <groupId>org.omnifaces</groupId>
-			    <artifactId>omnifaces</artifactId>
-			    <version>3.0</version>
-			</dependency>
-			<dependency>
-			    <groupId>javax.enterprise</groupId>
-			    <artifactId>cdi-api</artifactId>
-			    <version>2.0</version> <!-- Verifique a versão mais adequada -->
-			</dependency>
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version> <!-- Verifique a versão mais adequada -->
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
 		<dependency>
-		    <groupId>javax.inject</groupId>
-		    <artifactId>javax.inject</artifactId>
-		    <version>1</version>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet-core -->
-			<dependency>
-			    <groupId>org.jboss.weld.servlet</groupId>
-			    <artifactId>weld-servlet-core</artifactId>
-			    <version>3.1.6.Final</version>
-			</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet-core -->
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet-core</artifactId>
+			<version>3.1.6.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -144,35 +149,35 @@
 
 		<!-- API do JSF 2.3 -->
 		<dependency>
-		    <groupId>javax.faces</groupId>
-		    <artifactId>javax.faces-api</artifactId>
-		    <version>2.3</version>
-		    <scope>provided</scope>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Implementação Mojarra do JSF 2.3 -->
 		<dependency>
-		    <groupId>org.glassfish</groupId>
-		    <artifactId>jakarta.faces</artifactId>
-		    <version>2.3.18</version>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.faces</artifactId>
+			<version>2.3.18</version>
 		</dependency>
-		 <dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>5.4.32.Final</version>
-		  </dependency>
-		
-		  <dependency>
-		    <groupId>org.hibernate.common</groupId>
-		    <artifactId>hibernate-commons-annotations</artifactId>
-		    <version>5.1.2.Final</version>
-		  </dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.32.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>5.1.2.Final</version>
+		</dependency>
 		<!-- JPA API -->
-		  <dependency>
-		    <groupId>javax.persistence</groupId>
-		    <artifactId>javax.persistence-api</artifactId>
-		    <version>2.2</version>
-		  </dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.transaction</groupId>
@@ -182,20 +187,20 @@
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
-			<dependency>
-			    <groupId>org.primefaces</groupId>
-			    <artifactId>primefaces</artifactId>
-			    <version>11.0.0</version>
-			</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>11.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.14</version>
 		</dependency>
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.33</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
 		</dependency>
 
 		<dependency>
@@ -203,11 +208,11 @@
 			<artifactId>primefaces-extensions</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-			<dependency>
-			    <groupId>com.github.librepdf</groupId>
-			    <artifactId>openpdf</artifactId>
-			    <version>1.3.30</version>
-			</dependency>
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>1.3.30</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

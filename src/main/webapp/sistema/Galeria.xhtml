@@ -104,9 +104,8 @@
 							value="Paciente não possui foto." />
 
 
-						<p:galleria autoPlay="false" id="galeria" panelHeight="400"
-							panelWidth="600" frameHeight="50" showCaption="true"
-							frameWidth="50" rendered="#{not empty galeriaMB.paciente.fotos}"
+						<p:galleria autoPlay="false" id="galeria"  showCaption="true"
+							 rendered="#{not empty galeriaMB.paciente.fotos}"
 							var="foto" value="#{galeriaMB.paciente.fotos}">
 							<p:commandButton action="#{galeriaMB.selecionarFoto}"
 								update=":frmExclusao" oncomplete="PF('exclusao').show();"

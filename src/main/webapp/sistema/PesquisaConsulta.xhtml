@@ -15,16 +15,13 @@
 		<h3 style="text-align: right" class="tituloPagina">Lista de
 			Consultas</h3>
 
-
-
 		<h:form style="marin: 20px" id="frmConsulta">
 
 			<ui:include src="/template/MenuPesquisaConsulta.xhtml" />
+
 			<p:messages id="msg" closable="true" />
 
 			<center>
-
-
 				<p:dataTable size="small" widgetVar="tblConsulta"
 					styleClass="tabela" paginator="true" rowsPerPageTemplate="5,10,15"
 					value="#{consultaMB.consultas}" id="tblConsulta" var="c" rows="5"
@@ -38,8 +35,6 @@
 							rendered="#{c.paciente.nomeImagem ne null and c.paciente.nomeImagem ne ''}"
 							value="/imagens/#{c.paciente.nomeImagem}" />
 					</p:column>
-
-
 					<p:column filterBy="#{c.paciente.nome}" sortBy="#{c.paciente.nome}"
 						headerText="Paciente">
 						<p:outputLabel value="#{c.paciente.nome}" />
@@ -55,9 +50,6 @@
 							value="Não informado." />
 
 					</p:column>
-
-
-
 
 					<p:column filterMatchMode="startsWith" filterBy="#{c.dataConsulta}"
 						sortBy="#{c.dataConsulta}" headerText="Data">
@@ -94,34 +86,31 @@
 
 					</p:column>
 					<p:column style="text-align:center; " headerText="Ações">
-						<div>
-							<p:menuButton styleClass="botaoMenuConsulta" collision="fit"
-								icon="pi pi-cog" value="Opções">
-								<p:menuitem value="Informações do Pagamento"
-									oncomplete="PF('dlgPesqConsulta').show()"
-									update=":frmPesqConsulta" icon="pi pi-info-circle">
-									<f:setPropertyActionListener value="#{c}"
-										target="#{consultaMB.consulta}" />
-								</p:menuitem>
-								<p:menuitem value="Editar" icon="pi pi-pencil"
-									outcome="Consulta">
-									<f:param name="consulta" value="#{c.id}" />
-								</p:menuitem>
-								<p:menuitem value="Informações do cadastro"
-									oncomplete="PF('dlgDetalheConsulta').show()"
-									update=":frmDetalheConsulta" icon="pi pi-info-circle">
-									<f:setPropertyActionListener value="#{c}"
-										target="#{consultaMB.consulta}" />
-								</p:menuitem>
-								<p:menuitem value="Excluir" update="@form :formGlobal:msgGlobal"
-									oncomplete="PF('exclusao').show()" icon="pi pi-trash">
-									<f:setPropertyActionListener value="#{c}"
-										target="#{consultaMB.consulta}" />
-								</p:menuitem>
-								<p:menuitem value="Pagamento" icon="pi pi-money-bill"
-									action="#{consultaMB.showPagamentoParcela(c)}" immediate="true" />
-							</p:menuButton>
-						</div>
+						<p:menuButton styleClass="botaoMenuConsulta" collision="fit"
+							icon="pi pi-cog" value="Opções">
+							<p:menuitem value="Informações do Pagamento"
+								oncomplete="PF('dlgPesqConsulta').show()"
+								update=":frmPesqConsulta" icon="pi pi-info-circle">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{consultaMB.consulta}" />
+							</p:menuitem>
+							<p:menuitem value="Editar" icon="pi pi-pencil" outcome="Consulta">
+								<f:param name="consulta" value="#{c.id}" />
+							</p:menuitem>
+							<p:menuitem value="Informações do cadastro"
+								oncomplete="PF('dlgDetalheConsulta').show()"
+								update=":frmDetalheConsulta" icon="pi pi-info-circle">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{consultaMB.consulta}" />
+							</p:menuitem>
+							<p:menuitem value="Excluir" update="@form :formGlobal:msgGlobal"
+								oncomplete="PF('exclusao').show()" icon="pi pi-trash">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{consultaMB.consulta}" />
+							</p:menuitem>
+							<p:menuitem value="Pagamento" icon="pi pi-money-bill"
+								action="#{consultaMB.showPagamentoParcela(c)}" immediate="true" />
+						</p:menuButton>
 					</p:column>
 				</p:dataTable>
 			</center>
@@ -158,52 +147,58 @@
 			widgetVar="dlgPesqConsulta" header="Visualização da consulta."
 			modal="true" appendTo="@(body)" resizable="false">
 			<h:form id="frmPesqConsulta">
-				<p:panelGrid columns="2" layout="grid"
-					styleClass="ui-panelgrid-blank"
-					columnClasses="ui-grid-col-6,ui-grid-col-6">
 
+				<p:panelGrid styleClass="panelPagamentoConsulta  ui-panelgrid-blank"
+					columnClasses="ui-g-12 ui-md-6,ui-g-12 ui-md-6" columns="2"
+					layout="grid">
 
-					<p:outputLabel value="Id" />
-					<p:inputText readonly="true" value="#{consultaMB.consulta.id}" />
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
 
-					<p:outputLabel value="Paciente" />
-					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.paciente.nome}" />
+						<p:outputLabel value="Id" />
+						<p:inputText readonly="true" value="#{consultaMB.consulta.id}" />
 
-					<p:outputLabel
-						rendered="#{consultaMB.consulta.tipoConsulta ne null}"
-						value="Consulta" />
-					<p:inputText readonly="true"
-						rendered="#{consultaMB.consulta.tipoConsulta ne null}"
-						value="#{consultaMB.consulta.tipoConsulta}" />
+						<p:outputLabel value="Paciente" />
+						<p:inputText readonly="true"
+							value="#{consultaMB.consulta.paciente.nome}" />
 
-					<p:outputLabel value="Opção de pagamento" />
-					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.entrada.formaPagamento.descricao}" />
+						<p:outputLabel
+							rendered="#{consultaMB.consulta.tipoConsulta ne null}"
+							value="Consulta" />
+						<p:inputText readonly="true"
+							rendered="#{consultaMB.consulta.tipoConsulta ne null}"
+							value="#{consultaMB.consulta.tipoConsulta}" />
 
-					<p:outputLabel value="Estado da consulta" />
-					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.estadoConsulta.descricao}" />
+						<p:outputLabel value="Estado da consulta" />
+						<p:inputText readonly="true"
+							value="#{consultaMB.consulta.estadoConsulta.descricao}" />
 
-					<p:outputLabel
-						rendered="#{consultaMB.consulta.entrada.parcela ne null}"
-						value="Forma de pagamento" />
-					<p:inputText
-						rendered="#{consultaMB.consulta.entrada.parcela ne null}"
-						readonly="true" value="#{consultaMB.consulta.entrada.parcela}" />
+					</p:panelGrid>
 
-					<p:outputLabel value="Data do Lançamento" />
-					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.entrada.dataLancamento}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</p:inputText>
+					<p:panelGrid styleClass="ui-panelgrid-blank" columns="2">
+						<p:outputLabel value="Opção de pagamento" />
+						<p:inputText readonly="true"
+							value="#{consultaMB.consulta.entrada.formaPagamento.descricao}" />
 
-					<p:outputLabel value="Status do Pagamento" />
-					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.entrada.estadoPagamento}" />
+						<p:outputLabel
+							rendered="#{consultaMB.consulta.entrada.parcela ne null}"
+							value="Forma de pagamento" />
+						<p:inputText
+							rendered="#{consultaMB.consulta.entrada.parcela ne null}"
+							readonly="true" value="#{consultaMB.consulta.entrada.parcela}" />
 
+						<p:outputLabel value="Status do Pagamento" />
+						<p:inputText readonly="true"
+							value="#{consultaMB.consulta.entrada.estadoPagamento}" />
 
+						<p:outputLabel value="Data do Vencimento" />
+						<p:inputText readonly="true"
+							value="#{consultaMB.consulta.entrada.dataVencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputText>
+
+					</p:panelGrid>
 				</p:panelGrid>
+
 			</h:form>
 		</p:dialog>
 
@@ -215,7 +210,7 @@
 				<h:panelGrid cellpadding="10" columns="2">
 					<p:outputLabel value="Cadastrado por" />
 					<p:inputText readonly="true"
-						value="#{consultaMB.consulta.nomeUsuarioCadastrou}" />
+						value="#{consultaMB.consulta.usuarioCadastro}" />
 
 					<p:outputLabel value="Data modificação" />
 					<p:inputText readonly="true"

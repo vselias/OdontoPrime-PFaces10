@@ -18,7 +18,7 @@
 		<title>Cadastro de Orçamento</title>
 	</ui:define>
 	<ui:define name="content">
-		<p:messages globalOnly="false" id="msg" escape="true" closable="true" />
+
 
 		<h:form id="frmOrcamento" styleClass="frmDadosPaciente">
 
@@ -32,12 +32,12 @@
 			<p:spacer height="10px" />
 
 			<div class="ui-grid-responsive">
-				<p:panel style="text-align:center;"
-					header="Informações do Orçamento">
+				<p:panel header="Informações do Orçamento">
+					<p:messages style="text-align:center;" globalOnly="false" id="msg" />
 					<center>
 						<div class="ui-grid-row">
 							<div class="ui-grid-col-6">
-								<p:panelGrid  styleClass="ui-panelgrid-blank" columns="1">
+								<p:panelGrid styleClass="ui-panelgrid-blank" columns="1">
 									<h:panelGroup layout="block" class="panelGConsulta">
 										<p:outputLabel for="paciente" value="Selecione o paciente" />
 										<p:inputText id="paciente" readonly="true" required="true"
@@ -179,60 +179,11 @@
 				</h:form>
 			</center>
 		</p:dialog>
-
 		<!-- tabela de selecionar paciente -->
-		<h:form>
-			<p:dialog widgetVar="tblPaciente">
-				<div class="pesquisaPaciente">
-					<h:panelGroup styleClass="ui-inputgroup">
-						<p:inputText id="inputBusca" value="#{consultaMB.textoPaciente}"
-							placeholder="Pesquise o paciente">
-							<p:ajax update="tblPacientePesquisa" event="keyup"
-								listener="#{consultaMB.pacientePesquisa}" />
-						</p:inputText>
-						<p:commandButton icon="pi pi-times" title="Limpar" process="@this"
-							action="#{consultaMB.limparBusca}"
-							update="inputBusca tblPacientePesquisa"
-							styleClass="ui-button-secondary" resetValues="true" />
-					</h:panelGroup>
-				</div>
-
-				<p:dataTable id="tblPacientePesquisa" tableStyle="width:auto"
-					resizableColumns="true" var="paciente"
-					value="#{consultaMB.pacientes}">
-					<p:column headerText="Foto">
-						<p:graphicImage cache="false" styleClass="imagens"
-							rendered="#{paciente.nomeImagem eq null or paciente.nomeImagem eq ''}"
-							value="/img/new-user.png" />
-						<p:graphicImage cache="false" styleClass="imagens"
-							rendered="#{paciente.nomeImagem ne null and paciente.nomeImagem ne ''}"
-							value="/imagens/#{paciente.nomeImagem}" />
-					</p:column>
-					<p:column headerText="Id">
-						<p:outputLabel value="#{paciente.id}" />
-					</p:column>
-					<p:column headerText="Nome">
-						<p:outputLabel value="#{paciente.nome}" />
-					</p:column>
-					<p:column headerText="CPF">
-						<p:outputLabel value="#{paciente.cpf}" />
-					</p:column>
-					<p:column headerText="E-mail">
-						<p:outputLabel value="#{paciente.email}" />
-					</p:column>
-					<p:column headerText="Selecionar">
-						<p:commandButton action="#{orcamentoMB.selecionarPaciente}"
-							update=":formGlobal:msgGlobal :frmOrcamento"
-							oncomplete="PF('tblPaciente').hide()" icon="pi pi-check">
-							<f:setPropertyActionListener value="#{paciente}"
-								target="#{orcamentoMB.orcamento.paciente}" />
-						</p:commandButton>
-					</p:column>
-				</p:dataTable>
-			</p:dialog>
-
-		</h:form>
-
+		<ui:param name="idUpdate" value=":formGlobal:msgGlobal :frmOrcamento" />
+		<ui:param name="bean" value="#{orcamentoMB}" />
+		<ui:param name="target" value="#{orcamentoMB.orcamento.paciente}" />
+		<ui:include src="/template/SelecionarPaciente.xhtml" />
 
 	</ui:define>
 

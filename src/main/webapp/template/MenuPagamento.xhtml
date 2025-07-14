@@ -9,5 +9,12 @@
 			<p:commandButton value="Voltar" icon="pi pi-chevron-left"
 				action="/sistema/adm/Entrada?faces-redirect=true" />
 		</p:toolbarGroup>
+		<p:toolbarGroup align="right">
+			<p:commandButton
+				update=":frmExbParcela, :frmPesqConsultaPagamento, :frmPesqConsultaPagamento:tabela"
+				oncomplete="PF('dlgPesquisaConsulta').show()" icon="pi pi-search"
+				value="Pesquisar" />
+		</p:toolbarGroup>
+
 	</p:toolbar>
 </ui:composition>

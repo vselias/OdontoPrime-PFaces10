@@ -53,9 +53,9 @@
 
 			</div>
 			<h:form>
-				<p:schedule resizable="true" id="agenda"
-					timeZone="America/Sao_Paulo" clientTimeZone="true"
-					widgetVar="lembrete" value="#{lembreteMB.scheduleModel}">
+				<p:schedule resizable="true" id="agenda" widgetVar="lembrete"
+				
+					value="#{lembreteMB.scheduleModel}">
 					<p:ajax event="dateSelect" listener="#{lembreteMB.selecionarData}"
 						update="lembretePanel panelLembreteBt @form"
 						oncomplete="PF('eventDialog').show();" />
@@ -69,26 +69,30 @@
 						listener="#{lembreteMB.redimensionarLembrete}" />
 				</p:schedule>
 
-				<p:dialog width="40%" closeOnEscape="true" modal="true" draggable="true"
-					position="center" widgetVar="eventDialog" height="350"
-					header="Detalhes do lembrete">
+				<p:dialog width="40%" closeOnEscape="true" modal="true"
+					draggable="true" position="center" widgetVar="eventDialog"
+					height="350" header="Detalhes do lembrete">
 					<div class="ui-fluid">
 						<p:panelGrid layout="grid"
 							columnClasses="ui-grid-col-4,ui-grid-col-8"
 							styleClass="ui-panelgrid-blank" id="lembretePanel" columns="2">
 							<p:outputLabel for="title" value="Título:" />
-							<p:inputText id="title" value="#{lembreteMB.lembrete.titulo}"
-								required="true" />
+							<p:inputText id="title" requiredMessage="Título é obrigatório."
+								value="#{lembreteMB.lembrete.titulo}" required="true" />
 
-							<p:outputLabel value="Descrição:" />
-							<p:inputTextarea value="#{lembreteMB.lembrete.descricao}" />
+							<p:outputLabel for="descricao" value="Descrição:" />
+							<p:inputTextarea id="descricao" required="true"
+								requiredMessage="Descrição é obrigatório."
+								value="#{lembreteMB.lembrete.descricao}" />
 
 							<p:outputLabel for="from" value="De:" />
-							<p:calendar id="from" value="#{lembreteMB.lembrete.dataInicio}"
+							<p:calendar locale="pt_BR" id="from"
+								value="#{lembreteMB.lembrete.dataInicio}"
 								pattern="dd/MM/yyyy HH:mm" />
 
 							<p:outputLabel for="to" value="Até:" />
-							<p:calendar id="to" value="#{lembreteMB.lembrete.dataFinal}"
+							<p:calendar locale="pt_BR" id="to"
+								value="#{lembreteMB.lembrete.dataFinal}"
 								pattern="dd/MM/yyyy HH:mm" />
 
 							<p:outputLabel for="finalizado" value="Finalizado" />
@@ -109,7 +113,7 @@
 								</p:commandButton>
 								<p:commandButton update=":formGlobal:msgGlobal" id="addButton"
 									value="Salvar" actionListener="#{lembreteMB.addLembrete}"
-									oncomplete="PF('lembrete').update();PF('eventDialog').hide();" />
+									oncomplete="if (!args.validationFailed) {PF('lembrete').update();PF('eventDialog').hide();}" />
 							</p:panelGrid>
 						</div>
 					</div>

@@ -159,7 +159,7 @@
 									</p:inputText>
 
 									<p:outputLabel value="Usuário de Registro:" />
-									<p:inputText value="#{entradaMB.consulta.nomeUsuarioCadastrou}" />
+									<p:inputText value="#{entradaMB.consulta.usuarioCadastro}" />
 
 									<p:outputLabel value="Status do Registro" />
 									<p:inputText readonly="true"
@@ -184,7 +184,7 @@
 						<f:facet name="header">
 							<div style="text-align: center !important;">
 								<p:commandButton
-									update=":frmExbParcela :frmPesqConsultaPagamento"
+									update=":frmExbParcela, :frmPesqConsultaPagamento, :frmPesqConsultaPagamento:tabela"
 									oncomplete="PF('dlgPesquisaConsulta').show()"
 									icon="pi pi-search" value="Pesquisar" />
 								<p:commandButton icon="pi pi-check" update=":frmExbParcela"
@@ -251,7 +251,7 @@
 		<!-- dialog confirmação do pagamento de todas parcelas -->
 		<p:dialog draggable="true" modal="true" widgetVar="dlgPagamentoTodas"
 			header="Confirmar os pagamentos das parcelas?" closable="true"
-			closeOnEscape="true" message="Deseja efetuar o registro?">
+			closeOnEscape="true">
 			<h:form>
 				<center>
 					<p:commandButton
@@ -269,7 +269,7 @@
 		<p:dialog draggable="true" modal="true"
 			widgetVar="dlgCancelPagamentoTodas" closable="true"
 			closeOnEscape="true" header="Cancelar os pagamentos das parcelas?"
-			message="Deseja efetuar o registro?">
+			>
 			<h:form>
 				<center>
 					<p:commandButton

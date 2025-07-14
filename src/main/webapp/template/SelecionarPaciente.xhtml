@@ -13,10 +13,9 @@
 
 <h:form>
 
-	<p:dialog widgetVar="tblPaciente">
+	<p:dialog width="700" widgetVar="tblPaciente">
 
 		<div class="pesquisaPaciente">
-
 			<h:panelGroup styleClass="ui-inputgroup">
 				<p:inputText id="inputBusca" value="#{consultaMB.textoPaciente}"
 					placeholder="Pesquise o paciente">
@@ -25,48 +24,47 @@
 				</p:inputText>
 
 				<p:commandButton icon="pi pi-times" title="Limpar" process="@this"
-					 action="#{consultaMB.limparBusca}"
-					  update="inputBusca tblPacientePesquisa"
+					action="#{consultaMB.limparBusca}"
+					update="inputBusca tblPacientePesquisa"
 					styleClass="ui-button-secondary" resetValues="true" />
 			</h:panelGroup>
-
 		</div>
-
-
-		<p:dataTable emptyMessage="Nenhum registro encontrado."
-			id="tblPacientePesquisa" tableStyle="width:auto"
-			resizableColumns="true" var="paciente"
-			value="#{consultaMB.pacientes}">
-			<p:column headerText="Foto">
-				<p:graphicImage cache="false" styleClass="imagens"
-					rendered="#{paciente.nomeImagem eq null or paciente.nomeImagem eq ''}"
-					value="/img/new-user.png" />
-				<p:graphicImage cache="false" styleClass="imagens"
-					rendered="#{paciente.nomeImagem ne null and paciente.nomeImagem ne ''}"
-					value="/imagens/#{paciente.nomeImagem}" />
-			</p:column>
-			<p:column headerText="Id">
-				<p:outputLabel value="#{paciente.id}" />
-			</p:column>
-			<p:column headerText="Nome">
-				<p:outputLabel value="#{paciente.nome}" />
-			</p:column>
-			<p:column headerText="CPF">
-				<p:outputLabel value="#{paciente.cpf}" />
-			</p:column>
-			<p:column headerText="E-mail">
-				<p:outputLabel value="#{paciente.email}" />
-			</p:column>
-			<p:column headerText="Selecionar">
-				<p:commandButton action="#{consultaMB.selecionarPaciente}"
-					oncomplete="PF('tblPaciente').hide()"
-					update=":formGlobal:msgGlobal :frmConsulta :frmConsulta:tabView:paciente"
-					icon="pi pi-check">
-					<f:setPropertyActionListener value="#{paciente}"
-						target="#{consultaMB.consulta.paciente}" />
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
+		<center>
+			<p:dataTable size="small" emptyMessage="Nenhum registro encontrado."
+				id="tblPacientePesquisa" tableStyle="width:auto"
+				resizableColumns="true" var="paciente"
+				value="#{consultaMB.pacientes}">
+				<p:column headerText="Foto">
+					<p:graphicImage cache="false" styleClass="imagens"
+						rendered="#{paciente.nomeImagem eq null or paciente.nomeImagem eq ''}"
+						value="/img/new-user.png" />
+					<p:graphicImage cache="false" styleClass="imagens"
+						rendered="#{paciente.nomeImagem ne null and paciente.nomeImagem ne ''}"
+						value="/imagens/#{paciente.nomeImagem}" />
+				</p:column>
+				<p:column headerText="Id">
+					<p:outputLabel value="#{paciente.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{paciente.nome}" />
+				</p:column>
+				<p:column headerText="CPF">
+					<p:outputLabel value="#{paciente.cpf}" />
+				</p:column>
+				<p:column headerText="E-mail">
+					<p:outputLabel value="#{paciente.email}" />
+				</p:column>
+				<p:column headerText="Selecionar">
+					<p:commandButton action="#{bean.selecionarPaciente}"
+						oncomplete="PF('tblPaciente').hide()"
+						update="#{idUpdate}"
+						icon="pi pi-check">
+						<f:setPropertyActionListener value="#{paciente}"
+							target="#{target}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</center>
 	</p:dialog>
 
 </h:form>

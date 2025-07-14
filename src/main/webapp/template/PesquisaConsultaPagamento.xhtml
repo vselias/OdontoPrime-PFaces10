@@ -10,12 +10,16 @@
 		<p:dataTable size="small" stripedRows="true" widgetVar="tblConsulta"
 			tableStyle="width:auto" resizableColumns="true" styleClass="tabela"
 			paginator="true" rowsPerPageTemplate="5,10,15"
+			filteredValue="#{entradaMB.consultasFiltradas}"
 			value="#{entradaMB.consultas}" id="tabela" var="c" rows="5"
 			paginatorPosition="top" emptyMessage="Nenhum registro.">
 			<f:facet name="header">
 				<p:commandButton update="@all"
 					action="#{entradaMB.desmarcarConsulta}" icon="pi pi-times"
 					value="Desmarcar" />
+				<div style="text-align: center;">
+					<p:inputText id="globalFilter"  onkeyup="PF('tblConsulta').filter()" placeholder="Pesquise na tabela" />
+				</div>
 			</f:facet>
 			<p:column headerText="Foto">
 
@@ -25,11 +29,7 @@
 				<p:graphicImage cache="false"
 					rendered="#{c.paciente.nomeImagem ne null}" styleClass="imagens"
 					value="/imagens/#{c.paciente.nomeImagem}" />
-
-
 			</p:column>
-
-
 			<p:column filterBy="#{c.paciente.nome}" sortBy="#{c.paciente.nome}"
 				headerText="Paciente">
 				<p:outputLabel value="#{c.paciente.nome}" />
@@ -40,10 +40,7 @@
 					value="Não informado." />
 				<br />
 				<p:outputLabel value="ID: #{c.id}" />
-
 			</p:column>
-
-
 			<p:column filterBy="#{c.entrada.valor}" sortBy="#{c.entrada.valor}"
 				headerText="Dados do Pagamento">
 				<p:panelGrid layout="grid" columns="1">
