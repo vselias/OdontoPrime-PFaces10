@@ -7,12 +7,51 @@
 	--btnMobileZIndex: 2 !important;
 	--dialogImagemZIndex: 3 !important;
 	--ajaxZIndex: 4 !important;
-	--DIV_MENU_TOP: 109px;
+	--DIV_MENU_TOP: 99px;
 	--menuZIndex: 9999999999999 !important;
 	--corBackBody: white;
 	--corTitulo: black;
 }
+/*estilo para galeria*/
+.botoesNavGaleria {
+	width: 750px;
+	position: relative !important;
+	top: -340px !important;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
 
+.btGaleriaAnt, .btGaleriaProx {
+	width: 50px !important;
+	height: 80px !important;
+	background: transparent !important;
+	color: black !important;
+	border: 1px solid rgb(0, 0, 0, 0.2) !important;
+}
+
+.ui-galleria-item-container {
+	display: flex !important;
+	justify-content: center !important;
+	width: 600px !important;
+	height: 400px !important;
+	margin: 0 auto;
+}
+
+li.ui-galleria-item.galeriaShow {
+	display: flex !important;
+	gap: 5px;
+	height: 300px !important;
+	flex-direction: column-reverse !important;
+	justify-content: space-between !important;
+}
+
+.ui-galleria-item {
+	flex-direction: column !important;
+	display: none !important;
+	justify-content: space-between !important;
+}
+/*fim estilo para galeria*/
 .panelPagamentoConsulta label.ui-outputlabel {
 	white-space: nowrap !important;
 }
@@ -82,7 +121,7 @@ div.tabelaPagamentoParcela {
 }
 
 .fc-daygrid-event-dot {
-	border: calc(8px / 2) solid white !important;
+	border: calc(8px/ 2) solid white !important;
 }
 
 button.ui-button {
@@ -257,10 +296,6 @@ body .ui-dialog .ui-dialog-titlebar {
 	padding: 30px !important;
 }
 
-/* body .ui-dialog .ui-dialog-content { */
-/* 	display: flex !important; */
-/* 	justify-content: center !important; */
-/* } */
 body .ui-dialog .ui-dialog-footer {
 	display: flex !important;
 	flex-direction: column;
@@ -400,7 +435,7 @@ tr[aria-selected=true] {
 }
 
 .barra-logo {
-	height: 110px !important;
+	height: 100px !important;
 	background: var(--corMenu) !important;
 	width: 100%;
 	padding: 0px;

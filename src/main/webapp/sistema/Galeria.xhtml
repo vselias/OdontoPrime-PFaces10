@@ -75,7 +75,7 @@
 						</p:commandButton>
 						<p:spacer width="5px;" />
 
-						<p:commandButton update=":frmExbFoto"
+						<p:commandButton oncomplete="showGaleria()" update=":frmExbFoto"
 							action="#{galeriaMB.selecionarPaciente(p)}" icon="pi pi-images">
 						</p:commandButton>
 					</p:column>
@@ -92,30 +92,34 @@
 				<p:accordionPanel id="accordion">
 					<p:tab title="Galeria de imagens do paciente">
 
-						<p:outputLabel rendered="#{galeriaMB.paciente.id gt 0}"
-							value="Paciente: #{galeriaMB.paciente.nome}" />
+						<div style="margin: 20px;">
+							<p:outputLabel rendered="#{galeriaMB.paciente.id gt 0}"
+								value="Paciente: #{galeriaMB.paciente.nome} CPF: #{galeriaMB.paciente.cpf}" />
 
-						<br />
-						<p:outputLabel rendered="#{galeriaMB.paciente.id gt 0}"
-							value="CPF: #{galeriaMB.paciente.cpf}" />
-						<br />
-						<p:outputLabel
-							rendered="#{empty galeriaMB.paciente.fotos and galeriaMB.paciente.id gt 0}"
-							value="Paciente não possui foto." />
+							<p:outputLabel
+								rendered="#{empty galeriaMB.paciente.fotos and galeriaMB.paciente.id gt 0}"
+								value="Paciente não possui foto." />
+						</div>
 
-
-						<p:galleria autoPlay="false" id="galeria"  showCaption="true"
-							 rendered="#{not empty galeriaMB.paciente.fotos}"
-							var="foto" value="#{galeriaMB.paciente.fotos}">
+						<p:galleria autoPlay="false" id="galeria" showCaption="true"
+							rendered="#{not empty galeriaMB.paciente.fotos}" var="foto"
+							value="#{galeriaMB.paciente.fotos}">
 							<p:commandButton action="#{galeriaMB.selecionarFoto}"
 								update=":frmExclusao" oncomplete="PF('exclusao').show();"
 								icon="pi pi-trash">
 								<f:param name="fotoId" value="#{foto.id}" />
 							</p:commandButton>
+							<p:outputLabel value="FOTO ID: #{foto.id}" />
 							<p:graphicImage styleClass="imagem-centralizada"
 								alt="Descrição #{foto.descricao}" title="Título: #{foto.album}"
 								value="/galeria/#{foto.id}" />
+
+
 						</p:galleria>
+						<div class="botoesNavGaleria">
+							<p:button styleClass="btGaleriaAnt" icon="pi pi-chevron-left" />
+							<p:button styleClass="btGaleriaProx" icon="pi pi-chevron-right" />
+						</div>
 					</p:tab>
 				</p:accordionPanel>
 			</h:form>
@@ -123,16 +127,27 @@
 
 
 		<h:form id="frmExclusao">
-			<p:confirmDialog widgetVar="exclusao" severity="alert"
-				header="Confirmação exclusão da foto"
-				message="Deseja remover a foto? id = #{galeriaMB.fotoId}">
-				<p:commandButton oncomplete="PF('exclusao').hide()" immediate="true"
-					update=":frmExbFoto :frmTblGaleria :formGlobal:msgGlobal"
-					value="Sim" action="#{galeriaMB.excluirFoto}" icon="pi pi-trash">
+			<p:dialog modal="true" closable="true" closeOnEscape="true"
+				widgetVar="exclusao" severity="alert"
+				header="Confirmação exclusão da foto">
 
-				</p:commandButton>
-				<p:commandButton value="Não" oncomplete="PF('exclusao').hide()" />
-			</p:confirmDialog>
+				<center>
+					<h:panelGrid columns="1">
+						<p:outputLabel
+							value="Deseja Remover a FOTO ID: #{galeriaMB.foto.id}"></p:outputLabel>
+					</h:panelGrid>
+
+					<div class="btnConfirmExcluConsulta">
+						<p:commandButton oncomplete="PF('exclusao').hide(); showGaleria()"
+							immediate="true"
+							update=":frmExbFoto :frmTblGaleria :formGlobal:msgGlobal"
+							value="Sim" action="#{galeriaMB.excluirFoto}" icon="pi pi-check">
+						</p:commandButton>
+						<p:commandButton icon="pi pi-times" value="Não"
+							oncomplete="PF('exclusao').hide()" />
+					</div>
+				</center>
+			</p:dialog>
 		</h:form>
 
 
@@ -144,9 +159,6 @@
 				closable="true">
 				<p:fileUpload cancelLabel="Cancelar" label="Escolha Imagem"
 					mode="advanced" skinSimple="true" auto="true" uploadLabel="Enviar"
-					invalidSizeMessage="Imagem precisa ter até 1MB."
-					invalidFileMessage="Apenas formatos gif, png e jpg."
-					sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
 					update=":formGlobal:msgGlobal"
 					listener="#{galeriaMB.inserirFotoGaleria}" />
 
@@ -165,7 +177,8 @@
 					<p:inputText value="#{galeriaMB.foto.descricao}" />
 
 
-					<p:commandButton update="@form, :formGlobal:msgGlobal"
+					<p:commandButton oncomplete="showGaleria()"
+						update="@form, :frmExbFoto:accordion:galeria, :formGlobal:msgGlobal"
 						action="#{galeriaMB.salvarGaleria}" value="Adicionar">
 						<f:ajax />
 					</p:commandButton>

@@ -64,6 +64,47 @@ function mostrarMenuComClick() {
 	});
 }
 
+
+function showGaleria() {
+	let galeriaItens = document.querySelectorAll(".ui-galleria-item");
+	let index = 0;
+	console.log(galeriaItens);
+	if (galeriaItens[0] && galeriaItens[0].nodeType === 1) {
+		galeriaItens[0].classList.add("galeriaShow");
+	}
+
+
+	setTimeout(() => {
+		let btGaleriaAnt = document.querySelector(".btGaleriaAnt");
+		let btGaleriaProx = document.querySelector(".btGaleriaProx");
+
+
+		if (btGaleriaProx) {
+			btGaleriaProx.onclick = function() {
+				++index;
+				if (index > galeriaItens.length - 1) {
+					index = 0;
+				}
+				galeriaItens.forEach(g => g.classList.remove("galeriaShow"));
+				galeriaItens[index].classList.add("galeriaShow");
+				console.log("cliquei no botão prox " + index);
+				
+			};
+		}
+		if (btGaleriaAnt) {
+			btGaleriaAnt.onclick = function() {
+				--index;
+				if (index < 0) {
+					index = galeriaItens.length - 1;
+				}
+				galeriaItens.forEach(g => g.classList.remove("galeriaShow"));
+				galeriaItens[index].classList.add("galeriaShow");
+				console.log("cliquei no botão prox " + index);
+			};
+		}
+	}, 1000);
+}
+
 function fecharSubMenusByClick() {
 	document.addEventListener("click", (event) => {
 		let menuItems = document.querySelectorAll(".ui-menu-list > li");
@@ -161,6 +202,7 @@ function showMenu() {
 }
 
 window.addEventListener("load", function() {
+	showGaleria();
 	removerMensagem();
 	mostrarMenuComClick();
 	posicionarMenuScroll();

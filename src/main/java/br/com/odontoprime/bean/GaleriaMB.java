@@ -83,6 +83,7 @@ public class GaleriaMB implements Serializable {
 	public void salvarGaleria() {
 		System.out.println("chamou o metodo galeriaMB salvar");
 		galeriaService.salvarGaleriaPaciente(paciente, foto);
+		selecionarPaciente(this.paciente);
 		atualizarPacienteEFoto();
 	}
 
